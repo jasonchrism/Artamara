@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('payment_id');
             $table->unsignedBigInteger('payment_method_id');
             $table->enum('status', ['PAID', 'UNPAID', 'CANCELLED'])->default('UNPAID');
+            $table->string('url')->nullable(false);
 
             $table->primary('payment_id');
             $table->foreign('payment_method_id')->on('payment_methods')->references('payment_method_id')->onDelete('cascade')->onUpdate('cascade');
