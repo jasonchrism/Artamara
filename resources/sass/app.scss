@@ -1,8 +1,21 @@
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
 
 // Variables
 @import 'variables';
+
+$custom-colors: (
+    "overlay-1": #202020,
+    "primary": #CEFE06,
+    "dark": #121212,
+    "overlay-2": #464646,
+    "white": #FDFFF3,
+    "secondary-txt": #A0A0A0,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors );
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
