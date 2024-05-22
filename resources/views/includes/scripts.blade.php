@@ -1,0 +1,1 @@
+{{-- for including the scripts in the footer of the page. if needed --}}

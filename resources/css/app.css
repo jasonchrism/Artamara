@@ -1,0 +1,29 @@
+:root{
+    --primary : #CEFE06;
+    --bg-primary : #121212;
+    --bg-overlay-1 : #202020;
+    --bg-overlay-2 : #464646;
+    --text-primary : #FDFFF3;
+    --text-secondary : #A0A0A0;
+    --bg-danger : #FC2D2D;
+    --bg-label-primary : #4B5D02;
+    --bg-label-blue : #001F6E;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'Modern-Aesthetic';
+    src: url('../fonts/modernaestheticdemoversionregular-2oaed.otf') format('opentype');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-primary);
+}
