@@ -1,0 +1,20 @@
+.invalid-feedback{
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.fs-12{
+    font-size: 12px;
+}
+
+.fs-14{
+    font-size: 14px;
+}
+
+.fs-24{
+    font-size: 24px;
+}
+
+a{
+    text-decoration: none;
+}
