@@ -16,12 +16,10 @@
 </head>
 <body>
     <div id="app">
-        @include('includes.navigation')
 
         {{-- content --}}
         @yield('content')
 
-        @include('includes.footer')
         @include('includes.scripts')
     </div>
 </body>
