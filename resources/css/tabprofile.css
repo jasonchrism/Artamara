@@ -1,0 +1,14 @@
+.nav-pills .nav-item a {
+    display: block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.nav-pills .nav-item.tab-active a {
+    color: var(--primary); 
+    border-bottom: 2px solid var(--primary); 
+}
+
+.nav-pills .nav-item a:hover {
+    text-decoration: none;
+}
