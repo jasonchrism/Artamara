@@ -16,8 +16,6 @@
 
 }
 
-
-
 *{
     margin: 0;
     padding: 0;
@@ -94,9 +92,25 @@ body{
 .btn-primary:hover{
     background-color: #ABD400;
 }
-.btn-primary:active{
-    background-color: red;
+
+.form-select{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--bg-overlay-2);
+    padding: 10px 16px;
+    font-size: 14px;
 }
-.btn-primary:focus{
-    background-color: red;
+
+.form-select:focus{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
+.form-select option{
+    background-color: var(--bg-overlay-1);
+    border-radius: 0px;
 }
