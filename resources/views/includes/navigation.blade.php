@@ -57,11 +57,6 @@
     </div>
     @if (Auth::check())
         <div class="button-group">
-            <button type="button" class="btn-signup">login</button>
-            <button type="button" class="btn-login">Sign Up</button>
-        </div>
-    @else
-        <div class="button-group">
             <a href="">
                 <svg class="cart" width="25" height="25" viewBox="0 0 25 25" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -89,6 +84,11 @@
                 </svg>
 
             </div>
+        </div>
+    @else
+        <div class="button-group">
+            <button type="button" class="btn-signup">login</button>
+            <button type="button" class="btn-login">Sign Up</button>
         </div>
     @endif
 

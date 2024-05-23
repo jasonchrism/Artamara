@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row vh-100 justify-content-center align-items-center">
             <div class="bg-overlay-1 w-35 p-36">
-                <img src="{{ asset('/assets/logo.svg') }}" alt="" class="mb-4">
+                <a href="/"><img src="{{ asset('/assets/logo.svg') }}" alt="" class="mb-4"></a>
                 <h4 class="text-white mb-4">Log in to collect art by the best artist in Indonesia</h4>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
