@@ -26,6 +26,8 @@
 body{
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-primary);
+    margin: 48px 165px 0;
+    font-size: 1em;
 }
 
 .p-32{
