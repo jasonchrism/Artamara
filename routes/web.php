@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('landing');
 });
 
+Route::get('/address', function() {
+    return view('buyer.myprofile');
+});
+
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
