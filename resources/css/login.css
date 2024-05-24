@@ -22,3 +22,22 @@ body{
 a{
     text-decoration: none;
 }
+
+input[type="file"]{
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+input[type="file"]:focus{
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+input[type="file"]::-webkit-file-upload-button{
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-overlay-2);
+}
+input[type="file"]:hover::-webkit-file-upload-button{
+    background-color: transparent !important;
+    color: var(--text-secondary);
+    border: 1px solid var(--primary);
+}

@@ -114,3 +114,7 @@ body{
     background-color: var(--bg-overlay-1);
     border-radius: 0px;
 }
+
+.form-group label{
+    font-size: 14px;
+}

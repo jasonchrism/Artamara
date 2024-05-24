@@ -15,7 +15,7 @@ class AdminMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+    { 
         if(Auth::user()->role == "ADMIN"){
             return $next($request);
         }else if(Auth::user()->role == "ARTIST"){

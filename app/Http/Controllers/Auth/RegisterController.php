@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Dotenv\Exception\ValidationException;
+use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Client\Request as ClientRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException as ValidationValidationException;
+use League\Config\Exception\ValidationException as ExceptionValidationException;
 
 class RegisterController extends Controller
 {
@@ -28,7 +37,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -48,10 +57,30 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        if ($data['role'] == "BUYER") {
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15'],
+                'role' => ['required', 'string']
+            ]);
+        }
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'min:10', 'max:15'],
+            'role' => ['required', 'string'],
+            'about' => ['required', 'string', 'min:3', 'max:1000'],
+            'id_photo' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'province' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'district' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:10'],
+            'description' => ['required', 'string', 'max:255']
         ]);
     }
 
@@ -63,10 +92,41 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $status = 'UNVERIFIED';
+
+        try {
+
+            if (request()->hasFile('id_photo')) {
+                $photoPath = request()->file('id_photo')->store('photos', 'public');
+            } else {
+                $photoPath = 'assets/default_avatar.png';
+            }
+            $profilePict = 'assets/default_avatar.png';
+
+            if($data['role'] == 'BUYER'){
+                $status = 'ACTIVE';
+            }
+
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'username' => $data['username'],
+                'phone_number' => $data['phone_number'],
+                'role' => $data['role'],
+                'profile_picture' => $profilePict,
+                'about' => $data['about'],
+                'id_photo' => $photoPath,
+                'province' => $data['province'],
+                'city' => $data['city'],
+                'district' => $data['district'],
+                'postal_code' => $data['postal_code'],
+                'description' => $data['description'],
+                'status' => $status
+            ]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }
