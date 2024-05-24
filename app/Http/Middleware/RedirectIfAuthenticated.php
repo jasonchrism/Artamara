@@ -21,16 +21,16 @@ class RedirectIfAuthenticated
             $role = Auth::user()->role;
             switch ($role) {
                 case 'ADMIN':
-                    return '/dashboard/admin/home';
+                    return redirect('/dashboard/admin/home');
                     break;
                 case 'BUYER':
-                    return '/';
+                    return redirect("/");
                     break;
                 case 'ARTIST':
-                    return '/dashboard/artist/home';
+                    return redirect('/dashboard/artist/home');
                     break;
                 default:
-                    return '/';
+                    return redirect('/');
                     break;
             }
         }
