@@ -1,14 +1,11 @@
 <?php
 
-<<<<<<< Updated upstream
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\GuestMiddleware;
-=======
 use App\Http\Controllers\UserAdressController;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 

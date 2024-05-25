@@ -40,7 +40,7 @@
                 </clipPath>
             </defs>
         </svg>
-        <input type="text" placeholder="Search by title or artist">
+        <input class="navigation-input" type="text" placeholder="Search by title or artist">
     </div>
     <div class="navigation-item">
         <ul class="navigation-item-link">

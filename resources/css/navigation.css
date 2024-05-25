@@ -23,7 +23,7 @@ p{
     text-align: center;
     width: 100%;
 }
-input[type="text"]{
+.navigation-input{
     width: 20em;
     background-color:var(--bg-primary);
     color: var(--text-primary);

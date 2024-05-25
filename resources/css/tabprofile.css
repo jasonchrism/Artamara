@@ -1,3 +1,70 @@
+/* View Edit Profile CSS*/
+
+.profile-container{
+    width: 900px;
+    max-height: 810px;
+    margin-top: 24px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+    padding: 29px 40px 29px 40px;
+}
+
+.profile-title{
+    font-size: 18px;
+}
+
+.profile-subtitle{
+    font-size: 14px;
+    color : var(--text-secondary);
+}
+
+.profile-content{
+    padding-top: 20px;
+}
+
+.profile-image img{
+    width: 250px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.profile-image label{
+    border-radius: 0px;
+    background-color: transparent;
+    margin-top: 20px;
+    padding: 10px 25px 10px 25px;
+    border: 1px solid var(--bg-overlay-2);
+    cursor: pointer;
+}
+
+.rightbutton button{
+    padding: 10px 25px 10px 25px;
+}
+
+/* Edit Password CSS*/
+
+.password-container{
+    width: 750px;
+    max-height: 810px;
+    margin-top: 24px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+    padding: 29px 40px 29px 40px;
+}
+
+.password-content{
+    padding-top: 20px;
+}
+
 /* View Address List CSS */
 
 .nav-pills .nav-item a {
