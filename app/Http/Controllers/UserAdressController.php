@@ -86,9 +86,7 @@ class UserAdressController extends Controller
     public function update(Request $request)
     {
         $address_id = $request->input('update-address-id');
-        // dd($request->input('update-address-id'));
         $address = Address::query()->where('address_id', '=', $address_id);
-        // dd($address);
 
         $address->update([
             'receiver' => $request->input('update-receiver-name'),
@@ -109,8 +107,12 @@ class UserAdressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Request $request)
+    {   
+        $address_id = $request->input('delete-address-id');
+        $address = Address::query()->where('address_id', '=', $address_id);
+        $address->delete();
+
+        return redirect('/myprofile');
     }
 }
