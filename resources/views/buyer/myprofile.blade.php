@@ -118,6 +118,7 @@
                                     <button type="button" class="edit-address-btn text-primary" data-bs-toggle="modal" data-bs-target="#{{$address['address_id']}}">
                                         Delete
                                     </button>
+                                    <div></div>
                                 </div>
                             </div>
                         </div>
