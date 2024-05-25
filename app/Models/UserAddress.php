@@ -20,12 +20,13 @@ class UserAddress extends Model
     ];
 
     protected $table = "user_addresses";
+    public $timestamps = false;
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
-    public function userAddress(): BelongsTo {
+    public function userAddress() {
         return $this->belongsTo(Address::class, 'address_id', 'address_id');
     }
 }

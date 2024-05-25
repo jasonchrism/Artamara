@@ -19,6 +19,7 @@ class Address extends Model
     protected $table = "addresses";
     protected $primaryKey = 'address_id';
     protected $keyType = 'string';
+    public $timestamps = false;
 
     public function userAddress(): HasOne {
         return $this->hasOne(UserAddress::class, 'address_id', 'address_id');

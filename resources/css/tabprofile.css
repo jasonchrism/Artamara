@@ -1,3 +1,5 @@
+/* View Address List CSS */
+
 .nav-pills .nav-item a {
     display: block;
     padding: 10px 15px;
@@ -11,4 +13,129 @@
 
 .nav-pills .nav-item a:hover {
     text-decoration: none;
+}
+
+.address-list-container {
+    width: 619px;
+    max-height: 810px;
+    margin-top: 24px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+}
+
+.view-address-title {
+    margin-left: 40px;
+    margin-top: 29px;
+    padding-bottom: 37px;
+    font-size: 18px;
+}
+
+.address-box {
+    width: 539px;
+    height: 178px;
+    margin-right: 40px;
+    margin-left: 40px;
+    border: 1.5px solid var(--bg-overlay-2);
+}
+
+.loop-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.address-name {
+    margin-top: 24px;
+    margin-left: 16px;
+}
+
+.address-name p {
+    font-size: 16px;
+}
+
+.address-detail {
+    margin-top: 8px;
+    margin-left: 48px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.submit-address-btn {
+    width: 539px;
+    margin-top: 56px;
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+.set-default-btn {
+    background-color: var(--primary);
+    margin-left: 16px;
+    margin-right: 12px;
+    font-size: 12px;
+    color: var(--bg-primary);
+    padding: 8px 15px;
+    border: none;
+}
+
+.edit-address-btn {
+    background-color: transparent;
+    border: none;
+    margin-right: 12px;
+    padding: 8px 15px;
+    font-size: 12px;
+}
+
+.edit-btn-container {
+    margin-top: 24px;
+}
+
+.loop-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Add New Address CSS */
+
+.form-add-container {
+    width: 619px;
+    height: 991px;
+    background-color: var(--bg-overlay-1);
+    margin-top: 24.5px;
+}
+
+.add-address-title {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-left: 40px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.address-label {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.add-input-container {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 12px;
+}
+
+.add-address-country {
+    background-color: var(--bg-overlay-1);
+    color: var(--text-primary);
+}
+
+.add-address-description {
+    height: 136px;
+    resize: none;
+}
+
+.add-address-description::-webkit-scrollbar {
+    display: none;
+}
+
+.submit-address-btn {
+    margin-top:22px;
 }
