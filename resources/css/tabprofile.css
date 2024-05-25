@@ -67,6 +67,10 @@
 
 /* View Address List CSS */
 
+.view-address-list-container {
+    margin-bottom: 141px;
+}
+
 .nav-pills .nav-item a {
     display: block;
     padding: 10px 15px;
@@ -80,6 +84,10 @@
 
 .nav-pills .nav-item a:hover {
     text-decoration: none;
+}
+
+.location-icon {
+    width: 20px;
 }
 
 .address-list-container {
@@ -153,7 +161,7 @@
 }
 
 .edit-btn-container {
-    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 .loop-container::-webkit-scrollbar {
@@ -203,6 +211,30 @@
     display: none;
 }
 
-.submit-address-btn {
-    margin-top:22px;
+.submit-add-address-container {
+    width: 539px;
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
+
+.submit-add-address-btn {
+    width: 100%;
+    margin-top:10px;
+}
+
+/* Update User Address CSS */
+
+.submit-update-address-btn {
+    width: 100%;
+    margin-top:10px;
+}
+
+@media screen and (max-width: 768px) {
+    .view-address-list-container {
+        width: 300px;
+    }
+
+    .submit-add-address-container {
+        width: 53px;
+    }
 }

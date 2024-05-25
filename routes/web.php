@@ -27,6 +27,7 @@ Route::get('/', function () {
 Route::get('/myprofile', [UserAdressController::class, 'index']);
 Route::post('/myprofile', [UserAdressController::class, 'store']);
 Route::put('/myprofile', [UserAdressController::class, 'update']);
+Route::delete('/myprofile', [UserAdressController::class, 'destroy']);
 
 Auth::routes();
 
