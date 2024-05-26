@@ -28,6 +28,7 @@ Route::get('/myprofile', [UserAdressController::class, 'index']);
 Route::post('/myprofile', [UserAdressController::class, 'store']);
 Route::put('/myprofile', [UserAdressController::class, 'update']);
 Route::delete('/myprofile', [UserAdressController::class, 'destroy']);
+Route::put('/myprofile/set-default', [UserAdressController::class, 'create']);
 
 Auth::routes();
 
