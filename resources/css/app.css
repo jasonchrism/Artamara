@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @font-face {
     font-family: 'Modern-Aesthetic';
-    src: url('../fonts/modernaestheticdemoversionregular-2oaed.otf') format('opentype');
+    src: url('../../public/font/modernaestheticdemoversionregular-2oaed.otf') format('opentype');
 }
 :root{
     --primary : #CEFE06;
@@ -24,8 +24,10 @@
 body{
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-primary);
-    margin: 48px 165px 0;
+    margin: 48px 165px 0;   
     font-size: 1em;
+    /* position: relative; */
+    overflow-x: hidden;
 }
 
 .p-32{
@@ -41,7 +43,7 @@ body{
 }
 
 .mb-32{
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .w-35{
@@ -117,4 +119,27 @@ body{
 
 .form-group label{
     font-size: 14px;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1300px){
+    body{
+        margin: 48px 80px 0;
+    }
+}
+@media screen and (max-width: 1024px){
+    body{
+        margin: 48px 56px 0;
+    }
+}
+@media screen and (max-width: 768px){
+    body{
+        margin: 32px 36px 0;
+    }
+}
+@media screen and (max-width: 375px){
+    body{
+        margin: 24px 20px 0;
+    }
 }

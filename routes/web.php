@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ArtistMiddleware;
@@ -20,21 +21,22 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
-})->middleware(GuestMiddleware::class);
+// Route::get('/', function () {
+//     return view('landing');
+// })->middleware(GuestMiddleware::class);
 
-Route::get('/myprofile', [UserAdressController::class, 'index']);
-Route::post('/myprofile', [UserAdressController::class, 'store']);
-Route::put('/myprofile', [UserAdressController::class, 'update']);
-Route::delete('/myprofile', [UserAdressController::class, 'destroy']);
+Route::name('front.')->group(function () {
+    Route::get('/', [LandingController::class, 'index'])->name('index');
+    Route::get('/myprofile', [UserAdressController::class, 'index'])->name('myprofile');
+    Route::post('/myprofile', [UserAdressController::class, 'store'])->name('myprofile.store');
+    Route::put('/myprofile', [UserAdressController::class, 'update'])->name('myprofile.update');
+});
 
 Auth::routes();
 
-Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(function(){
+Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(function () {
     Route::get("/home", [HomeController::class, 'indexAdmin'])->name('homeAdmin');
 });
-Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function(){
+Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {
     Route::get("/home", [HomeController::class, 'indexArtist'])->name('homeArtist');
 });
-

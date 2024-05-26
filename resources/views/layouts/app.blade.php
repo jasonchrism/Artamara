@@ -29,7 +29,6 @@
         {{-- footer --}}
         @include('includes.footer')
 
-        @include('includes.scripts')
         @stack('after-scripts')
     </div>
 </body>
