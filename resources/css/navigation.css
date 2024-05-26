@@ -1,14 +1,26 @@
-p{
+p {
     color: var(--text-primary);
     margin: 0;
 }
-.text-nav{
+
+.text-nav {
     color: var(--text-primary);
     font-weight: 400;
     cursor: pointer;
     text-decoration: none;
 }
-.search{
+.logo{
+    display: block;
+}
+.navigation-content{
+    display: flex;
+    justify-content: space-between;
+    gap: 4em;
+    align-items: center;
+    z-index: 99999;
+}
+
+.search {
     display: flex;
     justify-content: center;
     gap: 0.75em;
@@ -16,74 +28,213 @@ p{
     padding: 0.5em 1em;
     border: solid var(--bg-overlay-2);
 }
-.navigation{
+
+.navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
     width: 100%;
-}
-.navigation-input{
-    width: 20em;
-    background-color:var(--bg-primary);
-    color: var(--text-primary);
-    border: none;
-    outline: none; 
+    z-index: 99999;
+    position: relative;
 }
 
-.navigation-item-link{
+input[type="text"] {
+    width: 20em;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+}
+
+.navigation-item-link {
     display: flex;
     justify-content: space-between;
     gap: 1.2em;
 }
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-a{
+a {
     text-decoration: none;
     color: var(--text-primary);
 }
-a:hover{
+
+a:hover {
     color: var(--primary);
 }
-.button-group{
+
+.button-group {
     display: flex;
     gap: 1.5em;
     align-items: center;
 }
-.btn-signup{
+
+.btn-signup {
     color: var(--primary);
     font-weight: 600;
     background: none;
     border: none;
 }
-.btn-signup:hover{
+
+.btn-signup:hover {
     opacity: 0.8;
 }
-.btn-login{
+
+.btn-login {
     color: var(--bg-primary);
     font-weight: 600;
     padding: 0.5em 1em;
     background: var(--primary);
     border: none;
 }
-.btn-login:hover{
+
+.btn-login:hover {
     opacity: 0.8;
 }
-.image-profile{
+
+.image-profile {
     width: 2em;
     height: 2em;
     border-radius: 100%;
 }
-.profile-detail{
+
+.profile-detail {
     display: flex;
     gap: 0.5em;
     align-items: center;
 }
 
 .cart path:hover {
-    fill: var(--primary); /* Change the fill color */
+    fill: var(--primary);
+    /* Change the fill color */
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: var(--bg-overlay-1);
+    border: solid var(--bg-overlay-2);
+    border-radius: 0;
+}
+.dropdown-item {
+    color: var(--text-primary);
+}
+.dropdown-item:hover {
+    color: var(--primary);
+    background: var(--bg-overlay-1);
+}
+
+/* responsive */
+@media screen and (max-width: 1360px) {
+    .search {
+        gap: 0.5em;
+    }
+    .navigation-content{
+        gap: 2.5em;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .search {
+        gap: 0.5em;
+    }
+    input[type="text"] {
+        width: auto;
+    }
+    .navigation-item-link {
+        gap: 0.8em;
+    }
+    .navigation-content{
+        gap: 2.5em;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    
+    input[type="text"] {
+        width: auto;
+    }
+    .navigation-item-link {
+        gap: 0.5em;
+    }
+    .navigation-content{
+        gap: 1.5em;
+    }
+}
+
+input[type="checkbox"] {    
+    display: none;   
+}
+
+@media screen and (max-width: 915px) {
+    input[type="text"] {
+        background-color: var(--bg-overlay-1);
+    }
+    
+    .navigation-content{
+        flex-direction: column;
+        justify-content: space-evenly;
+        background: var(--bg-overlay-1);
+        top: 100px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        align-items: center;
+        height: 0;
+        /* padding: 1.5em 0; */
+        transition: 0.5s;
+        overflow: hidden    ;
+    }
+    .navigation-item-link {
+        flex-direction: column;
+        gap: 1.2em;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+    label{
+        border: solid;
+        width: 45px;
+        height: 32px;
+        position: relative;
+        border: none;
+    }
+    label div{
+        width: 100%;
+        height: 5px;
+        background: var(--primary);
+        position: absolute;
+        transform: translateY(-50%);
+        
+    }
+    label div:nth-child(1){
+        top: 0;
+    }
+    label div:nth-child(2){
+        top: 50%;
+    }
+    label div:nth-child(3){
+        top: 100%;
+    }
+    input:checked ~ .navigation-content{
+        height: 100vh;
+    }
+    
+}
+@media screen and (max-width: 600px) {
+    label{
+        width: 38px;
+        height: 26px;
+    }
+    label div{
+        height: 4px;
+    }
+    
 }

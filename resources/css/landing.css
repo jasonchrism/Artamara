@@ -1,0 +1,99 @@
+.hero {
+    z-index: 2;
+    display: flex;
+    margin: 6rem 0 6rem 0;
+    padding: 0;
+    gap: 12rem;
+}
+
+h1 {
+    font-family: "Modern-Aesthetic";
+    color: var(--text-primary);
+    font-size: 3.5em;
+    letter-spacing: 0.05em;
+}
+
+h2 {
+    font-family: "Modern-Aesthetic";
+    color: var(--text-primary);
+    font-size: 2.25em;
+    letter-spacing: 0.05em;
+}
+
+h3 {
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 1.25em;
+}
+
+.card-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1em;
+    margin: 0;
+}
+
+.card-desc {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.card-body {
+    padding: 0.75em 0 0 0;
+}
+
+.card {
+    border: none;
+    background-color: transparent;
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+.btn-primary {
+    color: var(--bg-primary);
+    font-size: 1.25em;
+    font-weight: 600;
+    width: 60%;
+}
+
+.vector {
+    position: absolute;
+    z-index: 1;
+    top: 60%;
+    right: 70%;
+}
+
+.vector2 {
+    position: absolute;
+    z-index: 1;
+    top: 3%;
+    right: -5%;
+}
+
+section {
+    position: relative;
+    z-index: 9999;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        margin: 6rem 0 6rem 0;
+        padding: 0;
+        gap: 4rem;
+    }
+    .hero img{
+        width: 324px;
+    }
+    h1 {
+        font-size: 2.8em;
+    }
+    
+    h2 {
+        font-size: 1.8em;
+    }
+}

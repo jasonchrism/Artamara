@@ -1,5 +1,6 @@
 <div class="navigation">
-    <a href="">
+    <input type="checkbox" id="menu">
+    <a href="{{ route('front.index') }}" class="logo">
         <svg width="148" height="20" viewBox="0 0 148 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M6.24008 19.7059H0L8.54684 0H16.5022L25.0786 19.7059H18.6907L17.1824 16.0588H7.77792L6.24008 19.7059ZM11.031 8.32353L9.87766 11.0882L7.6892 16.0294L17.1824 16.0588L13.9884 8.32353L12.6872 5H12.3027L11.031 8.32353Z"
@@ -27,70 +28,99 @@
                 fill="#FDFFF3" />
         </svg>
     </a>
-    <div class="search">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_560_693)">
-                <path
-                    d="M13.125 13.125L10.4106 10.4106M10.4106 10.4106C10.8749 9.94632 11.2432 9.39511 11.4945 8.78847C11.7458 8.18182 11.8751 7.53163 11.8751 6.875C11.8751 6.21837 11.7458 5.56818 11.4945 4.96153C11.2432 4.35489 10.8749 3.80368 10.4106 3.33937C9.94633 2.87507 9.39512 2.50676 8.78847 2.25548C8.18183 2.0042 7.53163 1.87487 6.87501 1.87487C6.21838 1.87487 5.56818 2.0042 4.96154 2.25548C4.3549 2.50676 3.80369 2.87507 3.33938 3.33937C2.40168 4.27708 1.87488 5.54888 1.87488 6.875C1.87488 8.20112 2.40168 9.47292 3.33938 10.4106C4.27709 11.3483 5.54889 11.8751 6.87501 11.8751C8.20112 11.8751 9.47293 11.3483 10.4106 10.4106Z"
-                    stroke="#464646" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-            <defs>
-                <clipPath id="clip0_560_693">
-                    <rect width="15" height="15" fill="white" />
-                </clipPath>
-            </defs>
-        </svg>
-        <input class="navigation-input" type="text" placeholder="Search by title or artist">
-    </div>
-    <div class="navigation-item">
-        <ul class="navigation-item-link">
-            <li>
-                <a href="">Catalog</a>
-            </li>
-            <li>
-                <a href="">Auctions</a>
-            </li>
-            <li>
-                <a href="">Artist</a>
-            </li>
-        </ul>
-    </div>
-    @if (Auth::check())
-        <div class="button-group">
-            <a href="">
-                <svg class="cart" width="25" height="25" viewBox="0 0 25 25" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M8.59375 21.0938C9.02522 21.0938 9.375 20.744 9.375 20.3125C9.375 19.881 9.02522 19.5312 8.59375 19.5312C8.16228 19.5312 7.8125 19.881 7.8125 20.3125C7.8125 20.744 8.16228 21.0938 8.59375 21.0938Z"
-                        stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M19.5312 21.0938C19.9627 21.0938 20.3125 20.744 20.3125 20.3125C20.3125 19.881 19.9627 19.5312 19.5312 19.5312C19.0998 19.5312 18.75 19.881 18.75 20.3125C18.75 20.744 19.0998 21.0938 19.5312 21.0938Z"
-                        stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M2.34375 3.90625H5.46875L7.8125 17.1875H20.3125" stroke="#FDFFF3" stroke-width="1.25"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                        d="M7.8125 14.0625H19.9922C20.0825 14.0626 20.1701 14.0313 20.24 13.9741C20.3099 13.9168 20.3578 13.8371 20.3755 13.7485L21.7817 6.71729C21.7931 6.66059 21.7917 6.60208 21.7777 6.54598C21.7637 6.48988 21.7374 6.43759 21.7007 6.39289C21.6641 6.34818 21.6179 6.31218 21.5656 6.28747C21.5134 6.26276 21.4563 6.24996 21.3984 6.25H6.25"
-                        stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </a>
-            <div class="profile-detail">
-                <img class="image-profile" src="" alt="tet">
-                <p>{{Auth::user()->name}}</p>
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M12.1856 4.99373L7.49996 9.56123L2.81434 4.99373C2.73063 4.91196 2.61824 4.86617 2.50121 4.86617C2.38419 4.86617 2.2718 4.91196 2.18809 4.99373C2.14755 5.03345 2.11535 5.08085 2.09337 5.13317C2.07138 5.18549 2.06006 5.24167 2.06006 5.29842C2.06006 5.35517 2.07138 5.41135 2.09337 5.46367C2.11535 5.51599 2.14755 5.56339 2.18809 5.60311L7.17278 10.4631C7.26031 10.5484 7.37772 10.5962 7.49996 10.5962C7.62221 10.5962 7.73961 10.5484 7.82715 10.4631L12.8118 5.60405C12.8527 5.5643 12.8851 5.51678 12.9073 5.46429C12.9294 5.41179 12.9408 5.3554 12.9408 5.29842C12.9408 5.24145 12.9294 5.18505 12.9073 5.13255C12.8851 5.08006 12.8527 5.03254 12.8118 4.9928C12.7281 4.91102 12.6157 4.86523 12.4987 4.86523C12.3817 4.86523 12.2693 4.91102 12.1856 4.9928V4.99373Z"
-                        fill="#FDFFF3" />
-                </svg>
 
+    <label for="menu">
+        <div class="div"></div>
+        <div class="div"></div>
+        <div class="div"></div>
+    </label>
+
+    <div class="navigation-content">
+        <div class="search">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_560_693)">
+                    <path
+                        d="M13.125 13.125L10.4106 10.4106M10.4106 10.4106C10.8749 9.94632 11.2432 9.39511 11.4945 8.78847C11.7458 8.18182 11.8751 7.53163 11.8751 6.875C11.8751 6.21837 11.7458 5.56818 11.4945 4.96153C11.2432 4.35489 10.8749 3.80368 10.4106 3.33937C9.94633 2.87507 9.39512 2.50676 8.78847 2.25548C8.18183 2.0042 7.53163 1.87487 6.87501 1.87487C6.21838 1.87487 5.56818 2.0042 4.96154 2.25548C4.3549 2.50676 3.80369 2.87507 3.33938 3.33937C2.40168 4.27708 1.87488 5.54888 1.87488 6.875C1.87488 8.20112 2.40168 9.47292 3.33938 10.4106C4.27709 11.3483 5.54889 11.8751 6.87501 11.8751C8.20112 11.8751 9.47293 11.3483 10.4106 10.4106Z"
+                        stroke="#464646" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_560_693">
+                        <rect width="15" height="15" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <input class="navigation-input" type="text" placeholder="Search by title or artist">
+        </div>
+        <div class="navigation-item">
+            <ul class="navigation-item-link">
+                <li>
+                    <a href="">Catalog</a>
+                </li>
+                <li>
+                    <a href="">Auctions</a>
+                </li>
+                <li>
+                    <a href="">Artist</a>
+                </li>
+            </ul>
+        </div>
+        @if (Auth::check())
+            <div class="button-group">
+                <a href="">
+                    <svg class="cart" width="25" height="25" viewBox="0 0 25 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.59375 21.0938C9.02522 21.0938 9.375 20.744 9.375 20.3125C9.375 19.881 9.02522 19.5312 8.59375 19.5312C8.16228 19.5312 7.8125 19.881 7.8125 20.3125C7.8125 20.744 8.16228 21.0938 8.59375 21.0938Z"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M19.5312 21.0938C19.9627 21.0938 20.3125 20.744 20.3125 20.3125C20.3125 19.881 19.9627 19.5312 19.5312 19.5312C19.0998 19.5312 18.75 19.881 18.75 20.3125C18.75 20.744 19.0998 21.0938 19.5312 21.0938Z"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M2.34375 3.90625H5.46875L7.8125 17.1875H20.3125" stroke="#FDFFF3" stroke-width="1.25"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M7.8125 14.0625H19.9922C20.0825 14.0626 20.1701 14.0313 20.24 13.9741C20.3099 13.9168 20.3578 13.8371 20.3755 13.7485L21.7817 6.71729C21.7931 6.66059 21.7917 6.60208 21.7777 6.54598C21.7637 6.48988 21.7374 6.43759 21.7007 6.39289C21.6641 6.34818 21.6179 6.31218 21.5656 6.28747C21.5134 6.26276 21.4563 6.24996 21.3984 6.25H6.25"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="profile-detail">
+                    <div class="dropdown">
+                        <div class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                            <p>{{ Auth::user()->name }}</p>
+                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.1856 4.99373L7.49996 9.56123L2.81434 4.99373C2.73063 4.91196 2.61824 4.86617 2.50121 4.86617C2.38419 4.86617 2.2718 4.91196 2.18809 4.99373C2.14755 5.03345 2.11535 5.08085 2.09337 5.13317C2.07138 5.18549 2.06006 5.24167 2.06006 5.29842C2.06006 5.35517 2.07138 5.41135 2.09337 5.46367C2.11535 5.51599 2.14755 5.56339 2.18809 5.60311L7.17278 10.4631C7.26031 10.5484 7.37772 10.5962 7.49996 10.5962C7.62221 10.5962 7.73961 10.5484 7.82715 10.4631L12.8118 5.60405C12.8527 5.5643 12.8851 5.51678 12.9073 5.46429C12.9294 5.41179 12.9408 5.3554 12.9408 5.29842C12.9408 5.24145 12.9294 5.18505 12.9073 5.13255C12.8851 5.08006 12.8527 5.03254 12.8118 4.9928C12.7281 4.91102 12.6157 4.86523 12.4987 4.86523C12.3817 4.86523 12.2693 4.91102 12.1856 4.9928V4.99373Z"
+                                    fill="#FDFFF3" />
+                            </svg>
+                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('front.myprofile') }}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">My Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">My Bids</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    @else
-        <div class="button-group">
-            <button type="button" class="btn-signup">login</button>
-            <button type="button" class="btn-login">Sign Up</button>
-        </div>
+    </div>
+@else
+    <div class="button-group">
+        <a href="{{ route('login') }}"><button type="button" class="btn-signup">login</button></a>
+        <a href="{{ route('register') }}"><button type="button" class="btn-login">Sign Up</button></a>
+    </div>
     @endif
+
+</div>
+
 
 
 </div>
