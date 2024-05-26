@@ -20,8 +20,8 @@ class UserAdressController extends Controller
         $user_id = Auth::user()->user_id;
         $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
                                     ->where('user_addresses.user_id', '=', $user_id)
+                                    ->orderBy('user_addresses.is_default', 'desc')
                                     ->get();
-
         $countries = config('countries');
         return view('buyer.myprofile', [
             'user_addresses' => $user_address,
@@ -32,9 +32,22 @@ class UserAdressController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        
+        $user_id = Auth::user()->user_id;
+        $past_address = UserAddress::query()->where('user_id', '=', $user_id);
+        $past_address->update([
+            'is_default' => 0,
+        ]);
+
+        $address_id = $request->input('set-default-address-id');
+        $address = UserAddress::query()->where('address_id', '=', $address_id);
+
+        $address->update([
+            'is_default' => 1,
+        ]);
+
+        return redirect('/myprofile');
     }
 
     /**

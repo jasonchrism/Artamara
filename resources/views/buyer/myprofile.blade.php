@@ -3,19 +3,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="margin-top: 62px;">
-    <ul class="nav nav-pills" id="myTab">
-        <li class="nav-item tab-link tab-active">
-            <a class="" onclick="openTab('profile', this)">Profile</a>
-        </li>
-        <li class="nav-item tab-link">
-            <a class="" onclick="openTab('change-password', this)">Change Password</a>
-        </li>
-        <li class="nav-item tab-link">
-            <a class="" onclick="openTab('address', this)">Address</a>
-        </li>
-    </ul>
+<ul class="nav nav-pills" id="myTab">
+    <li class="nav-item tab-link tab-active">
+        <a class="" onclick="openTab('profile', this)">Profile</a>
+    </li>
+    <li class="nav-item tab-link">
+        <a class="" onclick="openTab('change-password', this)">Change Password</a>
+    </li>
+    <li class="nav-item tab-link">
+        <a class="" onclick="openTab('address', this)">Address</a>
+    </li>
+</ul>
 
+<div style="margin-top: 62px;">
     <div class="tab-content" id="myTabContent">
         <!-- View User Edit Profile -->
         <div id="profile" class="tab-name text-white" style="display: none;">
@@ -99,7 +99,7 @@
                     <div class="loop-container">
                         @foreach($user_addresses as $index => $address)
                         <div class="address-box" style="margin-top: {{ !$index == 0 ? '24px' : '' }};">
-                            <div class="d-flex flex-column h-100">
+                            <div class="d-flex flex-column h-100  {{$address->is_default == 1 ? 'default-address' : ''}} ">
                                 <div>
                                     <input type="text" name="delete-address-id" value="" hidden>
                                     <div class="d-flex address-name">
@@ -109,16 +109,29 @@
                                     <p class="address-detail">{{ $address['street'] }}, {{ $address['district'] }}, {{ $address['city'] }}, {{ $address['province'] }}, {{ $address['country'] }}, {{ $address['postal_code'] }}</p>
                                 </div>
                                 <div class="edit-btn-container mt-auto">
-                                    <button class="btn-primary set-default-btn fw-semibold">
-                                        Set as default
-                                    </button>
-                                    <button class="edit-address-btn text-primary" onclick="updateAddress({{$address}})">
-                                        Change address
-                                    </button>
-                                    <button type="button" class="edit-address-btn text-primary" data-bs-toggle="modal" data-bs-target="#{{$address['address_id']}}">
-                                        Delete
-                                    </button>
-                                    <div></div>
+                                    @if ($address->is_default)
+                                        <button class="edit-address-btn text-primary" onclick="updateAddress({{$address}})">
+                                            Change address
+                                        </button>
+                                        <button type="button" class="edit-address-btn text-primary" data-bs-toggle="modal" data-bs-target="#{{$address['address_id']}}">
+                                            Delete
+                                        </button>
+                                    @else
+                                        <form action="/myprofile/set-default" method="post" style="width: fit-content;">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="text" name="set-default-address-id" value="{{$address->address_id}}" hidden>
+                                            <button class="btn-primary set-default-btn fw-semibold">
+                                                Set as default
+                                            </button>
+                                        </form>
+                                        <button class="edit-address-btn text-primary" onclick="updateAddress({{$address}})">
+                                            Change address
+                                        </button>
+                                        <button type="button" class="edit-address-btn text-primary" data-bs-toggle="modal" data-bs-target="#{{$address['address_id']}}">
+                                            Delete
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -147,7 +160,7 @@
                         </form>
                         @endforeach
                     </div>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center submit-address-btn-container">
                         <button type="submit" class="btn btn-primary submit-address-btn fw-semibold" onclick="addNewAddress()">
                             Add Address
                         </button>
