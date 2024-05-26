@@ -119,6 +119,11 @@
     overflow-y: scroll;
 }
 
+.default-address {
+    border: 1.5px solid var(--primary);
+    background-color: rgba(206, 254, 6, 0.1);
+}
+
 .address-name {
     margin-top: 24px;
     margin-left: 16px;
@@ -145,7 +150,6 @@
 .set-default-btn {
     background-color: var(--primary);
     margin-left: 16px;
-    margin-right: 12px;
     font-size: 12px;
     color: var(--bg-primary);
     padding: 8px 15px;
@@ -156,12 +160,14 @@
     background-color: transparent;
     border: none;
     margin-right: 12px;
+    margin-left: 12px;
     padding: 8px 15px;
     font-size: 12px;
 }
 
 .edit-btn-container {
     margin-bottom: 24px;
+    display: flex;
 }
 
 .loop-container::-webkit-scrollbar {
@@ -211,6 +217,16 @@
     display: none;
 }
 
+.create-address-container {
+    margin-top: 26px;
+    margin-bottom: 200px;
+}
+
+.update-address-container {
+    margin-top: 26px;
+    margin-bottom: 200px;
+}
+
 .submit-add-address-container {
     width: 539px;
     margin-bottom: 40px;
@@ -229,12 +245,150 @@
     margin-top:10px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
+    /* Address Responsive */
     .view-address-list-container {
+        margin-left: auto;
+    }
+
+    .tab-link a {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Address Responsive */
+    .address-list-container {
+        margin-left: auto;
+        width: 500px;
+    }
+
+    .address-box {
+        width: 420px;
+    }
+
+    .location-icon {
+        width: 20px;
+    }
+
+    .address-name {
+        margin-top: 18px;
+    }
+
+    .address-head p {
+        font-size: 14px;
+    }
+
+    .address-detail {
+        font-size: 12px;
+        margin-left: 43px;
+    }
+
+    .tab-link a {
+        font-size: 12px;
+    }
+
+    .btn-primary {
+        font-size: 10px;
+    }
+
+    .edit-address-btn {
+        font-size: 10px;
+    }
+
+    .submit-address-btn-container {
+        width: 418px;
+        margin: auto;
+    }
+
+    .submit-address-btn-container .submit-address-btn {
+        font-size: 12px;
+    }
+
+    .form-add-container {
+        width: 500px;
+    }
+
+    .submit-add-address-container {
+        width: 418px;
+    }
+
+    .submit-add-address-container .submit-add-address-btn{ 
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+
+    /* Address Responsive */
+
+    .address-list-container {
+        width: 300px;
+    }
+
+    .view-address-title {
+        font-size: 14px;
+        margin: 18px 20px;
+        padding: 0;
+    }
+
+    .address-box {
+        width: 240px;
+        height: 160px;
+        margin: 0px 12px;
+    }
+
+    .address-name {
+        margin: 8px 0px 0px 14px;
+    }
+
+    .address-name p{
+        font-size: 12px;
+    }
+
+    .address-detail {
+        font-size: 10px;
+        margin-left: 43px;
+    }
+
+    .edit-btn-container {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        padding: 5px 8px;
+    }
+
+    .edit-address-btn {
+        padding: 5px 8px;
+    }
+
+    .submit-address-btn-container {
+        width: 238px;
+    }
+
+    .submit-address-btn {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .form-add-container {
         width: 300px;
     }
 
     .submit-add-address-container {
-        width: 53px;
+        width: 220px;
+    }
+
+    .submit-add-address-btn {
+        width: 100%;
+    }
+
+    ul {
+        
+        width: 300px;
     }
 }

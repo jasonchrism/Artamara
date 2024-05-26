@@ -25,12 +25,16 @@ use Illuminate\Support\Facades\Auth;
 //     return view('landing');
 // })->middleware(GuestMiddleware::class);
 
+
 Route::name('front.')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
     Route::get('/myprofile', [UserAdressController::class, 'index'])->name('myprofile');
     Route::post('/myprofile', [UserAdressController::class, 'store'])->name('myprofile.store');
     Route::put('/myprofile', [UserAdressController::class, 'update'])->name('myprofile.update');
+    Route::delete('/myprofile', [UserAdressController::class, 'destroy'])->name('myprofile.destroy');
+    Route::put('/myprofile/set-default', [UserAdressController::class, 'create'])->name('myprofile.setdefault');
 });
+
 
 Auth::routes();
 
