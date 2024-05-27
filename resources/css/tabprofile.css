@@ -68,7 +68,8 @@
 /* View Address List CSS */
 
 .view-address-list-container {
-    margin-bottom: 141px;
+    margin-top: 26px;
+    margin-bottom: 0px;
 }
 
 .nav-pills .nav-item a {
@@ -195,6 +196,7 @@
     font-size: 14px;
     color: var(--text-primary);
     margin-bottom: 8px;
+    width: 100%;
 }
 
 .add-input-container {
@@ -218,13 +220,7 @@
 }
 
 .create-address-container {
-    margin-top: 26px;
-    margin-bottom: 200px;
-}
-
-.update-address-container {
-    margin-top: 26px;
-    margin-bottom: 200px;
+    margin-top: 0px;
 }
 
 .submit-add-address-container {
@@ -239,6 +235,10 @@
 }
 
 /* Update User Address CSS */
+.update-address-container {
+    margin-top: 0px;
+    margin-bottom: 200px;
+}
 
 .submit-update-address-btn {
     width: 100%;
@@ -259,7 +259,7 @@
 @media screen and (max-width: 768px) {
     /* Address Responsive */
     .address-list-container {
-        margin-left: auto;
+        margin-left: 0px;
         width: 500px;
     }
 
@@ -311,10 +311,24 @@
 
     .submit-add-address-container {
         width: 418px;
+        margin: auto;
     }
 
     .submit-add-address-container .submit-add-address-btn{ 
-        font-size: 12px;
+        font-size: 14px;
+    }
+
+    .submit-add-address-container .submit-update-address-btn{ 
+        font-size: 14px;
+    }
+
+    .add-address-title {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .address-label {
+        margin-bottom: 2px;
     }
 }
 
@@ -330,6 +344,12 @@
         font-size: 14px;
         margin: 18px 20px;
         padding: 0;
+    }
+
+    .loop-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .address-box {
@@ -387,8 +407,7 @@
         width: 100%;
     }
 
-    ul {
-        
+    /* ul {
         width: 300px;
-    }
+    } */
 }

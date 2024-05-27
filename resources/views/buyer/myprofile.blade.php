@@ -3,19 +3,19 @@
 @extends('layouts.app')
 
 @section('content')
-<ul class="nav nav-pills" id="myTab">
-    <li class="nav-item tab-link tab-active">
-        <a class="" onclick="openTab('profile', this)">Profile</a>
-    </li>
-    <li class="nav-item tab-link">
-        <a class="" onclick="openTab('change-password', this)">Change Password</a>
-    </li>
-    <li class="nav-item tab-link">
-        <a class="" onclick="openTab('address', this)">Address</a>
-    </li>
-</ul>
 
 <div style="margin-top: 62px;">
+    <ul class="nav nav-pills" id="myTab">
+        <li class="nav-item tab-link tab-active">
+            <a class="" onclick="openTab('profile', this)">Profile</a>
+        </li>
+        <li class="nav-item tab-link">
+            <a class="" onclick="openTab('change-password', this)">Change Password</a>
+        </li>
+        <li class="nav-item tab-link">
+            <a class="" onclick="openTab('address', this)">Address</a>
+        </li>
+    </ul>
     <div class="tab-content" id="myTabContent">
         <!-- View User Edit Profile -->
         <div id="profile" class="tab-name text-white" style="display: none;">
@@ -117,7 +117,7 @@
                                             Delete
                                         </button>
                                     @else
-                                        <form action="/myprofile/set-default" method="post" style="width: fit-content;">
+                                        <form action="{{route('front.myprofile.setdefault')}}" method="post" style="width: fit-content;">
                                             @csrf
                                             @method('PUT')
                                             <input type="text" name="set-default-address-id" value="{{$address->address_id}}" hidden>
@@ -137,7 +137,7 @@
                         </div>
 
                         <!-- Modal Delete Address -->
-                        <form action="/myprofile" method="post">
+                        <form action="{{route('front.myprofile.destroy')}}" method="post">
                             @csrf
                             @method('DELETE')
                             <div class="modal fade" id="{{$address['address_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -167,11 +167,12 @@
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        
         <!-- Create New User Address -->
         <div class="d-flex justify-content-center create-address-container">
-            <form action="/myprofile" method="post" id="add-new-address" class="form-add-container" style="display: none;">
+            <form action="{{route('front.myprofile.store')}}" method="post"  id="add-new-address" class="form-add-container" >
                 @csrf
                 <div class="form-add-container">
                     <div class="add-address-title">
@@ -227,10 +228,10 @@
                 </div>
             </form>
         </div>
-
-        <!-- Update User Address -->
+        
+        <!-- Update User Address -->    
         <div class="d-flex justify-content-center update-address-container">
-            <form action="/myprofile" method="post" id="update-address" class="form-add-container" style="display: none;">
+            <form action="{{route('front.myprofile.update')}}" method="post" id="update-address" class="form-add-container">
                 @csrf
                 @method('PUT')
                 <input type="text" name="update-address-id" value="" hidden>
@@ -288,7 +289,7 @@
                 </div>
             </form>
         </div>
-
+        
     </div>
 </div>
 
