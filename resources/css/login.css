@@ -41,3 +41,39 @@ input[type="file"]:hover::-webkit-file-upload-button{
     color: var(--text-secondary);
     border: 1px solid var(--primary);
 }
+
+.span-label{
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 12px;
+    transition: all .1s ease-in;
+}
+.span-label:hover{
+    color: #ABD400;
+}
+
+.wrapper{
+    width: 35%;
+    padding: 2.25rem;
+}
+
+@media screen and (max-width: 1024px) {
+    .wrapper{
+        width: 50%;
+        padding: 2.25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper{
+        width: 60%;
+        padding: 2.25rem;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .wrapper{
+        width: 80%;
+        padding: 2rem;
+    }
+}
