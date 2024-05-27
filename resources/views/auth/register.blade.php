@@ -10,7 +10,7 @@
 @section('content')
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
-            <div class="bg-overlay-1 w-35 p-36">
+            <div class="bg-overlay-1 wrapper">
                 <a href="/"><img src="{{ asset('/assets/logo.svg') }}" alt="" class="mb-4"></a>
                 <h4 class="text-white mb-4">Sign up now to collect art from Indonesia's top artists!</h4>
                 <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label for="name" class="text-white fw-semibold mb-2">{{ __('Name') }}</label>
                         <input id="name" type="text" class="form-control mb-3 @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="name">
+                            name="name" value="{{ old('name') }}" required autocomplete="off" placeholder="name">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
                         <label for="username" class="text-white fw-semibold mb-2">{{ __('Username') }}</label>
                         <input id="username" type="text"
                             class="form-control mb-3 @error('username') is-invalid @enderror" name="username"
-                            value="{{ old('username') }}" required autocomplete="username" placeholder="username">
+                            value="{{ old('username') }}" required autocomplete="off" placeholder="username">
                         @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
                         <label for="phone-number" class="text-white fw-semibold mb-2">{{ __('Phone Number') }}</label>
                         <input id="phone-number" type="text"
                             class="form-control mb-3 @error('phone-number') is-invalid @enderror" name="phone_number"
-                            value="{{ old('phone-number') }}" required autocomplete="phone-number" placeholder="08192xxxx">
+                            value="{{ old('phone-number') }}" required autocomplete="off" placeholder="08192xxxx">
                         @error('phone-number')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label for="email" class="text-white fw-semibold mb-2">{{ __('Email') }}</label>
                         <input id="email" type="email" class="form-control mb-3 @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                            name="email" value="{{ old('email') }}" required autocomplete="off"
                             placeholder="johndoe@example.com">
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label for="about" class="text-white fw-semibold mb-2">{{ __('About') }}</label>
                             <textarea id="about" type="text" class="form-control mb-3 @error('about') is-invalid @enderror" name="about"
-                                value="{{ old('about') }}" autocomplete="about" placeholder="describe your profile"></textarea>
+                                value="{{ old('about') }}" autocomplete="off" placeholder="describe your profile"></textarea>
                             @error('about')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -102,7 +102,7 @@
                                 class="text-white fw-semibold mb-2">{{ __('Identity Card') }}</label>
                             <input id="identity-card" type="file"
                                 class="form-control mb-3 @error('identity-card') is-invalid @enderror" name="id_photo"
-                                value="{{ old('identity-card') }}" autocomplete="identity-card">
+                                value="{{ old('identity-card') }}" autocomplete="off">
                             @error('identity-card')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -114,7 +114,7 @@
                                 <label for="province" class="text-white fw-semibold mb-2">{{ __('Province') }}</label>
                                 <input id="province" type="text"
                                     class="form-control mb-3 @error('province') is-invalid @enderror" name="province"
-                                    value="{{ old('province') }}" autocomplete="province"
+                                    value="{{ old('province') }}" autocomplete="off`"
                                     placeholder="province">
                                 @error('province')
                                     <span class="invalid-feedback" role="alert">
