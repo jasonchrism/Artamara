@@ -12,7 +12,10 @@ h1 {
     font-size: 3.5em;
     letter-spacing: 0.05em;
 }
-
+.card-img-top{
+    border-radius: 0px;
+}
+   
 h2 {
     font-family: "Modern-Aesthetic";
     color: var(--text-primary);
