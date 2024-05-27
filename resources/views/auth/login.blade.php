@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-primary w-100 mb-3">
                         {{ __('Log In') }}
                     </button>
-                    <p class="d-flex justify-content-center text-white mb-0 fw-regular fs-12">Don't have an account?<a href="{{route('register')}}" class="text-primary fw-semibold ms-1 fs-12">Sign Up</a></p>
+                    <p class="d-flex justify-content-center text-white mb-0 fw-regular fs-12">Don't have an account?<a href="{{route('register')}}" class="ms-1 span-label">Sign Up</a></p>
                 </form>
 
             </div>

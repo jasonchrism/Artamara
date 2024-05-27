@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="container py-5">
-        <div class="row vh-100 justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-center">
             <div class="bg-overlay-1 w-35 p-36">
                 <a href="/"><img src="{{ asset('/assets/logo.svg') }}" alt="" class="mb-4"></a>
                 <h4 class="text-white mb-4">Sign up now to collect art from Indonesia's top artists!</h4>
@@ -179,7 +179,7 @@
                         {{ __('Sign Up') }}
                     </button>
                     <p class="d-flex justify-content-center text-white mb-0 fw-regular fs-12">Already have an account?<a
-                            href="{{ route('login') }}" class="text-primary fw-semibold ms-1 fs-12">Log In</a></p>
+                            href="{{ route('login') }}" class="ms-1 span-label">Log In</a></p>
                 </form>
 
             </div>
