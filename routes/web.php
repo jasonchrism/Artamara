@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Auth;
 // Route::get('/', function () {
 //     return view('landing');
 // })->middleware(GuestMiddleware::class);
+// Route::get('/', function () {
+//     return view('landing');
+// })->middleware(GuestMiddleware::class);
 
 
 Route::name('front.')->group(function () {

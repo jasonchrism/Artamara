@@ -3,16 +3,20 @@ p {
     margin: 0;
 }
 
+
+
 .text-nav {
     color: var(--text-primary);
     font-weight: 400;
     cursor: pointer;
     text-decoration: none;
 }
-.logo{
+
+.logo {
     display: block;
 }
-.navigation-content{
+
+.navigation-content {
     display: flex;
     justify-content: space-between;
     gap: 4em;
@@ -39,13 +43,15 @@ p {
     position: relative;
 }
 
-input[type="text"] {
+.search input[type="text"] {
     width: 20em;
-    background-color: var(--bg-primary);
+    background-color: transparent;
     color: var(--text-primary);
     border: none;
     outline: none;
+    outline: none;
 }
+
 
 .navigation-item-link {
     display: flex;
@@ -53,26 +59,34 @@ input[type="text"] {
     gap: 1.2em;
 }
 
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
+
 a {
     text-decoration: none;
     color: var(--text-primary);
 }
 
+
+
 a:hover {
     color: var(--primary);
 }
+
+
 
 .button-group {
     display: flex;
     gap: 1.5em;
     align-items: center;
 }
+
+
 
 .btn-signup {
     color: var(--primary);
@@ -81,9 +95,13 @@ a:hover {
     border: none;
 }
 
+
+
 .btn-signup:hover {
     opacity: 0.8;
 }
+
+
 
 .btn-login {
     color: var(--bg-primary);
@@ -97,11 +115,14 @@ a:hover {
     opacity: 0.8;
 }
 
+
 .image-profile {
     width: 2em;
     height: 2em;
     border-radius: 100%;
 }
+
+
 
 .profile-detail {
     display: flex;
@@ -110,6 +131,8 @@ a:hover {
 }
 
 .cart path:hover {
+    fill: var(--primary);
+    /* Change the fill color */
     fill: var(--primary);
     /* Change the fill color */
 }
@@ -123,9 +146,11 @@ a:hover {
     border: solid var(--bg-overlay-2);
     border-radius: 0;
 }
+
 .dropdown-item {
     color: var(--text-primary);
 }
+
 .dropdown-item:hover {
     color: var(--primary);
     background: var(--bg-overlay-1);
@@ -136,7 +161,8 @@ a:hover {
     .search {
         gap: 0.5em;
     }
-    .navigation-content{
+
+    .navigation-content {
         gap: 2.5em;
     }
 }
@@ -145,40 +171,45 @@ a:hover {
     .search {
         gap: 0.5em;
     }
+
     input[type="text"] {
         width: auto;
     }
+
     .navigation-item-link {
         gap: 0.8em;
     }
-    .navigation-content{
+
+    .navigation-content {
         gap: 2.5em;
     }
 }
 
 @media screen and (max-width: 1024px) {
-    
+
     input[type="text"] {
         width: auto;
     }
+
     .navigation-item-link {
         gap: 0.5em;
     }
-    .navigation-content{
+
+    .navigation-content {
         gap: 1.5em;
     }
 }
 
-input[type="checkbox"] {    
-    display: none;   
+input[type="checkbox"] {
+    display: none;
 }
 
 @media screen and (max-width: 915px) {
     input[type="text"] {
         background-color: var(--bg-overlay-1);
     }
-    
-    .navigation-content{
+
+    .navigation-content {
         flex-direction: column;
         justify-content: space-evenly;
         background: var(--bg-overlay-1);
@@ -190,51 +221,61 @@ input[type="checkbox"] {
         height: 0;
         /* padding: 1.5em 0; */
         transition: 0.5s;
-        overflow: hidden    ;
+        overflow: hidden;
     }
+
     .navigation-item-link {
         flex-direction: column;
         gap: 1.2em;
     }
+
     .button-group {
         flex-direction: column;
     }
-    label{
+
+    label {
         border: solid;
-        width: 45px;
-        height: 32px;
+        width: 30px;
+        height: 22px;
         position: relative;
         border: none;
     }
-    label div{
+
+    label div {
         width: 100%;
-        height: 5px;
+        height: 4px;
         background: var(--primary);
         position: absolute;
         transform: translateY(-50%);
-        
+
     }
-    label div:nth-child(1){
+
+    label div:nth-child(1) {
         top: 0;
     }
-    label div:nth-child(2){
+
+    label div:nth-child(2) {
         top: 50%;
     }
-    label div:nth-child(3){
+
+    label div:nth-child(3) {
         top: 100%;
     }
-    input:checked ~ .navigation-content{
+
+    input:checked~.navigation-content {
         height: 100vh;
     }
-    
+
 }
+
 @media screen and (max-width: 600px) {
-    label{
-        width: 38px;
-        height: 26px;
+    label {
+        width: 24px;
+        height: 16px;
     }
-    label div{
-        height: 4px;
+
+    label div {
+        height: 3px;
     }
-    
+
 }

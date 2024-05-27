@@ -50,6 +50,16 @@ body{
     width: 35%;
 }
 
+.p-80{
+    margin:5rem 0 5rem 0;
+    padding: 0 2rem 0 2rem;
+
+}
+.gap-148{
+    gap: 16rem;
+
+}
+
 .form-control{
     border-radius: 0px;
     background-color: transparent;
