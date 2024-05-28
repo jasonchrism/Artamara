@@ -39,8 +39,18 @@ p {
     align-items: center;
     text-align: center;
     width: 100%;
+<<<<<<< Updated upstream
     z-index: 99999;
     position: relative;
+=======
+}
+.navigation-input{
+    width: 20em;
+    background-color:var(--bg-primary);
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+>>>>>>> Stashed changes
 }
 
 .search input[type="text"] {
@@ -78,6 +88,7 @@ a:hover {
     color: var(--primary);
 }
 
+<<<<<<< Updated upstream
 
 
 .button-group {
@@ -89,6 +100,9 @@ a:hover {
 
 
 .btn-signup {
+=======
+.btn-signup{
+>>>>>>> Stashed changes
     color: var(--primary);
     font-weight: 600;
     background: none;
