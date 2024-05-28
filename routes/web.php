@@ -7,6 +7,7 @@ use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\GuestMiddleware;
 use App\Http\Controllers\UserAdressController;
+use App\Http\Controllers\ViewUsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,7 @@ Auth::routes();
 
 Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(function () {
     Route::get("/home", [HomeController::class, 'indexAdmin'])->name('homeAdmin');
+    Route::get("/viewUsers", [ViewUsersController::class, 'index'])->name('viewAdmin');
 });
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {
     Route::get("/home", [HomeController::class, 'indexArtist'])->name('homeArtist');
