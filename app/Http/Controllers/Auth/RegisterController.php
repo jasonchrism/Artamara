@@ -38,6 +38,13 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        if (auth()->user()->role == 'ARTIST') {
+            return '/dashboard/artist/home';
+        }
+        return '/';
+    }
 
     /**
      * Create a new controller instance.
@@ -103,11 +110,11 @@ class RegisterController extends Controller
             }
             $profilePict = 'https://via.placeholder.com/800x600';
 
-            if($data['role'] == 'BUYER'){
+            if ($data['role'] == 'BUYER') {
                 $status = 'ACTIVE';
             }
 
-            return User::create([
+            $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
@@ -124,7 +131,8 @@ class RegisterController extends Controller
                 'description' => $data['description'],
                 'status' => $status
             ]);
-
+            // dd($user);
+            return $user;
         } catch (Exception $e) {
             dd($e->getMessage());
         }
