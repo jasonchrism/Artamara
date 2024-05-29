@@ -6,21 +6,21 @@
     {{-- Hero --}}
     <section class="hero  justify-content-center gap-148 p-80 align-items-center">
         <img src="assets/hero.png" alt="">
-        <div class="d-flex flex-column">
+        <div class="desc d-flex flex-column">
             <div class="d-flex flex-column gap-4 mb-32">
-                <h1>Support Your<br>
+                <h1>Support Your<br>    
                     Local Artist .</h1>
                 <p>Discover and support local artists in your <br>
                     community. Find the perfect piece of <br>
                     art for your home or office.</p>
             </div>
-            <button class="btn btn-primary">View Collections</button>
+        <button class="btn btn-primary">View Collections</button>
         </div>
     </section>
 
     {{-- Best Artist --}}
     <section class="d-flex flex-column justify-content-between p-80">
-        <div class="d-flex justify-content-between w-100 align-items-center">
+        <div class="item-desc d-flex justify-content-between w-100 align-items-center">
             <div class="d-flex flex-column gap-4 mb-32">
                 <h2>Artwork From Best Artist.</h2>
                 <p>Discover and support local artists in your <br>
@@ -125,7 +125,7 @@
     {{-- Discover Local Artist --}}
     <section class="hero d-flex justify-content-center gap-148 p-80 align-items-center">
         <img src="assets/discover.png" alt="">
-        <div class="d-flex flex-column">
+        <div class="desc d-flex flex-column">
             <div class="d-flex flex-column gap-1 mb-32">
                 <h2>Discover Local Artist .</h2>
                 <p>
@@ -139,7 +139,7 @@
 
     {{-- Auctions --}}
     <section class="justify-content-between p-80    " >
-        <div class="d-flex justify-content-between w-100 align-items-center">
+        <div class="item-desc d-flex justify-content-between w-100 align-items-center">
             <div class="d-flex flex-column gap-4 mb-32">
                 <h2>Artamara Auctions.</h2>
                 <p>The local artist's artwork auction drew enthusiastic <br>

@@ -36,6 +36,14 @@
     </label>
 
     <div class="navigation-content">
+        @if (Auth::check())
+            <div class="profile-mobile">
+                <div class="d-flex gap-2 align-items-center">
+                    <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                    <p>{{ Auth::user()->name }}</p>
+                </div>
+            </div>
+        @endif
         <div class="search">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_560_693)">
@@ -111,14 +119,61 @@
                     </div>
                 </div>
             </div>
+        @else
+            <div class="button-group">
+                <a href="{{ route('login') }}"><button type="button" class="btn-signup">login</button></a>
+                <a href="{{ route('register') }}"><button type="button" class="btn-login">Sign Up</button></a>
+            </div>
+        @endif
+        @if (Auth::check())
+            <div class="button-group-mobile">
+                <a href="">
+                    <svg class="cart" width="25" height="25" viewBox="0 0 25 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.59375 21.0938C9.02522 21.0938 9.375 20.744 9.375 20.3125C9.375 19.881 9.02522 19.5312 8.59375 19.5312C8.16228 19.5312 7.8125 19.881 7.8125 20.3125C7.8125 20.744 8.16228 21.0938 8.59375 21.0938Z"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M19.5312 21.0938C19.9627 21.0938 20.3125 20.744 20.3125 20.3125C20.3125 19.881 19.9627 19.5312 19.5312 19.5312C19.0998 19.5312 18.75 19.881 18.75 20.3125C18.75 20.744 19.0998 21.0938 19.5312 21.0938Z"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M2.34375 3.90625H5.46875L7.8125 17.1875H20.3125" stroke="#FDFFF3" stroke-width="1.25"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M7.8125 14.0625H19.9922C20.0825 14.0626 20.1701 14.0313 20.24 13.9741C20.3099 13.9168 20.3578 13.8371 20.3755 13.7485L21.7817 6.71729C21.7931 6.66059 21.7917 6.60208 21.7777 6.54598C21.7637 6.48988 21.7374 6.43759 21.7007 6.39289C21.6641 6.34818 21.6179 6.31218 21.5656 6.28747C21.5134 6.26276 21.4563 6.24996 21.3984 6.25H6.25"
+                            stroke="#FDFFF3" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="navigation-item">
+                    <ul class="navigation-item-link">
+                        <li>
+                            <a href="">My Profile</a>
+                        </li>
+                        <li>
+                            <a href="">My Transactions</a>
+                        </li>
+                        <li>
+                            <a href="">My Bids</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        @else
+            <div class="button-group-mobile">
+                <a href="{{ route('login') }}"><button type="button" class="btn-signup">login</button></a>
+                <a href="{{ route('register') }}"><button type="button" class="btn-login">Sign Up</button></a>
+            </div>
+        @endif
     </div>
-@else
-    <div class="button-group">
-        <a href="{{ route('login') }}"><button type="button" class="btn-signup">login</button></a>
-        <a href="{{ route('register') }}"><button type="button" class="btn-login">Sign Up</button></a>
-    </div>
-    @endif
+
 
 </div>
 </div>
-
