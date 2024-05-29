@@ -3,8 +3,6 @@ p {
     margin: 0;
 }
 
-
-
 .text-nav {
     color: var(--text-primary);
     font-weight: 400;
@@ -39,18 +37,16 @@ p {
     align-items: center;
     text-align: center;
     width: 100%;
-<<<<<<< Updated upstream
     z-index: 99999;
     position: relative;
-=======
 }
-.navigation-input{
+
+.navigation-input {
     width: 20em;
-    background-color:var(--bg-primary);
+    background-color: var(--bg-primary);
     color: var(--text-primary);
     border: none;
     outline: none;
->>>>>>> Stashed changes
 }
 
 .search input[type="text"] {
@@ -88,34 +84,23 @@ a:hover {
     color: var(--primary);
 }
 
-<<<<<<< Updated upstream
-
-
 .button-group {
     display: flex;
     gap: 1.5em;
     align-items: center;
 }
 
-
-
 .btn-signup {
-=======
-.btn-signup{
->>>>>>> Stashed changes
+
     color: var(--primary);
     font-weight: 600;
     background: none;
     border: none;
 }
 
-
-
 .btn-signup:hover {
     opacity: 0.8;
 }
-
-
 
 .btn-login {
     color: var(--bg-primary);
@@ -169,6 +154,12 @@ a:hover {
     color: var(--primary);
     background: var(--bg-overlay-1);
 }
+.profile-mobile{
+    display: none;
+}
+.button-group-mobile{
+    display: none;
+}
 
 /* responsive */
 @media screen and (max-width: 1360px) {
@@ -186,7 +177,7 @@ a:hover {
         gap: 0.5em;
     }
 
-    input[type="text"] {
+    .search input[type="text"] {
         width: auto;
     }
 
@@ -201,7 +192,7 @@ a:hover {
 
 @media screen and (max-width: 1024px) {
 
-    input[type="text"] {
+    .search input[type="text"] {
         width: auto;
     }
 
@@ -219,7 +210,18 @@ input[type="checkbox"] {
 }
 
 @media screen and (max-width: 915px) {
-    input[type="text"] {
+    .button-group{
+        display: none;
+    }
+    .button-group-mobile{
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+    .profile-mobile{
+        display: block;
+    }
+    .search input[type="text"] {
         background-color: var(--bg-overlay-1);
     }
 
