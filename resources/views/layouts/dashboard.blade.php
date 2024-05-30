@@ -15,17 +15,16 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @vite('resources/css/dashboard.css')
     @vite('resources/css/sidebar.css')
+    @vite('resources/css/header.css')
     @stack('styles')
 </head>
 
 <body>
     <div id="app">
+        @include('includes.sidebar')
         <div class="wrapper">
-            @include('includes.sidebar')
-            <div class="content">
-                {{-- header --}}
+                @include('includes.header')
                 @yield('content')
-            </div>
         </div>
 
         {{-- content --}}

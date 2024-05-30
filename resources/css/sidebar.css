@@ -6,7 +6,11 @@
     flex-direction: column;
     align-items: center;
     row-gap: 96px;
-    padding-top: 56px;
+    padding: 56px;
+}
+
+.sidebar{
+    position: fixed;
 }
 
 .logo{
@@ -33,4 +37,39 @@
 }
 .sidebar-item:hover .sidebar-label{
     color: #9F9F9F;
+}
+
+@media screen and (max-width: 1024px) {
+    .wrapper-sidebar{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo{
+        display: none;
+    }
+    .sidebar-label{
+        display: none;
+    }
+    .wrapper-sidebar{
+        max-width: none;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 100px;
+    }
+
+    .sidebar-item{
+        min-width: 10px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .wrapper-sidebar{
+        max-width: none;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 90px;
+    }
 }
