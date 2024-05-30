@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-    Home
+    Transaction
 @endsection
 
 @section('content')

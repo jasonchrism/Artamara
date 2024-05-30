@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-    Home
+    Rating
 @endsection
 
 @section('content')

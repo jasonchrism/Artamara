@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('title')
-    Home
+    Transaction
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        {{ __('You are logged in as artist!') }}
+                        {{ __('You are logged in as admin!') }}
                     </div>
                 </div>
             </div>

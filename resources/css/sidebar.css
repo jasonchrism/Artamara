@@ -1,0 +1,36 @@
+.wrapper-sidebar{
+    min-height: 100vh;
+    max-width: 303px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 96px;
+    padding-top: 56px;
+}
+
+.logo{
+    width: 178px;
+}
+
+.sidebar-item{
+    text-decoration: none;
+    color: var(--bg-overlay-2);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    min-width: 190px;
+}
+
+.sidebar-label{
+    margin: 0;
+    font-size: 20px;
+}
+
+.sidebar-item:hover svg path{
+    stroke: #879F23;
+}
+.sidebar-item:hover .sidebar-label{
+    color: #9F9F9F;
+}
