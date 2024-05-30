@@ -48,7 +48,6 @@ Route::name('front.')->group(function () {
     Route::put('/myprofile/set-default', [UserAdressController::class, 'create'])->name('myprofile.setdefault');
 });
 
-
 Auth::routes();
 
 Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(function () {
