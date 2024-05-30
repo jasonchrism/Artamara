@@ -19,7 +19,7 @@ p {
     justify-content: space-between;
     gap: 4em;
     align-items: center;
-    z-index: 99999;
+    z-index: 999;
 }
 
 .search {
@@ -37,7 +37,7 @@ p {
     align-items: center;
     text-align: center;
     width: 100%;
-    z-index: 99999;
+    z-index: 999;
     position: relative;
 }
 
