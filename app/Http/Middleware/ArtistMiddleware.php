@@ -16,11 +16,11 @@ class ArtistMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role == "ARTIST"){
+        if(Auth::check() && Auth::user()->role == "ARTIST"){
             return $next($request);
-        }else if(Auth::user()->role == "ADMIN"){
+        }else if(Auth::check() && Auth::user()->role == "ADMIN"){
             return redirect("/dashboard/admin/home");
         }
-        return redirect("/");
+        return redirect("/login");
     }
 }

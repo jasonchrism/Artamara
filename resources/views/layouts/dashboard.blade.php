@@ -14,16 +14,20 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @vite('resources/css/dashboard.css')
+    @vite('resources/css/sidebar.css')
+    @vite('resources/css/header.css')
     @stack('styles')
 </head>
 
 <body>
     <div id="app">
-
-        @include('includes.admin-navigation')
+        @include('includes.sidebar')
+        <div class="wrapper">
+                @include('includes.header')
+                @yield('content')
+        </div>
 
         {{-- content --}}
-        @yield('content')
 
         @include('includes.scripts')
         @stack('after-scripts')

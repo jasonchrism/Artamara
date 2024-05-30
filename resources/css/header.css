@@ -1,0 +1,33 @@
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: var(--bg-overlay-1);
+    border: solid var(--bg-overlay-2);
+    border-radius: 0;
+    inset: 0px auto auto -40px !important;
+}
+
+.dropdown-item {
+    color: var(--text-primary);
+}
+
+.dropdown-item:hover {
+    color: var(--primary);
+    background: var(--bg-overlay-1);
+}
+.profile-detail {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+p{
+    margin:0;
+}
+
+.wrapper-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

@@ -15,7 +15,7 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <div class="container">
-        <table class="table table-bordered data-table bg-dark">
+        <table class="table table-borderless data-table">
             <thead>
                 <tr>
                     <th>No</th>
