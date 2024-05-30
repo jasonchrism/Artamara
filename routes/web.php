@@ -41,11 +41,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::name('front.')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
-    Route::get('/myprofile', [UserAdressController::class, 'index'])->name('myprofile');
-    Route::post('/myprofile', [UserAdressController::class, 'store'])->name('myprofile.store');
-    Route::put('/myprofile', [UserAdressController::class, 'update'])->name('myprofile.update');
-    Route::delete('/myprofile', [UserAdressController::class, 'destroy'])->name('myprofile.destroy');
-    Route::put('/myprofile/set-default', [UserAdressController::class, 'create'])->name('myprofile.setdefault');
+    Route::get('/myaddress', [UserAdressController::class, 'index'])->name('myaddress');
+    Route::post('/myaddress', [UserAdressController::class, 'store'])->name('myaddress.store');
+    Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update');
+    Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy');
+    Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault');
+    Route::get('/myprofile', [UserAdressController::class, 'profile'])->name('myprofile');
 });
 
 Auth::routes();

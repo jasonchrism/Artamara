@@ -12,26 +12,41 @@ use Illuminate\Support\Facades\DB;
 
 class UserAdressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+
+    public function profile() {
         $user_id = Auth::user()->user_id;
         $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
-                                    ->where('user_addresses.user_id', '=', $user_id)
-                                    ->orderBy('user_addresses.is_default', 'desc')
-                                    ->get();
+            ->where('user_addresses.user_id', '=', $user_id)
+            ->orderBy('user_addresses.is_default', 'desc')
+            ->get();
+
+        $is_address_null = $user_address->first();
         $countries = config('countries');
         return view('buyer.myprofile', [
             'user_addresses' => $user_address,
             'countries' => $countries,
+            'is_address_null' => $is_address_null,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index()
+    {
+        $user_id = Auth::user()->user_id;
+        $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
+            ->where('user_addresses.user_id', '=', $user_id)
+            ->orderBy('user_addresses.is_default', 'desc')
+            ->get();
+
+        $is_address_null = $user_address->first();
+        $countries = config('countries');
+        return view('buyer.addaddress', [
+            'user_addresses' => $user_address,
+            'countries' => $countries,
+            'is_address_null' => $is_address_null,
+        ]);
+    }
+
+
     public function create(Request $request)
     {
         $user_id = Auth::user()->user_id;
@@ -47,55 +62,48 @@ class UserAdressController extends Controller
             'is_default' => 1,
         ]);
 
-        return redirect('/myprofile');
+        return redirect('/myaddress');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-
+        $user_id = Auth::user()->user_id;
         $address = Address::create([
-                'receiver' => $request->input('receiver-name'),
-                'phone_number' => $request->input('phone-number'),
-                'street' => $request->input('street'),
-                'city' => $request->input('city'),
-                'district' => $request->input('district'),
-                'postal_code' => $request->input('zip-code'),
-                'province' => $request->input('province'),
-                'country' => $request->input('country'),
-                'description' => $request->input('description') ? $request->input('description') : '',
-            ]);
-
-
-        UserAddress::create([
-            'user_id' => Auth::user()->user_id,
-            'address_id' => $address->address_id,
+            'receiver' => $request->input('receiver-name'),
+            'phone_number' => $request->input('phone-number'),
+            'street' => $request->input('street'),
+            'city' => $request->input('city'),
+            'district' => $request->input('district'),
+            'postal_code' => $request->input('zip-code'),
+            'province' => $request->input('province'),
+            'country' => $request->input('country'),
+            'description' => $request->input('description') ? $request->input('description') : '',
         ]);
 
-        return redirect('/myprofile');
+        $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
+            ->where('user_addresses.user_id', '=', $user_id)
+            ->orderBy('user_addresses.is_default', 'desc')
+            ->get();
+
+        if ($user_address->count() == 0) {
+            $is_default = 1;
+            UserAddress::create([
+                'user_id' => Auth::user()->user_id,
+                'address_id' => $address->address_id,
+                'is_default' => $is_default,
+            ]);
+        } else {
+            UserAddress::create([
+                'user_id' => Auth::user()->user_id,
+                'address_id' => $address->address_id,
+            ]);
+        }
+
+        return redirect('/myaddress');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
         $address_id = $request->input('update-address-id');
@@ -113,19 +121,16 @@ class UserAdressController extends Controller
             'description' => $request->input('update-description') ? $request->input('update-description') : '',
         ]);
 
-        return redirect('/myprofile');
-
+        return redirect('/myaddress');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Request $request)
-    {   
+    {
         $address_id = $request->input('delete-address-id');
         $address = Address::query()->where('address_id', '=', $address_id);
         $address->delete();
 
-        return redirect('/myprofile');
+        return redirect('/myaddress');
     }
 }
