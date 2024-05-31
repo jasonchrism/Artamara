@@ -83,6 +83,10 @@
     cursor: pointer;
 }
 
+.password-content label{
+    width: auto;
+}
+
 /* View Address List CSS */
 
 .view-address-list-container {
