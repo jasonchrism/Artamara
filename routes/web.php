@@ -9,6 +9,8 @@ use App\Http\Controllers\Artist\ArtSalesController;
 use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Artist\RatingController;
 use App\Http\Controllers\Artist\TransactionController;
+use App\Http\Controllers\Front\ChangePasswordController;
+use App\Http\Controllers\Front\EditProfileController;
 use App\Http\Controllers\Front\LandingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
@@ -46,7 +48,9 @@ Route::name('front.')->group(function () {
     Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update');
     Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy');
     Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault');
-    Route::get('/myprofile', [UserAdressController::class, 'profile'])->name('myprofile');
+    Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
+    Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
+    Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
 });
 
 Auth::routes();

@@ -19,13 +19,13 @@ class UserAdressController extends Controller
             ->where('user_addresses.user_id', '=', $user_id)
             ->orderBy('user_addresses.is_default', 'desc')
             ->get();
+        
+        $user_profile = User::where('user_id', '=', $user_id)->get();
 
         $is_address_null = $user_address->first();
         $countries = config('countries');
         return view('buyer.myprofile', [
-            'user_addresses' => $user_address,
-            'countries' => $countries,
-            'is_address_null' => $is_address_null,
+            'user_profile' => $user_profile[0],
         ]);
     }
 
@@ -39,6 +39,7 @@ class UserAdressController extends Controller
 
         $is_address_null = $user_address->first();
         $countries = config('countries');
+        
         return view('buyer.addaddress', [
             'user_addresses' => $user_address,
             'countries' => $countries,

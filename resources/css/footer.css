@@ -2,6 +2,7 @@
 
 footer{
     margin-top: 50px;
+    padding-bottom: 50px;
 }
 
 a{
@@ -18,6 +19,10 @@ h5{
 
 img{
     width: 38%;
+}
+
+.col-lg-4 p{
+    color: var(--text-secondary);
 }
 
 .footer-logo{
@@ -41,3 +46,41 @@ img{
 .footer-social-logo i{
     padding-right: 10px;
 }
+
+/* responsive */
+
+@media screen and (max-width: 990px) {
+   .footer-list{
+    margin-top: 30px;
+    width: 250px;
+   }
+
+   .col-lg-2{
+    width: auto;
+    padding: 0;
+   }
+}
+
+@media screen and (max-width: 830px) {
+    .footer-list{
+     margin-top: 30px;
+     width: 200px;
+    }
+ 
+    .col-lg-2{
+     width: auto;
+     padding: 0;
+    }
+ }
+
+ @media screen and (max-width: 635px) {
+    .footer-list{
+     margin-top: 30px;
+     width: 300px;
+    }
+ 
+    .col-lg-2{
+     width: auto;
+     padding: 0;
+    }
+ }
