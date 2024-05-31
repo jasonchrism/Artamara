@@ -40,13 +40,20 @@
     border-radius: 0px;
     background-color: transparent;
     margin-top: 20px;
+    width: auto;
+    height: auto;
     padding: 10px 25px 10px 25px;
     border: 1px solid var(--bg-overlay-2);
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .rightbutton button{
     padding: 10px 25px 10px 25px;
+}
+
+.profile-form label{
+    width: auto;
 }
 
 /* Edit Password CSS*/
@@ -63,6 +70,17 @@
 
 .password-content{
     padding-top: 20px;
+}
+
+.password-content .inputbox{
+    position: relative;
+}
+
+.password-content i{
+    color: var(--text-secondary);
+    position: absolute;
+    right: 4%;
+    cursor: pointer;
 }
 
 /* View Address List CSS */
