@@ -61,6 +61,10 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::resource('auction', AdminArtAuctionController::class);
     Route::resource('transactions', AdminTransactionController::class);
     Route::get("/viewUsers", [ViewUsersController::class, 'index'])->name('viewAdmin');
+    Route::get('/userDetails/{id}', [ViewUsersController::class, 'details'])->name('userDetails');
+    Route::post('/acceptArtist/{id}', [ViewUsersController::class, 'acceptArtist'])->name('acceptArtist');
+    Route::post('/banArtist/{id}', [ViewUsersController::class, 'banArtist'])->name('banArtist');
+    Route::post('/deleteArtist/{id}', [ViewUsersController::class, 'deleteArtist'])->name('deleteArtist');
 });
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
