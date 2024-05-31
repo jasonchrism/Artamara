@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: 'Modern-Aesthetic';
+    src: url('../../public/font/modernaestheticdemoversionregular-2oaed.otf') format('opentype');
+}
+:root{
+    --primary : #CEFE06;
+    --bg-primary : #121212;
+    --bg-overlay-1 : #202020;
+    --bg-overlay-2 : #464646;
+    --text-primary : #FDFFF3;
+    --text-secondary : #A0A0A0;
+    --bg-danger : #FC2D2D;
+    --bg-label-primary : #4B5D02;
+    --bg-label-blue : #001F6E;
+    --font-active-status : #95D3FF;
+    --backgrond-inactive: #401111;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-primary);
+    margin: 48px 165px 0;
+    font-size: 1em;
+    /* position: relative; */
+    overflow-x: hidden;
+}
+
+.p-32{
+    padding: 2rem;
+}
+
+.p-36{
+    padding: 2.25rem;
+}
+
+.p-40{
+    padding: 2.5rem;
+}
+
+.mb-32{
+    margin-bottom: 3rem;
+}
+
+.w-35{
+    width: 35%;
+}
+
+.p-80{
+    margin:5rem 0 5rem 0;
+    padding: 0 2rem 0 2rem;
+
+}
+.gap-148{
+    gap: 16rem;
+
+}
+
+.form-control{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--bg-overlay-2);
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+.form-control:focus{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
+.form-control::placeholder{
+    color: var(--text-primary);
+    opacity: .3;
+    font-weight: 400;
+}
+
+.fw-regular{
+    font-weight: 400;
+}
+.fw-semibold{
+    font-weight: 500;
+}
+.fw-bold{
+    font-weight: 600;
+}
+
+.btn{
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--bg-primary);
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: #ABD400;
+}
+
+.btn-secondary
+{
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.btn-banned
+{
+    background-color: var(--backgrond-inactive);
+    color: var(--bg-danger);
+    font-size: 14px;
+    width: 140px;
+    height: 33px;
+}
+
+.btn-banned:hover
+{
+    background-color: var(--backgrond-inactive);
+    color: var(--bg-danger);
+    font-size: 14px;
+    width: 140px;
+    height: 33px;
+}
+
+.form-select{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--bg-overlay-2);
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+.form-select:focus{
+    border-radius: 0px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
+.form-select option{
+    background-color: var(--bg-overlay-1);
+    border-radius: 0px;
+}
+
+.form-group label{
+    font-size: 14px;
+}
+
+/* ini khusus untuk layout details */
+.container
+{
+    background-color: var(--bg-overlay-1);
+    padding: 40px 40px 40px 40px;
+}
+.layout-user-detail
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.Details-upper-part
+{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-bottom: 64px;
+}
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.left
+{
+    padding-right: 300px;
+    padding-left: 16px;
+}
+
+.Details-lower-part
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.Detail-ID
+{
+    align-self: center;
+    padding-bottom: 50px;
+}
+
+.Change-status
+{
+    align-self: flex-end;
+}
+
+/* Ini untuk status user */
+.status-active {
+    font-size: 10px;
+    width: 6rem;
+    height: 1.2rem;
+    background-color: var(--bg-label-blue);
+    color: var(--font-active-status);
+    text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-inactive {
+    font-size: 10px;
+    width: 6rem;
+    height: 1.2rem;
+    background-color: var(--backgrond-inactive);
+    color: var(--bg-danger);
+    text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-unverified {
+    font-size: 10px;
+    width: 6rem;
+    height: 1.2rem;
+    background-color: var(--bg-overlay-2);
+    color: var(--text-secondary);
+    text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* untuk modal */
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--text-primary);
+    pointer-events: auto;
+    background-color: var(--bg-overlay-1);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    /* border-radius: var(--bs-modal-border-radius); */
+    outline: 0;
+}
+
+.modal-content
+{
+    padding: 24px 24px 24px 24px;
+}
+
+.content-body
+{
+    align-self: flex-start;
+    padding-top: 16px;
+    padding-bottom: 64px;
+}
+
+.footer
+{
+    align-self: flex-end;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1300px){
+    body{
+        margin: 48px 80px 0;
+    }
+}
+@media screen and (max-width: 1024px){
+    body{
+        margin: 48px 56px 0;
+    }
+}
+@media screen and (max-width: 768px){
+    body{
+        margin: 32px 36px 0;
+    }
+}
+@media screen and (max-width: 375px){
+    body{
+        margin: 24px 20px 0;
+    }
+}
