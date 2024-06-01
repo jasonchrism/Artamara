@@ -29,8 +29,8 @@
                         <div class="profile-content row">
                             <div class="profile-image col-lg-4 d-flex align-items-center flex-column">
                                 <img src="{{$user_profile['profile_picture']}}" alt="">
-                                <input type="file" name="image" id="image" class="inputfile" />
-                                <label for="image">Choose Avatar</label>
+                                <input type="file" name="profile_picture" id="profile_picture" class="inputfile" />
+                                <label for="profile_picture">Choose Avatar</label>
                             </div>
                             <div class="profile-form col-lg-8 ">
                                 <form action="{{route('front.editprofile.update')}}" method="post">
@@ -67,45 +67,4 @@
         </div>
 
 </div>
-
-<!-- Javascript for eye toggle -->
-<script>
-
-const togglePassword = document.querySelector("#togglePassword");
-const password = document.querySelector('#oldPassword')
-
-
-togglePassword.addEventListener('click', function(e) {
-    const type = password.getAttribute('type') === 'password'? 'text' : 'password';
-    password.setAttribute('type', type);
-
-    if (togglePassword.classList.contains('fa-eye')) {
-        togglePassword.classList.remove('fa-eye');
-        togglePassword.classList.add('fa-eye-slash');
-    } else if (togglePassword.classList.contains('fa-eye-slash')) {
-        togglePassword.classList.remove('fa-eye-slash');
-        togglePassword.classList.add('fa-eye');
-    }
-
-});
-
-const togglePassword2 = document.querySelector("#togglePassword2");
-const password2 = document.querySelector('#newPassword')
-
-
-togglePassword2.addEventListener('click', function(e) {
-    const type = password2.getAttribute('type') === 'password'? 'text' : 'password';
-    password2.setAttribute('type', type);
-
-    if (togglePassword2.classList.contains('fa-eye')) {
-        togglePassword2.classList.remove('fa-eye');
-        togglePassword2.classList.add('fa-eye-slash');
-    } else if (togglePassword2.classList.contains('fa-eye-slash')) {
-        togglePassword2.classList.remove('fa-eye-slash');
-        togglePassword2.classList.add('fa-eye');
-    }
-
-});
-
-</script>
 @endsection

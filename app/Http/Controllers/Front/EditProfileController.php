@@ -66,22 +66,24 @@ class EditProfileController extends Controller
             'name' => ['required', 'string'],
             'username' => ['required', 'string'],
             'phone_number' => ['required', 'numeric'],
-            'profile_picture' => ['image']
         ]);
 
-        if($request->hasFile('image')){
-            $filename = $request->image->getClientOriginalName();
-            $request->image->storeAs('images',$filename,'public');
-            $profile_updated->update(['image'=>$filename]);
+        if (request()->hasFile('profile_picture')) {
+            $photoPath = request()->file('profile_picture')->store('photos', 'public');
+            $profile_updated->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'phone_number' => $request->phone_number,
+                'profile_picture' => $photoPath
+            ]);
+        }else{
+            $profile_updated->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'phone_number' => $request->phone_number,
+            ]);
         }
-        // dd($request);
-
-        $profile_updated->update([
-            'name' => $request->name,
-            'username' => $request->username,
-            'phone_number' => $request->phone_number,
-            // 'profile_picture' => $request->filename,
-        ]);
+        dd($request);
 
         return redirect('/myprofile');
     }

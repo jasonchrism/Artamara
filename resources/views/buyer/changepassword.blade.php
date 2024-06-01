@@ -27,8 +27,9 @@
                 <p class="profile-subtitle">Your password, your fortress. Make it strong, keep it safe.</p>
 
                 <div class="password-content row">
-                    <form action="">
-
+                    <form action="{{route('front.changepassword.update')}}" method="post">
+                        @csrf
+                        @method('PUT')
                             <label for="oldPassword" class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
 
                         <div class="inputbox d-flex align-items-center mb-3">
@@ -59,5 +60,46 @@
     </div>
 
 </div>
+
+<!-- Javascript for eye toggle -->
+<script>
+
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector('#oldPassword')
+    
+    
+    togglePassword.addEventListener('click', function(e) {
+        const type = password.getAttribute('type') === 'password'? 'text' : 'password';
+        password.setAttribute('type', type);
+    
+        if (togglePassword.classList.contains('fa-eye')) {
+            togglePassword.classList.remove('fa-eye');
+            togglePassword.classList.add('fa-eye-slash');
+        } else if (togglePassword.classList.contains('fa-eye-slash')) {
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
+        }
+    
+    });
+    
+    const togglePassword2 = document.querySelector("#togglePassword2");
+    const password2 = document.querySelector('#newPassword')
+    
+    
+    togglePassword2.addEventListener('click', function(e) {
+        const type = password2.getAttribute('type') === 'password'? 'text' : 'password';
+        password2.setAttribute('type', type);
+    
+        if (togglePassword2.classList.contains('fa-eye')) {
+            togglePassword2.classList.remove('fa-eye');
+            togglePassword2.classList.add('fa-eye-slash');
+        } else if (togglePassword2.classList.contains('fa-eye-slash')) {
+            togglePassword2.classList.remove('fa-eye-slash');
+            togglePassword2.classList.add('fa-eye');
+        }
+    
+    });
+    
+    </script>
 
 @endsection

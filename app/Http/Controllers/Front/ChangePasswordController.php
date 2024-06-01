@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordController extends Controller
 {
@@ -56,9 +57,29 @@ class ChangePasswordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $user_id = Auth::user()->user_id;
+        $profile_updated = User::query()->where('user_id', '=', $user_id);
+
+        $request->validate([
+            'oldPassword' => ['required', 'string'],
+            'newPassword' => ['required', 'string'],
+            'confirmPassword' => ['required', 'string', 'same:newPassword']
+        ]);
+
+        // dd($request);
+
+        if(Hash::check($request->oldPassword,$profile_updated->password)){
+            $profile_updated->update([
+                'password'=>bcrypt($request->newPassword)
+            ]);
+
+            return redirect()->back()->with('success', 'password updated');
+        }else{
+            return redirect()->back()->with('error', 'Old password does not matched');
+        }
+        
     }
 
     /**
