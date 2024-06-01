@@ -146,13 +146,13 @@
                 <div class="navigation-item">
                     <ul class="navigation-item-link">
                         <li>
-                            <a href="">My Profile</a>
+                            <a href="{{ route('front.myprofile') }}">My Profile</a>
                         </li>
                         <li>
-                            <a href="">My Transactions</a>
+                            <a href="#">My Transactions</a>
                         </li>
                         <li>
-                            <a href="">My Bids</a>
+                            <a href="#">My Bids</a>
                         </li>
                         <li>
                             <a href="#"
