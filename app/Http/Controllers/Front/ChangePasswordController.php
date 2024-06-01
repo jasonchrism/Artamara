@@ -60,7 +60,7 @@ class ChangePasswordController extends Controller
     public function update(Request $request)
     {
         $user_id = Auth::user()->user_id;
-        $profile_updated = User::query()->where('user_id', '=', $user_id);
+        $profile_updated = User::query()->where('user_id', '=', $user_id)->first();
 
         $request->validate([
             'oldPassword' => ['required', 'string'],
@@ -68,9 +68,12 @@ class ChangePasswordController extends Controller
             'confirmPassword' => ['required', 'string', 'same:newPassword']
         ]);
 
-        // dd($request);
+        
+    
+        //datanya semua udah bisa masuk
 
         if(Hash::check($request->oldPassword,$profile_updated->password)){
+            // dd($request->newPassword);
             $profile_updated->update([
                 'password'=>bcrypt($request->newPassword)
             ]);

@@ -66,7 +66,9 @@ class EditProfileController extends Controller
             'name' => ['required', 'string'],
             'username' => ['required', 'string'],
             'phone_number' => ['required', 'numeric'],
+            'profile_picture' => ['image']
         ]);
+
 
         if (request()->hasFile('profile_picture')) {
             $photoPath = request()->file('profile_picture')->store('photos', 'public');
@@ -83,7 +85,7 @@ class EditProfileController extends Controller
                 'phone_number' => $request->phone_number,
             ]);
         }
-        dd($request);
+
 
         return redirect('/myprofile');
     }
