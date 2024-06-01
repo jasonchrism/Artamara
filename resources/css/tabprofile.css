@@ -350,6 +350,20 @@
     }
 }
 
+@media screen and (max-width: 426px) {
+    .form-add-container {
+        width: 375px;
+    }
+
+    .add-input-container{
+        margin-bottom: 25px;
+    }
+
+    .submit-add-address-container{
+        width: 295px;
+    }
+}
+
 @media screen and (max-width: 376px) {
 
     /* Address Responsive */
