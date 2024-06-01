@@ -12,23 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class UserAdressController extends Controller
 {
-
-    public function profile() {
-        $user_id = Auth::user()->user_id;
-        $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
-            ->where('user_addresses.user_id', '=', $user_id)
-            ->orderBy('user_addresses.is_default', 'desc')
-            ->get();
-        
-        $user_profile = User::where('user_id', '=', $user_id)->get();
-
-        $is_address_null = $user_address->first();
-        $countries = config('countries');
-        return view('buyer.myprofile', [
-            'user_profile' => $user_profile[0],
-        ]);
-    }
-
     public function index()
     {
         $user_id = Auth::user()->user_id;
@@ -70,6 +53,10 @@ class UserAdressController extends Controller
     public function store(Request $request)
     {
         $user_id = Auth::user()->user_id;
+        $request->validate([
+            'phone-number' => 'required|min:10|max:15',
+            'postal_code' => 'required|min:3|max:5',
+        ]);
         $address = Address::create([
             'receiver' => $request->input('receiver-name'),
             'phone_number' => $request->input('phone-number'),
@@ -109,7 +96,10 @@ class UserAdressController extends Controller
     {
         $address_id = $request->input('update-address-id');
         $address = Address::query()->where('address_id', '=', $address_id);
-
+        $request->validate([
+            'phone-number' => 'required|min:10|max:15',
+            'postal_code' => 'required|min:3|max:5',
+        ]);
         $address->update([
             'receiver' => $request->input('update-receiver-name'),
             'phone_number' => $request->input('update-phone-number'),
