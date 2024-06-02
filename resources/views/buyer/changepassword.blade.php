@@ -34,7 +34,7 @@
                         <label for="oldPassword" class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
 
                         <div class="inputbox d-flex align-items-center">
-                            <input id="oldPassword" type="password" class="form-control" name="oldPassword" value="">
+                            <input id="oldPassword" type="password" class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword" value="">
                             <i class="fa-regular fa-eye" id="togglePassword"></i>
                         </div>
                         
@@ -74,17 +74,11 @@
                                 Save
                             </button>
                         </div>
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
+
+                        @if (session('message'))
+                            <h5 class="alert alert-success mb-2">{{ session('message') }}</h5>
                         @endif
 
-                        @if(session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         </form>
                 </div>
             </div>

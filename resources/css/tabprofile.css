@@ -2,7 +2,7 @@
 
 .profile-container{
     width: 900px;
-    max-height: 810px;
+    max-height: 1000px;
     margin-top: 24px;
     background-color: var(--bg-overlay-1);
     display: flex;
@@ -54,6 +54,26 @@
 
 .profile-form label{
     width: auto;
+}
+
+@media screen and (max-width: 950px){
+    .profile-container{
+        padding-bottom: 40px;
+    }
+
+    .profile-content .row{
+        justify-content: space-around;
+    }
+
+    .profile-content .col-4{
+        width: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-content .col-8{
+        width: 100%;
+    }
 }
 
 /* Edit Password CSS*/
