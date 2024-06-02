@@ -106,9 +106,9 @@ class RegisterController extends Controller
             if (request()->hasFile('id_photo')) {
                 $photoPath = request()->file('id_photo')->store('photos', 'public');
             } else {
-                $photoPath = 'https://via.placeholder.com/800x600';
+                $photoPath = '-';
             }
-            $profilePict = 'https://via.placeholder.com/800x600';
+            $profilePict = '-';
 
             if ($data['role'] == 'BUYER') {
                 $status = 'ACTIVE';
