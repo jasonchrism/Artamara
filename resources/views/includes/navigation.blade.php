@@ -93,7 +93,7 @@
                 <div class="profile-detail">
                     <div class="dropdown">
                         <div class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                            <img class="image-profile" src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="tet">
                             <p>{{ Auth::user()->name }}</p>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
