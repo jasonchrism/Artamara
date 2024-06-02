@@ -39,7 +39,7 @@
         @if (Auth::check())
             <div class="profile-mobile">
                 <div class="d-flex gap-2 align-items-center">
-                    <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                    <img class="image-profile" src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="tet">
                     <p>{{ Auth::user()->name }}</p>
                 </div>
             </div>
