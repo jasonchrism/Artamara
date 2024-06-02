@@ -51,6 +51,7 @@ Route::name('front.')->group(function () {
     Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
     Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
     Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
+    Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
 });
 
 Auth::routes();
