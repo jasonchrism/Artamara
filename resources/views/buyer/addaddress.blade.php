@@ -101,7 +101,7 @@
         
         <!-- Create New User Address -->
         <div class="d-flex justify-content-center create-address-container">
-            <form action="{{route('front.myaddress.store')}}" method="post"  id="add-new-address" class="form-add-container" style="display: none;">
+            <form action="{{route('front.myaddress.store')}}" method="post" id="add-new-address" class="form-add-container" style="display: none;">
                 @csrf
                 <div class="form-add-container">
                     <div class="add-address-title">
@@ -219,6 +219,7 @@
             </form>
         </div>
 </div>
+
 <script>
     function addNewAddress() {
         document.getElementById('address').style.display = 'none';
