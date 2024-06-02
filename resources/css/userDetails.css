@@ -283,19 +283,47 @@ body{
 
 /* responsive */
 
+/* this one is already good */
 @media screen and (max-width: 1300px){
     body{
         margin: 48px 80px 0;
     }
 }
+
+/* good */
 @media screen and (max-width: 1024px){
     body{
         margin: 48px 56px 0;
+    }
+    .left
+    {
+        padding-right: 200px;
     }
 }
 @media screen and (max-width: 768px){
     body{
         margin: 32px 36px 0;
+    }
+
+    .Details-upper-part {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 64px;
+    }
+
+    .right{
+        padding-left: 0px;
+    }
+
+    .left
+    {
+        padding-left: 0px;
+    }
+
+    .Detail-ID {
+        align-self: flex-start;
+        padding-bottom: 50px;
     }
 }
 @media screen and (max-width: 375px){

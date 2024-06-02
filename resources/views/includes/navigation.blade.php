@@ -39,7 +39,12 @@
         @if (Auth::check())
             <div class="profile-mobile">
                 <div class="d-flex gap-2 align-items-center">
-                    <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                    @if (Auth::user()->profile_picture == '-')
+                        <img class="image-profile" src="https://via.placeholder.com/800x600" alt="tet">
+                    @else
+                        <img class="image-profile" src="{{ Storage::url(Auth::user()->profile_picture) }}"
+                            alt="tet">
+                    @endif
                     <p>{{ Auth::user()->name }}</p>
                 </div>
             </div>
@@ -93,7 +98,12 @@
                 <div class="profile-detail">
                     <div class="dropdown">
                         <div class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                            @if (Auth::user()->profile_picture == '-')
+                                <img class="image-profile" src="https://via.placeholder.com/800x600" alt="tet">
+                            @else
+                                <img class="image-profile" src="{{ Storage::url(Auth::user()->profile_picture) }}"
+                                    alt="tet">
+                            @endif
                             <p>{{ Auth::user()->name }}</p>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">

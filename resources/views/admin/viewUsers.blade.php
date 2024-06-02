@@ -1,3 +1,5 @@
+@vite('resources/css/viewusers.css')
+
 @extends('layouts.dashboard')
 {{-- Extends untuk memanggil layout fix Artamara --}}
 
@@ -14,17 +16,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-    <div class="container">
-        <table class="table table-borderless data-table">
-            <thead>
+    <div class="container user-container">
+        <table class="table table-borderless data-table user-table">
+            <thead class="user-table-head">
                 <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>email</th>
-                    <th>Phone Number</th>
-                    <th style="text-align: center;">level</th>
-                    <th>Level</th>
-                    <th width="105px"></th>
+                    <th class="user-table-title">No</th>
+                    <th class="user-table-title">Name</th>
+                    <th class="user-table-title">Email</th>
+                    <th class="user-table-title">Phone Number</th>
+                    <th class="user-table-title">Level</th>
+                    <th class="user-table-title">Status</th>
+                    <th class="user-table-title" width="100px"></th>
 
                 </tr>
             </thead>
@@ -78,8 +80,6 @@
 @endsection
 
 @push('styles')
-    @vite('resources/css/table.css')
-
     <style>
         .modal-content {
             position: relative;
