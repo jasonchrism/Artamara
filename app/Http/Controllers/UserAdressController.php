@@ -55,7 +55,7 @@ class UserAdressController extends Controller
         $user_id = Auth::user()->user_id;
         $request->validate([
             'phone-number' => 'required|min:10|max:15',
-            'postal_code' => 'required|min:3|max:5',
+            'zip-code' => 'required|min:3|max:5',
         ]);
         $address = Address::create([
             'receiver' => $request->input('receiver-name'),
@@ -98,7 +98,7 @@ class UserAdressController extends Controller
         $address = Address::query()->where('address_id', '=', $address_id);
         $request->validate([
             'phone-number' => 'required|min:10|max:15',
-            'postal_code' => 'required|min:3|max:5',
+            'zip-code' => 'required|min:3|max:5',
         ]);
         $address->update([
             'receiver' => $request->input('update-receiver-name'),
