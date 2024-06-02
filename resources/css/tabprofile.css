@@ -380,11 +380,15 @@
     }
 
     .add-input-container{
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
     .submit-add-address-container{
         width: 295px;
+    }
+
+    .address-label{
+        margin-bottom: 10px;
     }
 }
 
