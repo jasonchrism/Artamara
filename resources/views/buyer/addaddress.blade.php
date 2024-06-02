@@ -111,31 +111,31 @@
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Receiver Name</label>
-                        <input name="receiver-name" type="text" class="form-control w-100" required>
+                        <input name="receiver-name" type="text" value="{{old('receiver-name')}}" class="form-control w-100">
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Phone Number</label>
-                        <input name="phone-number" type="text" class="form-control w-100" required>
+                        <input name="phone-number" type="text" value="{{old('phone_number')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Street</label>
-                        <input name="street" type="text" class="form-control w-100" required>
+                        <input name="street" type="text" value="{{old('street')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">City</label>
-                        <input name="city" type="text" class="form-control w-100" required>
+                        <input name="city" type="text" value="{{old('city')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">District</label>
-                        <input name="district" type="text" class="form-control w-100" required>
+                        <input name="district" type="text" value="{{old('district')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Zip Code</label>
-                        <input name="zip-code" type="text" class="form-control w-100" required>
+                        <input name="zip-code" type="text" value="{{old('zip-code')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Province</label>
-                        <input name="province" type="text" class="form-control w-100" required>
+                        <input name="province" type="text" value="{{old('province')}}" class="form-control w-100" required>
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Country</label>
