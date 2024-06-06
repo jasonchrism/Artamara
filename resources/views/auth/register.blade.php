@@ -8,6 +8,9 @@
 @endsection
 
 @section('content')
+    {{-- @if ($errors->any())
+        {{ dd($errors) }}
+    @endif --}}
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
             <div class="bg-overlay-1 wrapper">
@@ -39,9 +42,9 @@
                     <div class="form-group">
                         <label for="phone-number" class="text-white fw-semibold mb-2">{{ __('Phone Number') }}</label>
                         <input id="phone-number" type="text"
-                            class="form-control mb-3 @error('phone-number') is-invalid @enderror" name="phone_number"
-                            value="{{ old('phone-number') }}" required autocomplete="off" placeholder="08192xxxx">
-                        @error('phone-number')
+                            class="form-control mb-3 @error('phone_number') is-invalid @enderror" name="phone_number"
+                            value="{{ old('phone_number') }}" required autocomplete="off" placeholder="08192xxxx">
+                        @error('phone_number')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -71,20 +74,26 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="password-confirm" class="text-white fw-semibold mb-2">{{ __('Confirm Password') }}</label>
+                        <label for="password-confirm"
+                            class="text-white fw-semibold mb-2">{{ __('Confirm Password') }}</label>
                         <input id="password-confirm" type="password"
-                            class="form-control mb-3 @error('password') is-invalid @enderror" name="password_confirmation" required
-                            autocomplete="new-password" placeholder="password">
+                            class="form-control mb-3 @error('password') is-invalid @enderror" name="password_confirmation"
+                            required autocomplete="new-password" placeholder="password">
                     </div>
 
                     <div class="form-group">
                         <label for="role" class="text-white fw-semibold mb-2">{{ __('As') }}</label>
-                        <select class="form-select mb-3" aria-label="Default select example" name="role" id="role"
+                        <select class="form-select mb-3 @error('role') is-invalid @enderror" aria-label="Default select example" name="role" id="role"
                             aria-placeholder="Select Role">
                             <option selected>Select Role</option>
-                            <option class="test" value="BUYER">Buyer</option>
+                            <option value="BUYER">Buyer</option>
                             <option value="ARTIST">Artist</option>
                         </select>
+                        @error('role')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="artist" id="artist" style="display: none">
                         <div class="form-group">
@@ -101,9 +110,9 @@
                             <label for="identity-card"
                                 class="text-white fw-semibold mb-2">{{ __('Identity Card') }}</label>
                             <input id="identity-card" type="file"
-                                class="form-control mb-3 @error('identity-card') is-invalid @enderror" name="id_photo"
-                                value="{{ old('identity-card') }}" autocomplete="off">
-                            @error('identity-card')
+                                class="form-control mb-3 @error('id_photo') is-invalid @enderror" name="id_photo"
+                                value="{{ old('id_photo') }}" autocomplete="off">
+                            @error('id_photo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -114,8 +123,7 @@
                                 <label for="province" class="text-white fw-semibold mb-2">{{ __('Province') }}</label>
                                 <input id="province" type="text"
                                     class="form-control mb-3 @error('province') is-invalid @enderror" name="province"
-                                    value="{{ old('province') }}" autocomplete="off`"
-                                    placeholder="province">
+                                    value="{{ old('province') }}" autocomplete="off`" placeholder="province">
                                 @error('province')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -139,8 +147,7 @@
                                 <label for="district" class="text-white fw-semibold mb-2">{{ __('District') }}</label>
                                 <input id="district" type="text"
                                     class="form-control mb-3 @error('district') is-invalid @enderror" name="district"
-                                    value="{{ old('district') }}" autocomplete="district"
-                                    placeholder="district">
+                                    value="{{ old('district') }}" autocomplete="district" placeholder="district">
                                 @error('district')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -151,10 +158,10 @@
                                 <label for="postal-code"
                                     class="text-white fw-semibold mb-2">{{ __('Postal Code') }}</label>
                                 <input id="postal-code" type="text"
-                                    class="form-control mb-3 @error('postal-code') is-invalid @enderror"
-                                    name="postal_code" value="{{ old('postal-code') }}"
-                                    autocomplete="postal code" placeholder="postal-code">
-                                @error('postal-code')
+                                    class="form-control mb-3 @error('postal_code') is-invalid @enderror"
+                                    name="postal_code" value="{{ old('postal-code') }}" autocomplete="postal code"
+                                    placeholder="postal-code">
+                                @error('postal_code')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -185,5 +192,5 @@
             </div>
         </div>
     </div>
-    @vite("resources/js/register.js");
+    @vite('resources/js/register.js');
 @endsection
