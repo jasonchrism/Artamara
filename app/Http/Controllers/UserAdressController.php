@@ -51,8 +51,8 @@ class UserAdressController extends Controller
 
 
     public function store(Request $request)
-    {
-        $user_id = Auth::user()->user_id;
+    { 
+        $user_id = Auth::user()->user_id;      
         $request->validate([
             'phone-number' => 'required|min:10|max:15',
             'zip-code' => 'required|min:3|max:5',

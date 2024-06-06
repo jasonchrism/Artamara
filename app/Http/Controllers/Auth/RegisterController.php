@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use app\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Rules\ValidationStartingWithWhiteSpace;
 use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 use League\Config\Exception\ValidationException as ExceptionValidationException;
 
@@ -64,29 +67,29 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        if ($data['role'] == "BUYER") {
+        if ($data['role'] != "ARTIST") {
             return Validator::make($data, [
-                'name' => ['required', 'string', 'max:255'],
+                'name' => ['required', 'string', 'max:255', 'min:1'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'string', 'min:10', 'max:15'],
-                'role' => ['required', 'string']
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+                'role' => ['required', 'string', Rule::in(['BUYER', 'ARTIST'])]
             ]);
         }
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:1'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'string', 'min:10', 'max:15'],
-            'role' => ['required', 'string'],
+            'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users'],
+            'role' => ['required', 'string', Rule::in(['BUYER', 'ARTIST'])],
             'about' => ['required', 'string', 'min:3', 'max:1000'],
             'id_photo' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'province' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:10'],
+            'postal_code' => ['required', 'string', 'max:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'description' => ['required', 'string', 'max:255']
         ]);
     }
