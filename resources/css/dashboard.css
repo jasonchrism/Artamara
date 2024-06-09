@@ -141,7 +141,7 @@ body{
     padding: 40px 40px 40px 340px;
     display: flex;
     flex-direction: column;
-    row-gap: 64px;
+    row-gap: 40px;
 }
 h4{
     margin: 0;
