@@ -13,6 +13,7 @@ use App\Http\Controllers\Front\ChangePasswordController;
 use App\Http\Controllers\Front\EditProfileController;
 use App\Http\Controllers\Front\LandingController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MyTransactionsController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
@@ -43,17 +44,19 @@ use Illuminate\Support\Facades\Auth;
 
 Route::name('front.')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
-    Route::get('/myaddress', [UserAdressController::class, 'index'])->name('myaddress');
-    Route::get('/myaddress/add', [UserAdressController::class, 'addAddress'])->name('myaddress.addaddress');
-    Route::post('/myaddress/add', [UserAdressController::class, 'store'])->name('myaddress.store');
-    Route::get('/{id}/update', [UserAdressController::class, 'updateAddress'])->name('myaddress.formupdate');
-    Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update');
-    Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy');
-    Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault');
+    Route::get('/myaddress', [UserAdressController::class, 'index'])->name('myaddress'); // View User Address List
+    Route::get('/myaddress/add', [UserAdressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
+    Route::post('/myaddress/add', [UserAdressController::class, 'store'])->name('myaddress.store'); // Add User Address
+    Route::get('/{id}/update', [UserAdressController::class, 'updateAddress'])->name('myaddress.formupdate'); // Redirect Update User Address
+    Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update'); // Update User Address
+    Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy'); // Delete User Address
+    Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault'); // Set Default User Address
     Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
     Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
     Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
     Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
+
+    Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
 });
 
 Auth::routes();
