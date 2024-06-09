@@ -1,5 +1,5 @@
 <div class="wrapper-header">
-    <h4 class="fw-semibold">Title</h4>
+    <h4 class="fw-semibold">@yield('header_title')</h4>
     <div class="profile-detail">
         <div class="dropdown">
             <div class="d-flex gap-2 align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
