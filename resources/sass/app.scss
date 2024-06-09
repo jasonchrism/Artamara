@@ -13,6 +13,7 @@ $custom-colors: (
     "overlay-2": #464646,
     "white": #FDFFF3,
     "secondary-txt": #A0A0A0,
+    // "secondary": #FFA500,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors );

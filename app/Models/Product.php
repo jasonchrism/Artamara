@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -17,6 +18,20 @@ class Product extends Model
     protected $guarded = [
         'product_id'
     ];
+
+    protected $casts = [
+        'photo' => 'array'
+    ];
+
+    // mendapatkan foto pertama untuk thumbnail
+    public function getThumbnailAttribute()
+    {
+        if ($this->photo) {
+            return Storage::url(json_decode($this->photo)[0]);
+        }
+
+        return 'https://via.placeholder.com/800x600';
+    }
 
     protected $table = "products";
     protected $primaryKey = 'product_id';

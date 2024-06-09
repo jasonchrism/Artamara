@@ -8,12 +8,16 @@ th.user-table-title.sorting{
     color: var(--text-secondary);
 }
 
-.datatables_length {
-    margin: 24px 24px 20px 24px;
+.dataTables_length {
+    /* margin: 24px 24px 20px 24px; */
+    margin-bottom: 24px;
+    position: relative;
 }
 
-.datatables_filter {
-    margin: 24px 24px 20px 24px;
+.dataTables_filter {
+    /* margin: 24px 24px 20px 24px; */
+    margin-bottom: 24px;
+    position: relative;
 }
 
 .user-container {
@@ -23,7 +27,7 @@ th.user-table-title.sorting{
 .dataTables_wrapper .dataTables_filter input {
     width: 277px;
     height: 37px;
-    margin-left: 13px;
+    /* margin-left: 32px; */
     color: var(--text-primary);
 }
 
@@ -63,7 +67,20 @@ table.dataTable {
 }
 
 .container.user-container .dataTables_wrapper table.dataTable {
-    margin-right: 24px;
-    margin-left: 24px;
-    width: 1013px;
+    /* margin-right: 24px;
+    margin-left: 24px; */
+    /* margin-top: 24px; */
+    width: 100%;
+    position: relative;
+
 }
+.dataTables_wrapper{
+   padding: 24px 24px 24px 24px;
+}
+.btn-secondary{
+    background-color: transparent;
+}
+
+/* .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    background-color: transparent;
+} */
