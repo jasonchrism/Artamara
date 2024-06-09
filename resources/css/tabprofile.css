@@ -221,7 +221,7 @@
 
 .form-add-container {
     width: 619px;
-    height: 991px;
+    height: 999px;
     background-color: var(--bg-overlay-1);
     margin-top: 24.5px;
 }
@@ -374,9 +374,21 @@
     }
 }
 
+@media screen and (max-width: 600px) {
+    .address-label{
+        margin-bottom: 10px;
+    }
+}
+
 @media screen and (max-width: 426px) {
+
+    .address-list-container {
+        width: 380px;
+    }
+
     .form-add-container {
         width: 375px;
+        height: 1050px;
     }
 
     .add-input-container{
@@ -389,6 +401,14 @@
 
     .address-label{
         margin-bottom: 10px;
+    }
+
+    .address-box {
+        width: 300px;
+    }
+
+    .submit-address-btn-container {
+        width: 295px;
     }
 }
 
