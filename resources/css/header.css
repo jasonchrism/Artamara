@@ -6,7 +6,7 @@
     background-color: var(--bg-overlay-1);
     border: solid var(--bg-overlay-2);
     border-radius: 0;
-    inset: 10px auto auto 0px !important;
+    inset: 10px auto auto -15px !important;
 }
 
 .dropdown-item {
