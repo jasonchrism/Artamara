@@ -1,4 +1,4 @@
-@vite('resources/css/tabprofile.css')
+@vite('resources/css/buyer/tabprofile.css')
 
 @extends('layouts.app')
 

@@ -1,0 +1,27 @@
+.nav-pills .nav-item a {
+    display: block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.nav-pills .nav-item.tab-active a {
+    color: var(--primary); 
+    border-bottom: 2px solid var(--primary); 
+}
+
+.nav-pills .nav-item a:hover {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 635px) {
+    .nav.nav-pills {
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        justify-content: center;
+    }
+
+    .nav-pills .nav-item a {
+        font-size: 14px;
+        text-align: center;
+    }
+}
