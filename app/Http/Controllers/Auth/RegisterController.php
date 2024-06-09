@@ -73,7 +73,7 @@ class RegisterController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^[0-9]+$/'],
                 'role' => ['required', 'string', Rule::in(['BUYER', 'ARTIST'])]
             ]);
         }
@@ -82,14 +82,14 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users'],
+            'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^[0-9]+$'],
             'role' => ['required', 'string', Rule::in(['BUYER', 'ARTIST'])],
             'about' => ['required', 'string', 'min:3', 'max:1000'],
             'id_photo' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'province' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:10', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'postal_code' => ['required', 'string', 'max:5', 'min:5', 'regex:/^[0-9]+$'],
             'description' => ['required', 'string', 'max:255']
         ]);
     }
