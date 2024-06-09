@@ -44,7 +44,9 @@ use Illuminate\Support\Facades\Auth;
 Route::name('front.')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
     Route::get('/myaddress', [UserAdressController::class, 'index'])->name('myaddress');
-    Route::post('/myaddress', [UserAdressController::class, 'store'])->name('myaddress.store');
+    Route::get('/myaddress/add', [UserAdressController::class, 'addAddress'])->name('myaddress.addaddress');
+    Route::post('/myaddress/add', [UserAdressController::class, 'store'])->name('myaddress.store');
+    Route::get('/{id}/update', [UserAdressController::class, 'updateAddress'])->name('myaddress.formupdate');
     Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update');
     Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy');
     Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault');
