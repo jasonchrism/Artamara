@@ -1,0 +1,25 @@
+.container-catalog{
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+.container-catalog h4{
+    margin-bottom: 24px;
+}
+
+.category-img{
+    width: 158px;
+    height: auto;
+}
+.category-content{
+    flex: 0;
+}
+.category-content p{
+    font-size: 12px;
+}
+
+.wrap-category{
+    margin-bottom: 64px;
+}
+.header-artworks p{
+    font-size: 12px;
+}

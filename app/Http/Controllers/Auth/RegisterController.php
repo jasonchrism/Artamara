@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use app\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\User;
+use App\Models\UserAddress;
 use App\Rules\ValidationStartingWithWhiteSpace;
 use Dotenv\Exception\ValidationException;
 use Exception;
@@ -90,7 +92,8 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:5', 'min:5', 'regex:/^[0-9]+$/'],
-            'description' => ['required', 'string', 'max:255']
+            'description' => ['required', 'string', 'max:255'],
+            'street' => ['required', 'string', 'max:255']
         ]);
     }
 
@@ -117,25 +120,44 @@ class RegisterController extends Controller
                 $status = 'ACTIVE';
             }
 
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'username' => $data['username'],
-                'phone_number' => $data['phone_number'],
-                'role' => $data['role'],
-                'profile_picture' => $profilePict,
-                'about' => $data['about'],
-                'id_photo' => $photoPath,
-                'province' => $data['province'],
-                'city' => $data['city'],
-                'district' => $data['district'],
-                'postal_code' => $data['postal_code'],
-                'description' => $data['description'],
-                'status' => $status
-            ]);
+            try{
+                DB::beginTransaction();
+                $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'username' => $data['username'],
+                    'phone_number' => $data['phone_number'],
+                    'role' => $data['role'],
+                    'profile_picture' => $profilePict,
+                    'about' => $data['about'],
+                    'id_photo' => $photoPath,
+                    'status' => $status
+                ]);
+                $address = Address::create([
+                    'province' => $data['province'],
+                    'city' => $data['city'],
+                    'district' => $data['district'],
+                    'postal_code' => $data['postal_code'],
+                    'description' => $data['description'],
+                    'receiver' => $data['name'],
+                    'phone_number' => $data['phone_number'],
+                    'country' => 'Indonesia',
+                    'street' => $data['street']
+                ]);
+                $addressId = $address->address_id;
+                $userId = $user->user_id;
+                $test = UserAddress::create([
+                    'user_id' => $userId,
+                    'address_id' => $addressId,
+                    'is_default' => 1
+                ]);
+                DB::commit();
+                return $user;
+            }catch(Exception $e){
+                DB::rollBack();
+            }
             // dd($user);
-            return $user;
         } catch (Exception $e) {
             dd($e->getMessage());
         }
