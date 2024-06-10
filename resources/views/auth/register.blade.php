@@ -118,6 +118,18 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="street" class="text-white fw-semibold mb-2">{{ __('Street') }}</label>
+                            <input id="street" type="text"
+                                class="form-control mb-3 @error('street') is-invalid @enderror" name="street"
+                                value="{{ old('street') }}" autocomplete="street"
+                                placeholder="street">
+                            @error('street')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="row gx-2">
                             <div class="form-group col">
                                 <label for="province" class="text-white fw-semibold mb-2">{{ __('Province') }}</label>

@@ -67,7 +67,7 @@
         <div class="navigation-item">
             <ul class="navigation-item-link">
                 <li>
-                    <a href="">Catalog</a>
+                    <a href="{{route('front.catalog')}}">Catalog</a>
                 </li>
                 <li>
                     <a href="">Auctions</a>

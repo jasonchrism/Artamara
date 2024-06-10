@@ -9,6 +9,7 @@ use App\Http\Controllers\Artist\ArtSalesController;
 use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Artist\RatingController;
 use App\Http\Controllers\Artist\TransactionController;
+use App\Http\Controllers\Front\CatalogController;
 use App\Http\Controllers\Front\ChangePasswordController;
 use App\Http\Controllers\Front\EditProfileController;
 use App\Http\Controllers\Front\LandingController;
@@ -57,6 +58,7 @@ Route::name('front.')->group(function () {
     Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
 
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
+    Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
 });
 
 Auth::routes();
