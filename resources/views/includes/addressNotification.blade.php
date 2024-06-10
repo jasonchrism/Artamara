@@ -1,14 +1,12 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/notification.css')
+    @vite('resources/css/addressnotification.css')
 </head>
-<body> -->
-    <!-- {{ session('message') }} -->
-    
-    <!-- <div class="notification {{ session('status') == 'error' ? 'error' : '' }} {{ session('title') ? '' : 'no-title' }} " id="notif">
+<body>
+    <div class="notification {{ session('status') == 'error' ? 'error' : '' }} {{ session('title') ? '' : 'no-title' }} " id="notif">
         <div class="d-flex">
             <div>
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="notification-icon">
@@ -17,19 +15,13 @@
             </div>
             <div class="notification-title text-center">
                 <div class="title-container">
-                    <p class="title fw-semibold">{{ session('title') }}</p>
+                    <p class="title fw-semibold">{{ session('address_title') }}</p>
                 </div>
                 <div>
                     <p class="notification-art-name fw-semibold">{{ session('art-name') }}</p>
                     <p class="notification-artist-name fw-semibold">{{ session('artist-name') }}</p>
                 </div>
             </div>
-            <div class="notification-price">
-                <p class="fw-regular">{{ session('art-price') }}</p>
-            </div>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="notification-close-icon">
-                <path d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z" fill="#464646"/>
-            </svg>
         </div>
     </div>
 
@@ -52,4 +44,4 @@
         });
     </script>
 </body>
-</html> -->
+</html>

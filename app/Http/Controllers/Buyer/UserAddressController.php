@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Buyer;
 
-use App\Http\Requests\StoreAddressRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Address;
-use App\Models\User;
 use App\Models\UserAddress;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
-class UserAdressController extends Controller
+class UserAddressController extends Controller
 {
     public function index()
     {
@@ -62,8 +61,15 @@ class UserAdressController extends Controller
     { 
         $user_id = Auth::user()->user_id;      
         $request->validate([
-            'phone-number' => 'required|min:10|max:15|unique:addresses,phone_number',
+            'receiver-name' => ['required', 'string', 'max:255', 'min:1'],
+            'phone-number' => 'required|min:10|max:15',
+            'street' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'district' => ['required', 'string', 'max:255'],
+            'province' => ['required', 'string', 'max:255'],
             'zip-code' => 'required|min:3|max:5|regex:/^[0-9]+$/',
+            'country' => 'required',
+            'description' => ['required', 'string', 'max:255'],
         ]);
         try {
             DB::beginTransaction();
@@ -83,7 +89,7 @@ class UserAdressController extends Controller
         } catch (Exception $e){
             DB::rollBack();
             return redirect('/myaddress')->with([
-                'title' => 'Address not created!',
+                'address_title' => 'Address not created!',
                 'error' => 'error'
             ]);
         }
@@ -107,7 +113,7 @@ class UserAdressController extends Controller
             ]);
         }
 
-        return redirect('/myaddress')->with('title', 'Address successfully created!');
+        return redirect('/myaddress')->with('address_title', 'Address successfully created!');
     }
 
     public function updateAddress($id) {
@@ -124,14 +130,15 @@ class UserAdressController extends Controller
         $address_id = $request->input('update-address-id');
         $address = Address::find($address_id);
         $request->validate([
-            'update-phone-number' => [
-                'required',
-                'min:10',
-                'max:15',
-                'regex:/^[0-9]+$/',
-                Rule::unique('addresses', 'phone_number')->ignore($address_id, 'address_id'),
-            ],
+            'update-receiver-name' => ['required', 'string', 'max:255', 'min:1'],
+            'update-phone-number' => 'required|min:10|max:15',
+            'update-street' => ['required', 'string', 'max:255'],
+            'update-city' => ['required', 'string', 'max:255'],
+            'update-district' => ['required', 'string', 'max:255'],
+            'update-province' => ['required', 'string', 'max:255'],
             'update-zip-code' => 'required|min:3|max:5|regex:/^[0-9]+$/',
+            'update-country' => 'required',
+            'update-description' => ['required', 'string', 'max:255'],
         ]);
         
         try {
@@ -152,12 +159,12 @@ class UserAdressController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect('/myaddress')->with([
-                'title' => 'Address not updated!',
+                'address_title' => 'Address not updated!',
                 'error' => 'error'
             ]);
         }
 
-        return redirect('/myaddress')->with('title', 'Address successfully updated!');
+        return redirect('/myaddress')->with('address_title', 'Address updated!');
     }
 
 

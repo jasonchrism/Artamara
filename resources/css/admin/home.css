@@ -1,0 +1,63 @@
+.mr-left {
+    max-width: 1320px;
+    margin-left: 34px;
+}
+
+.count-container {
+    margin-top: 32px;
+}
+
+.item-container {
+    background-color: var(--bg-overlay-1);
+    width: 240px;
+    height: 120px;
+    margin-right: 16px;
+}
+
+.monthly {
+    width: 598px;
+    height: 276px;
+    margin-right: 24px;
+}
+
+.monthly p {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.return-table {
+    width: 386px;
+    height: 276px;
+    background-color: var(--bg-overlay-1);
+}
+
+.return p {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.on-going-auctions {
+    margin-right: 20px;
+}
+
+.on-going-auctions p {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.on-going-auctions-table {
+    width: 503px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.verification-requests p {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.verification-requests-table {
+    width: 482px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}

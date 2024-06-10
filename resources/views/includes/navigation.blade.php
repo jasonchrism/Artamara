@@ -114,7 +114,7 @@
                         </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('front.myprofile') }}">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">My Transactions</a></li>
+                            <li><a class="dropdown-item" href="{{ route('front.mytransactions') }}">My Transactions</a></li>
                             <li><a class="dropdown-item" href="#">My Bids</a></li>
                             <li>
                                 <a class="dropdown-item" href="#"
