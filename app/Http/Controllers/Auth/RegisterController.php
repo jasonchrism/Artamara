@@ -158,6 +158,28 @@ class RegisterController extends Controller
                 DB::rollBack();
             }
             // dd($user);
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'username' => $data['username'],
+                'phone_number' => $data['phone_number'],
+                'role' => $data['role'],
+                'profile_picture' => $profilePict,
+                'about' => $data['about'],
+                'id_photo' => $photoPath,
+                'province' => $data['province'],
+                'city' => $data['city'],
+                'district' => $data['district'],
+                'postal_code' => $data['postal_code'],
+                'description' => $data['description'],
+                'status' => $status
+            ]);
+
+            $address = Address::create([
+                
+            ]);
+            return $user;
         } catch (Exception $e) {
             dd($e->getMessage());
         }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Artist\RatingController;
 use App\Http\Controllers\Artist\TransactionController;
 use App\Http\Controllers\Front\CatalogController;
+use App\Http\Controllers\Buyer\UserAddressController;
 use App\Http\Controllers\Front\ChangePasswordController;
 use App\Http\Controllers\Front\EditProfileController;
 use App\Http\Controllers\Front\LandingController;
@@ -19,7 +20,6 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\GuestMiddleware;
-use App\Http\Controllers\UserAdressController;
 use App\Http\Controllers\ViewUsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -45,13 +45,13 @@ use Illuminate\Support\Facades\Auth;
 
 Route::name('front.')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
-    Route::get('/myaddress', [UserAdressController::class, 'index'])->name('myaddress'); // View User Address List
-    Route::get('/myaddress/add', [UserAdressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
-    Route::post('/myaddress/add', [UserAdressController::class, 'store'])->name('myaddress.store'); // Add User Address
-    Route::get('/{id}/update', [UserAdressController::class, 'updateAddress'])->name('myaddress.formupdate'); // Redirect Update User Address
-    Route::put('/myaddress', [UserAdressController::class, 'update'])->name('myaddress.update'); // Update User Address
-    Route::delete('/myaddress', [UserAdressController::class, 'destroy'])->name('myaddress.destroy'); // Delete User Address
-    Route::put('/myaddress/set-default', [UserAdressController::class, 'create'])->name('myaddress.setdefault'); // Set Default User Address
+    Route::get('/myaddress', [UserAddressController::class, 'index'])->name('myaddress'); // View User Address List
+    Route::get('/myaddress/add', [UserAddressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
+    Route::post('/myaddress/add', [UserAddressController::class, 'store'])->name('myaddress.store'); // Add User Address
+    Route::get('/{id}/update', [UserAddressController::class, 'updateAddress'])->name('myaddress.formupdate'); // Redirect Update User Address
+    Route::put('/myaddress', [UserAddressController::class, 'update'])->name('myaddress.update'); // Update User Address
+    Route::delete('/myaddress', [UserAddressController::class, 'destroy'])->name('myaddress.destroy'); // Delete User Address
+    Route::put('/myaddress/set-default', [UserAddressController::class, 'create'])->name('myaddress.setdefault'); // Set Default User Address
     Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
     Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
     Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
@@ -76,6 +76,8 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
 });
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
+    Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
+    Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
     Route::resource('artist-transactions', TransactionController::class);

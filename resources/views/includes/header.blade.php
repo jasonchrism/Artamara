@@ -18,7 +18,7 @@
                 </svg>
             </div>
             <ul class="dropdown-menu" style="inset: 0px auto auto -40px">
-                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('showProfile') }}">My Profile</a></li>
                 <li>
                     <a class="dropdown-item" href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
