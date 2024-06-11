@@ -19,7 +19,78 @@
 
 .wrap-category{
     margin-bottom: 64px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .header-artworks p{
     font-size: 12px;
+}
+.card-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1em;
+    margin: 0;
+}
+
+.card-desc {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.card-body {
+    padding: 0.75em 0 0 0;
+}
+
+.card {
+    border: none;
+    background-color: transparent;
+}
+
+.card-img-top{
+    border-radius: 0px;
+}
+
+.wrap-pagination{
+    width: 100%;
+}
+
+.page-link{
+    background-color: transparent;
+    border: none;
+    color:var(--text-primary);
+    border-radius: 0px;
+}
+.page-link:hover{
+    background-color: transparent;
+    border: none;
+    color:var(--primary);
+}
+.page-link.active, .active > .page-link {
+    color: var(--primary);
+    background-color: transparent;
+}
+.page-link.disabled, .disabled > .page-link {
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+/* custom.css */
+.pagination .page-link:focus {
+    --bs-pagination-focus-box-shadow: none; /* or any other value you prefer */
+}
+
+@media screen and (max-width: 1300px){
+    
+}
+@media screen and (max-width: 1024px){
+    .wrap-category{
+        justify-content: start;
+        gap: 24px;
+    }
+}
+@media screen and (max-width: 768px){
+}
+@media screen and (max-width: 375px){
+    
 }

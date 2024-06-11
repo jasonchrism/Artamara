@@ -134,24 +134,26 @@ class RegisterController extends Controller
                     'id_photo' => $photoPath,
                     'status' => $status
                 ]);
-                $address = Address::create([
-                    'province' => $data['province'],
-                    'city' => $data['city'],
-                    'district' => $data['district'],
-                    'postal_code' => $data['postal_code'],
-                    'description' => $data['description'],
-                    'receiver' => $data['name'],
-                    'phone_number' => $data['phone_number'],
-                    'country' => 'Indonesia',
-                    'street' => $data['street']
-                ]);
-                $addressId = $address->address_id;
-                $userId = $user->user_id;
-                $test = UserAddress::create([
-                    'user_id' => $userId,
-                    'address_id' => $addressId,
-                    'is_default' => 1
-                ]);
+                if($data['role'] == "ARTIST"){
+                    $address = Address::create([
+                        'province' => $data['province'],
+                        'city' => $data['city'],
+                        'district' => $data['district'],
+                        'postal_code' => $data['postal_code'],
+                        'description' => $data['description'],
+                        'receiver' => $data['name'],
+                        'phone_number' => $data['phone_number'],
+                        'country' => 'Indonesia',
+                        'street' => $data['street']
+                    ]);
+                    $addressId = $address->address_id;
+                    $userId = $user->user_id;
+                    UserAddress::create([
+                        'user_id' => $userId,
+                        'address_id' => $addressId,
+                        'is_default' => 1
+                    ]);
+                }
                 DB::commit();
                 return $user;
             }catch(Exception $e){

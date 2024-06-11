@@ -10,7 +10,7 @@
 @section('content')
     <div class="container-catalog">
         <h4 class="text-white fw-semibold">Browse by Category</h4>
-        <div class="d-flex justify-content-between wrap-category">
+        <div class="d-flex wrap-category">
             <a href="" class="col category-content">
                 <img src="assets/category1.png" class="category-img" alt="">
                 <p class="d-inline">Realism</p>
@@ -42,8 +42,27 @@
         </div>
         <div class="header-artworks">
             <h4 class="text-white fw-semibold mb-3">All Artworks</h4>
-            <p>1.250.289 Artworks:</p>
+            <p class="mb-3">{{ number_format($count, 0, ',', '.') }} Artworks:</p>
         </div>
+        <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
+            @foreach ($products as $product)
+                <div class="col-md-3 mb-3">
+                    <a href="#">
+                        <div class="card">
+                            <img src="{{ $product->thumbnail }}" alt="" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->title }}</h5>
+                                <p class="card-desc">{{ $product->user->name }}</p>
+                                <p class="card-desc">{{ $product->year }}</p>
+                                <h5 class="card-title" style="color: var(--primary); font-weight:400;">
+                                    {{ 'Rp' . number_format($product->price, 0, ',', '.') }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        {{$products->onEachSide(5)->links()}}
     </div>
 @endsection
 
