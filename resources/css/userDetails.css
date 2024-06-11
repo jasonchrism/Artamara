@@ -14,7 +14,7 @@
     --bg-label-primary : #4B5D02;
     --bg-label-blue : #001F6E;
     --font-active-status : #95D3FF;
-    --backgrond-inactive: #401111;
+    --background-inactive: #401111;
 
 }
 
@@ -106,6 +106,24 @@ body{
 .btn-primary:hover{
     background-color: #ABD400;
 }
+.btn-danger{
+    background-color: var(--background-inactive);
+    color: var(--bg-danger);
+    font-size: 14px;
+    width: 140px;
+    height: 33px;
+}
+.btn-danger:hover{
+    background-color: var(--background-inactive);
+    color: var(--bg-danger);
+}
+
+.btn-danger:active{
+    background-color:  var(--background-inactive);
+    color: var(--bg-danger);
+}
+
+
 
 .btn-secondary
 {
@@ -113,22 +131,31 @@ body{
     background-color: transparent;
 }
 
+.btn-secondary:hover
+{
+    color: #ABD400;
+    background-color: transparent;
+}
+
 .btn-banned
 {
-    background-color: var(--backgrond-inactive);
-    color: var(--bg-danger);
+    /* background-color: var(--background-inactive); */
+    /* color: var(--bg-danger);
     font-size: 14px;
     width: 140px;
-    height: 33px;
+    height: 33px; */
 }
+
 
 .btn-banned:hover
 {
-    background-color: var(--backgrond-inactive);
-    color: var(--bg-danger);
+    /* background-color: var(--background-inactive); */
+    /* color: var(--bg-danger);
     font-size: 14px;
     width: 140px;
-    height: 33px;
+    height: 33px; */
+    /* visibility: visible; */
+    /* opacity: 1;   */
 }
 
 .form-select{
