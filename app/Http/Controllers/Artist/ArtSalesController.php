@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Artist;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ArtRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -59,18 +61,20 @@ class ArtSalesController extends Controller
                 <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . 'Label" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="header">
-                                <h5 class="modal-title" id="' . $modalId . 'Label">Delete User</h5>
-                            </div>
+                           
+                                <h5 class="modal-title" id="' . $modalId . 'Label">Delete Product</h5>
+                            
                             <div class="content-body-delete">
-                                <p style="color: var(--bs-secondary-txt);">Are you sure to delete this user?</p>
+                                <p style="color: var(--bs-secondary-txt);">Are you sure to delete this product?</p>
                             </div>
                             <div class="footer-modal-delete">
                                 <form action="' . $deleteProduct . '" method="post">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="' . $csrfToken . '">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <div class = "button-action-delete">
+                                        <button type="button" class="close" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Delete</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -85,8 +89,8 @@ class ArtSalesController extends Controller
         // Ini untuk kasih nama page
         $pageTitle = 'Products';
         return view('artist.artSale.index', [
-            'pageTitles' => $pageTitle , compact('data')
-        ]);
+            'pageTitles' => $pageTitle,
+        ],compact('data'));
     }
 
     /**
@@ -101,9 +105,27 @@ class ArtSalesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArtRequest $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        if($request->hasFile('photo')){
+            $product_photo = [];
+
+            foreach($request->file('photo') as $picture){
+                $photo_path = $picture->store('storage/photos' , 'public');
+
+                array_push($product_photo , $photo_path);
+            }
+            $data['photo'] = json_encode($product_photo);
+        }
+        // dd($request->category_id);
+        $user = Auth::user();
+        $data['user_id'] = $user->user_id;
+        // dd($data);
+        Product::create($data);
+        return redirect()->route('artist-sales.index');
+
     }
 
     /**
@@ -111,7 +133,8 @@ class ArtSalesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        return view('artist.artSale.detail', compact('product'));
     }
 
     /**
