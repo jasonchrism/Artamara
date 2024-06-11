@@ -23,16 +23,15 @@ class ArtRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => 'required|array|min:1|max:5',
+            'photo' => 'required|array|min:1|max:5|',
             'title' => 'required|string|min:3|max:50',
-            'category_id' => 'required|exists:categories,category_id',
-            'description' => 'required|text|min:3|max:200',
+            'description' => 'required|string|min:3|max:200',
             'medium' => 'required|string|min:3|max:20',
             'material' => 'required|string|min:3|max:20',
-            'price' => 'required|integer',
-            'length' => 'required|integer',
-            'width' => 'required|integer',
-            'stock' => 'required|integer',
+            'price' => 'required|integer|min:1',
+            'length' => 'required|integer|min:1',
+            'width' => 'required|integer|min:1',
+            'stock' => 'required|integer|min:1',
             'year' => 'required|integer|min:1100|max:2024',
         ];
     }

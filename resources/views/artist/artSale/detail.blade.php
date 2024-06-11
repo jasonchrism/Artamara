@@ -1,25 +1,10 @@
-@extends('layouts.dashboard')
+@extends('layouts.details')
+
 @section('title')
-    Sales
+    details
 @endsection
-
+    <h1>{{$product->title}}</h1>
+    <img src="{{$product->thumbnail}}" alt="">
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        {{ __('You are logged in as artist!') }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 @endsection

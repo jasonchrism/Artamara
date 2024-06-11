@@ -63,11 +63,13 @@ class ViewUsersController extends Controller
                                     <p style="color: var(--bs-secondary-txt);">Are you sure to delete this user?</p>
                                 </div>
                                 <div class="footer-modal-delete">
-                                    <form action="'. $deleteArtist. '" method="post">
-                                        <input type="hidden" name="_token" value="' . $csrfToken . '">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Delete</button>
-                                    </form>
+                                    <form action="' . $deleteArtist . '" method="post">
+                                    <input type="hidden" name="_token" value="' . $csrfToken . '">
+                                    <div class = "button-action-delete">
+                                        <button type="button" class="close" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                    </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
