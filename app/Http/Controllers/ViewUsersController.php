@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ViewUsersController extends Controller
@@ -94,6 +96,7 @@ class ViewUsersController extends Controller
         $user->role = ucfirst(strtolower($user->role));
         $user->status = ucfirst(strtolower($user->status));
         $pageTitle = 'User Detail';
+        // dd($user);
         return view('admin.userDetails', [
             'pageTitles' => $pageTitle,
             'user' => $user,

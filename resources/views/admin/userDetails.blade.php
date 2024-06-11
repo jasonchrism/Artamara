@@ -3,7 +3,9 @@
 @section('title')
     {{ $pageTitles }}
 @endsection
-
+@push('styles')
+@vite('resources/css/userDetails.css')
+@endpush
 @section('content')
     <div class="container">
         <div class="d-flex align-items-center mb-3">
@@ -13,11 +15,9 @@
             <h1 class="mb-0 .fw-semibold " style="color: var(--text-primary); font-size: 20px;">User Details</h1>
         </div>
         <div class="layout-user-detail">
-            {{-- {{dd()}} --}}
             <div class="Details-upper-part">
                 <div class="user-profile">
-                    <img src="{{ $user->profile_picture }}" alt="User Profile Image" style="max-width: 216px;">
-                    {{-- <img src="{{ asset('profile2.jpg') }}" alt="User Profile Image" style="max-width: 200px;"> --}}
+                    <img src="{{ Storage::url($user->profile_picture) }}" alt="User Profile Image" style="max-width: 216px;">
                 </div>
                 <div class="user-details left">
                     <div class="detail-item">
@@ -62,11 +62,11 @@
                     <div class="Detail-ID">
                         <h2 class=".fw-semibold" style="font-size: 18px; color: var(--text-primary); padding-bottom:24px;">
                             ID Photo</h2>
-                        <img src="{{ $user->profile_picture }}" alt="User Profile Image" style="max-width: 216px;">
+                        <img src="{{ Storage::url($user->id_photo) }}" alt="User Profile Image" style="max-width: 216px;">
                     </div>
                     <div class="Change-status">
                         @if ($user->status == 'Active')
-                            <button type="button" class="btn btn-banned" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#confirmationBanned">Ban</button>
                         @elseif ($user->status == 'Unverified')
                             <button type="button" class="btn btn-primary" style="width: 140px;" data-bs-toggle="modal"
@@ -125,6 +125,4 @@
 
     @endsection
 
-    @push('styles')
-        @vite('resources/css/userDetails.css')
-    @endpush
+
