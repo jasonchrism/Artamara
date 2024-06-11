@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'category_id' => '2',
-                'name' => 'PhotoRealism',
+                'name' => 'Photorealism',
                 'Description' => 'Photorealism is an art form that emerged in the late 1960s and early 1970s. It is a branch of realism that strives to reproduce a photograph in a painting or other medium with a high degree of accuracy and detail. Photorealist artists often use photographs as source material, and they meticulously recreate the image using techniques such as airbrushing, pencil drawing, and oil painting.'
             ],
             [

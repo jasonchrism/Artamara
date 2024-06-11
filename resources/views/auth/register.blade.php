@@ -171,7 +171,7 @@
                                     class="text-white fw-semibold mb-2">{{ __('Postal Code') }}</label>
                                 <input id="postal-code" type="text"
                                     class="form-control mb-3 @error('postal_code') is-invalid @enderror"
-                                    name="postal_code" value="{{ old('postal-code') }}" autocomplete="postal code"
+                                    name="postal_code" value="{{ old('postal_code') }}" autocomplete="postal code"
                                     placeholder="postal-code">
                                 @error('postal_code')
                                     <span class="invalid-feedback" role="alert">
