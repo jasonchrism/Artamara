@@ -29,7 +29,7 @@ class ArtSalesController extends Controller
                 ->addColumn('action', function ($row) {
                     $detailsUrl = route('artist-sales.show', $row->product_id);
                     $deleteProduct = route('artist-sales.destroy', $row->product_id);
-                    $updatesUrl = route('artist-sales.update', $row->product_id);
+                    $updatesUrl = route('artist-sales.edit', $row->product_id);
                     // intinya ini untuk balikin dropdown ke tables
                     $modalId = 'modal-' . $row->product_id;
                     $csrfToken = csrf_token();
@@ -142,15 +142,35 @@ class ArtSalesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('artist.artSale.update', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ArtRequest $request, string $id)
     {
-        //
+        // dd($request->all());
+        $product = Product::find($id);
+        $data = $request->all();
+        if($request->hasFile('photo')){
+            $product_photo = [];
+
+            foreach($request->file('photo') as $picture){
+                $photo_path = $picture->store('storage/photos' , 'public');
+
+                array_push($product_photo , $photo_path);
+            }
+            $data['photo'] = json_encode($product_photo);
+        }
+        // dd($data);
+        $product->update($data);
+
+        return redirect()->route('artist-sales.index');
+
+
     }
 
     /**
