@@ -89,7 +89,7 @@ class UserAddressController extends Controller
         } catch (Exception $e){
             DB::rollBack();
             return redirect('/myaddress')->with([
-                'address_title' => 'Address not created!',
+                'address_title' => 'Address create failed!',
                 'error' => 'error'
             ]);
         }
@@ -141,6 +141,7 @@ class UserAddressController extends Controller
             'update-description' => ['required', 'string', 'max:255'],
         ]);
         
+        
         try {
             DB::beginTransaction();
             $address->update([
@@ -159,12 +160,12 @@ class UserAddressController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect('/myaddress')->with([
-                'address_title' => 'Address not updated!',
+                'address_title' => 'Address update failed!',
                 'error' => 'error'
             ]);
         }
 
-        return redirect('/myaddress')->with('address_title', 'Address updated!');
+        return redirect('/myaddress')->with('address_title', 'Address successfully updated!');
     }
 
 
