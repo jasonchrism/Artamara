@@ -30,94 +30,19 @@
             <h3>View more</h3>
         </div>
         <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
+            @foreach($products as $p)
             <div class="col-md-3 mb-3">
                 <div class="card">
-                    <img src="assets/art1.jpg" class="card-img-top" alt="...">
+                    <img src="{{ $p->thumbnail }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
+                        <h5 class="card-title">{{ $p->title }}</h5>
+                        <p class="card-desc">{{ $p->description }}</p>
+                        <p class="card-desc">{{ $p->year }}</p>
+                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">{{ $p->price }}</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art2.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art3.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art4.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art7.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art6.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art8.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="assets/art5.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sepi Penghujung</h5>
-                        <p class="card-desc">Joko Pinurbo</p>
-                        <p class="card-desc">2014</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">Rp 120.000.000</h5>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
     </section>

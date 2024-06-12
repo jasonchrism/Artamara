@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('includes.notification')
+@include('includes.addressNotification')
 <div style="margin-top: 62px;">
     <ul class="nav nav-pills" id="myTab">
         <li class="nav-item tab-link">
