@@ -63,8 +63,8 @@ class ChangePasswordController extends Controller
         $profile_updated = User::query()->where('user_id', '=', $user_id)->first();
 
         $request->validate([
-            'oldPassword' => ['required', 'string'],
-            'newPassword' => ['required', 'string'],
+            'oldPassword' => ['required', 'string', 'min:8', 'confirmed'],
+            'newPassword' => ['required', 'string', 'min:8', 'confirmed'],
             'confirmPassword' => ['required', 'string', 'same:newPassword']
         ]);
 
@@ -77,10 +77,10 @@ class ChangePasswordController extends Controller
             $profile_updated->update([
                 'password'=>bcrypt($request->newPassword)
             ]);
-
-            return redirect()->back()->with('success', 'password updated');
+            
+            return redirect('/myprofile/password')->with('title', 'password updated');
         }else{
-            return redirect()->back()->with('error', 'Old password does not matched');
+            return redirect('/myprofile/password')->with('title', 'Old password does not matched');
         }
         
     }
