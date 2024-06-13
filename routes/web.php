@@ -59,7 +59,7 @@ Route::name('front.')->group(function () {
 
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
-});
+}); 
 
 Auth::routes();
 
@@ -83,3 +83,5 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::resource('artist-transactions', TransactionController::class);
     Route::resource('rating', RatingController::class);
 });
+
+

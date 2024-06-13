@@ -12,7 +12,7 @@
             <div class="footer-logo">
                 <img src="{{ asset('/assets/logo.svg') }}" alt="">
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor sed do eiusmod tempor </p>
+            <p>Embark on a journey of refined beauty and curated elegance of locally exclusive art collections and sophisticated design, ensuring a seamless and refined experience throughout.</p>
             <div class="footer-social-logo">
                 <i class="fa-regular fa-envelope" style="color: #cefe06;"></i>
                 <i class="fa-brands fa-x-twitter" style="color: #cefe06;"></i>
