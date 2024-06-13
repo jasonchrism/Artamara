@@ -62,7 +62,7 @@ class UserAddressController extends Controller
         $user_id = Auth::user()->user_id;      
         $request->validate([
             'receiver-name' => ['required', 'string', 'max:255', 'min:1'],
-            'phone-number' => 'required|min:10|max:15',
+            'phone-number' => ['required', 'string', 'min:10', 'max:15', 'regex:/^[0-9]+$/'],
             'street' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],
@@ -131,7 +131,7 @@ class UserAddressController extends Controller
         $address = Address::find($address_id);
         $request->validate([
             'update-receiver-name' => ['required', 'string', 'max:255', 'min:1'],
-            'update-phone-number' => 'required|min:10|max:15',
+            'update-phone-number' => ['required', 'string', 'min:10', 'max:15', 'regex:/^[0-9]+$/'],
             'update-street' => ['required', 'string', 'max:255'],
             'update-city' => ['required', 'string', 'max:255'],
             'update-district' => ['required', 'string', 'max:255'],
