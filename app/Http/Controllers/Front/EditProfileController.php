@@ -60,14 +60,39 @@ class EditProfileController extends Controller
     public function update(Request $request)
     {
         $user_id = Auth::user()->user_id;
-        $profile_updated = User::query()->where('user_id', '=', $user_id);
+        $profile_updated = User::query()->where('user_id', '=', $user_id)->first();;
 
-        $request->validate([
-            'name' => ['required', 'string'],
-            'username' => ['required', 'string'],
-            'phone_number' => ['required', 'numeric'],
-            'profile_picture' => ['image']
-        ]);
+        if($profile_updated->username == $request->username && $profile_updated->phone_number != $request->phone_number){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:1'],
+                'username' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^[0-9]+$/'],
+                'profile_picture' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+        }else if($profile_updated->phone_number == $request->phone_number && $profile_updated->username != $request->username){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:1'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'regex:/^[0-9]+$/'],
+                'profile_picture' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+        }else if($profile_updated->phone_number == $request->phone_number && $profile_updated->username == $request->username){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:1'],
+                'username' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'regex:/^[0-9]+$/'],
+                'profile_picture' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+
+
+        }else{
+            $request->validate([
+                'name' => ['required', 'string', 'max:255', 'min:1'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'min:10', 'max:15', 'unique:users', 'regex:/^[0-9]+$/'],
+                'profile_picture' => 'image|mimes:png,jpg,jpeg|max:2048'
+            ]);
+        }
 
 
         if (request()->hasFile('profile_picture')) {
@@ -87,7 +112,7 @@ class EditProfileController extends Controller
         }
 
 
-        return redirect('/myprofile');
+        return redirect('/myprofile')->with('title','Profile successfully updated!');
     }
 
     /**
