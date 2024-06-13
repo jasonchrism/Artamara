@@ -1,6 +1,7 @@
 @vite('resources/css/buyer/tabprofile.css')
 
 @extends('layouts.app')
+@include('includes.addressNotification')
 
 @section('content')
 
@@ -75,9 +76,7 @@
                             </button>
                         </div>
 
-                        @if (session('message'))
-                            <h5 class="alert alert-success mb-2">{{ session('message') }}</h5>
-                        @endif
+                        
 
                         </form>
                 </div>
