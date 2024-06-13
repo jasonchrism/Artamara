@@ -27,7 +27,12 @@
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Receiver Name</label>
-                        <input name="update-receiver-name" value="{{ old('update-receiver-name', $address->receiver) }}" type="text" class="form-control w-100" required>
+                        <input name="update-receiver-name" value="{{ old('update-receiver-name', $address->receiver) }}" type="text" class="form-control w-100 @error('update-receiver-name') is-invalid @enderror" required>
+                        @error('update-receiver-name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Phone Number</label>
@@ -40,15 +45,30 @@
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Street</label>
-                        <input name="update-street" value="{{ old('update-street', $address->street) }}" type="text" class="form-control w-100" required>
+                        <input name="update-street" value="{{ old('update-street', $address->street) }}" type="text" class="form-control w-100 @error('update-street') is-invalid @enderror" required>
+                        @error('update-street')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">City</label>
-                        <input name="update-city" value="{{ old('update-city', $address->city) }}" type="text" class="form-control w-100" required>
+                        <input name="update-city" value="{{ old('update-city', $address->city) }}" type="text" class="form-control w-100 @error('update-city') is-invalid @enderror" required>
+                        @error('update-city')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">District</label>
-                        <input name="update-district" value="{{ old('update-district', $address->district) }}" type="text" class="form-control w-100" required>
+                        <input name="update-district" value="{{ old('update-district', $address->district) }}" type="text" class="form-control w-100 @error('update-district') is-invalid @enderror" required>
+                        @error('update-district')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Zip Code</label>
@@ -61,19 +81,34 @@
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Province</label>
-                        <input name="update-province" value="{{ old('update-province', $address->province) }}" type="text" class="form-control w-100" required>
+                        <input name="update-province" value="{{ old('update-province', $address->province) }}" type="text" class="form-control w-100 @error('update-province') is-invalid @enderror" required>
+                        @error('update-province')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Country</label>
-                        <select name="update-country" id="country" class="form-control w-100">
+                        <select name="update-country" id="country" class="form-control w-100 @error('update-country') is-invalid @enderror">
                             @foreach($countries as $country)
                                 <option value="{{ $country }}" {{ $address->country == $country ? 'selected' : '' }} class="add-address-country">{{ $country }}</option>
                             @endforeach
                         </select>
+                        @error('update-country')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="add-input-container">
                         <label class="address-label">Description</label>
-                        <textarea name="update-description" class="form-control w-100 add-address-description">{{ old('update-description', $address->description) }}</textarea>
+                        <textarea name="update-description" class="form-control w-100 add-address-description @error('update-description') is-invalid @enderror">{{ old('update-description', $address->description) }}</textarea>
+                        @error('update-description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="d-flex justify-content-center submit-add-address-container">
                         <button type="submit" class="btn btn-primary submit-update-address-btn fw-semibold">
