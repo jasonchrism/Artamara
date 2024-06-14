@@ -1,0 +1,175 @@
+/* Bagian atas */
+.Upper-details-container
+{
+    display: flex;
+    padding-bottom: 64px;
+    padding-top: 64px;
+}
+
+.carousel{
+    display: flex;
+    justify-content: center;
+}
+
+/* ini untuk bagian carousels */
+.carousel-inner
+{
+    display: flex;
+    justify-content: start;
+    width: 75%;
+}
+
+.carousel-item.active {
+    display: flex;
+    justify-content: center;
+    max-width: auto;
+}
+
+.carousel-inner {
+    height: 75%;
+}
+
+.carousel-item {
+    width: 100%;
+}
+
+.carousel-item img
+{
+    width: 100%;
+}
+
+.carousel-indicators
+{
+    bottom: -63px;
+}
+
+.carousel-indicators [data-bs-target]
+{
+    width: 8px;
+    height: 8px;
+    list-style-type: circle;
+    background-color: var(--bg-overlay-2);
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+    background-color: var(--primary);
+}
+
+/* button plus dan minus stock */
+.product-stock {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+
+
+.product-stock .btn {
+    font-size: 24px;
+    height: 44px;
+    width: 44px;
+    font-weight: 500;
+    border: none;
+    color: var(--primary);
+    display: inline-block;
+    background-color: transparent;
+    border: 1.5px solid var(--bg-overlay-1);
+    display: flex;
+    align-items: center;
+}
+
+
+.product-stock .btn:hover {
+    background-color: var(--primary-dark);
+    cursor: pointer;
+}
+
+.product-stock .decrement-btn {
+    border-right: none; /* Hapus border kanan untuk menyambung dengan input */
+}
+
+.product-stock .increment-btn {
+    border-left: none; /* Hapus border kiri untuk menyambung dengan input */
+}
+
+.buy-now
+{
+    width: 422px;
+}
+
+.cart
+{
+    background-color: var(--bg-overlay-1);
+}
+
+/* .product-stock input {
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+} */
+
+
+/* bagian bawah */
+
+.Lower-details-container
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.Artwork-About
+{
+    color: var(--text-primary);
+    padding-right: 32px;
+}
+
+.Artwork-About-Details
+{
+    border: 1.5px solid var(--bg-overlay-1);
+    padding: 16px;
+}
+
+.Artist-About
+{
+    color: var(--text-primary);
+    padding-left: 32px;
+}
+
+.Artist-About-Details
+{
+    display: flex;
+    flex-direction: row;
+    border: 1.5px solid var(--bg-overlay-1);
+    padding: 16px;
+
+}
+
+.Artist-About-Details-Pic
+{
+    display: flex;
+    flex-direction: row;
+    padding-right: 8px;
+}
+
+.Artist-About-Details-Desc
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.artist-about-description-text{
+    color: var(--text-secondary);
+}
+
+.image-profile {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+

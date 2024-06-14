@@ -47,7 +47,8 @@
         <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
             @foreach ($products as $product)
                 <div class="col-md-3 mb-3">
-                    <a href="#">
+                    {{-- ini untuk connect ke art details berdasarkan id product yang ditekan --}}
+                    <a href="/productDetails/{{ $product->product_id }}">
                         <div class="card">
                             <img src="{{ $product->thumbnail }}" alt="" class="card-img-top">
                             <div class="card-body">
