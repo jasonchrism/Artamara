@@ -56,6 +56,10 @@
     width: auto;
 }
 
+.inputbox {
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: 950px){
     .profile-container{
         padding-bottom: 40px;
