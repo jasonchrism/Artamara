@@ -6,7 +6,10 @@
     padding: 32px 36px 32px 36px;
     background-color: var(--bg-overlay-1)
 }
-
+.bread-crumb{
+    color: var(--text-primary);
+    font-size: 20px;
+}
 .form-title {
     display: flex;
     align-items: center;
@@ -34,7 +37,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-
     max-width: 40%;
 }
 
@@ -69,4 +71,35 @@ p {
 .product-photo-container {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+}
+
+.img-preview {
+    max-height: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    h2 {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+    .outer-container {
+        justify-content: space-between;
+        width: 100%;
+    }
+    .bread-crumb{
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .product-photo {
+        height: 72px;
+    }
+    .bread-crumb{
+        font-size: 16px;
+    }
+    
 }

@@ -53,3 +53,33 @@
 .btn{
     width: fit-content;
 }
+.bread-crumb{
+    color: var(--text-primary);
+    font-size: 20px;
+}
+@media screen and (max-width: 768px) {
+    
+    .bread-crumb{
+        font-size: 18px;
+    }
+    .form-item {
+        font-size: 0.8em;
+    }
+    .form-control{
+        font-size: 0.9em;
+    
+    }
+}
+@media screen and (max-width: 576px) {
+    
+    .bread-crumb{
+        font-size: 16px;
+    }
+    .form-item {
+        font-size: 0.7em;
+    }
+    .form-control {
+        font-size: 0.8em;
+    }
+    
+}

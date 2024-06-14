@@ -36,7 +36,7 @@
             <a href="{{ route('artist-sales.index') }}" class="btn" style="color: var(--text-primary);">
                 <i class="bi bi-arrow-left"></i>
             </a>
-            <h1 class="mb-0 .fw-semibold " style="color: var(--text-primary); font-size: 20px;">Artwork Details</h1>
+            <h1 class="mb-0 .fw-semibold bread-crumb" >Artwork Details</h1>
         </div>
         <div class="detail-container">
             <div class="outer-container">
