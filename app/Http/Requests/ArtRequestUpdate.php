@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ArtRequest extends FormRequest
+class ArtRequestUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class ArtRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => 'required|array|min:1|max:5|',
+            // 'photo' => 'required|array|min:1|max:5|',
             'photo.*' => 'image|max:2048',
             'title' => 'required|string|min:3|max:50',
             'description' => 'required|string|min:3|max:200',

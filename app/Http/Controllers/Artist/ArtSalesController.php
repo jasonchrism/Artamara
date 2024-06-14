@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Artist;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArtRequest;
+use App\Http\Requests\ArtRequestUpdate;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -150,7 +151,7 @@ class ArtSalesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArtRequest $request, string $id)
+    public function update(ArtRequestUpdate $request, string $id)
     {
         // dd($request->all());
         $product = Product::find($id);
