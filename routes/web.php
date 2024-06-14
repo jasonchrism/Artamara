@@ -21,6 +21,7 @@ use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\GuestMiddleware;
 use App\Http\Controllers\ViewUsersController;
+use App\Http\Controllers\productDetailsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +60,8 @@ Route::name('front.')->group(function () {
 
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
-}); 
+    Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
+});
 
 Auth::routes();
 
