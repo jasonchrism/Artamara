@@ -98,13 +98,13 @@
 
                     {{-- photo --}}
                     <label for="photo">Photos</label>
-                    <input name="photo[]" id="photo" class="form-control @error('photo[]') is-invalid @enderror"
-                        placeholder="Max 5 photos" required accept="image/png,image/jpg,image/jpeg" type="file" multiple>
-                    @error('photo[]')
+                    <input name="photo[]" id="photo" class="form-control"
+                        placeholder="Max 5 photos"  accept="image/png,image/jpg,image/jpeg" type="file" multiple>
+                    {{-- @error('photo[]')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                    @enderror --}}
                     <div class="img-holder"></div>
 
                 </div>
