@@ -20,5 +20,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors );
 $table-bg: #202020;
 $table-color: #FDFFF3;
 
+$carousel-transition-duration: 10s;
+
+
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+@import "node_modules/bootstrap/scss/bootstrap";

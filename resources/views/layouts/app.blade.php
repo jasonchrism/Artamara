@@ -15,6 +15,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @vite('resources/css/app.css')
     @vite('resources/css/navigation.css')
+    
     @stack('styles')
 </head>
 
