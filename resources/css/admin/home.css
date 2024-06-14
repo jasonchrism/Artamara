@@ -3,6 +3,27 @@
     margin-left: 34px;
 }
 
+i {
+    margin-left: 16px;
+    cursor: pointer;
+}
+
+.text-primary {
+    margin-bottom: 0px;
+    background-color: transparent;
+    font-size: 40px;
+}
+
+input{
+    width: 36%;
+    border: none;
+    cursor: pointer;
+}
+
+.text-secondary {
+    margin-top: 8px;
+}
+
 .count-container {
     margin-top: 32px;
 }
