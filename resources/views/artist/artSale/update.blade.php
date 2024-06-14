@@ -36,11 +36,11 @@
             <a href="{{ route('artist-sales.index') }}" class="btn" style="color: var(--text-primary);">
                 <i class="bi bi-arrow-left"></i>
             </a>
-            <h1 class="mb-0 .fw-semibold " style="color: var(--text-primary); font-size: 20px;">Edit Art</h1>
+            <h1 class="mb-0 .fw-semibold bread-crumb">Update Art</h1>
         </div>
 
-        <form class="form-create-container" action="{{ route('artist-sales.update' , $product->product_id) }}" method="POST"
-            enctype="multipart/form-data">
+        <form class="form-create-container" action="{{ route('artist-sales.update', $product->product_id) }}"
+            method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-create">
@@ -57,7 +57,7 @@
 
                     {{-- medium --}}
                     <label for="medium">Medium</label>
-                    <input value="{{ old('medium') ?? $product->medium}}" type="text" name="medium" id="medium"
+                    <input value="{{ old('medium') ?? $product->medium }}" type="text" name="medium" id="medium"
                         class="form-control @error('medium') is-invalid @enderror" placeholder="Medium" required>
                     @error('medium')
                         <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@
 
                     {{-- year --}}
                     <label for="year">Year</label>
-                    <input value="{{ old('year') ?? $product->year}}" type="number" name="year" id="year"
+                    <input value="{{ old('year') ?? $product->year }}" type="number" name="year" id="year"
                         class="form-control @error('year') is-invalid @enderror" placeholder="Year" required>
                     @error('year')
                         <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
 
                     {{-- price --}}
                     <label for="price">Price</label>
-                    <input value="{{ old('price') ?? $product->price}}" type="number" name="price" id="price"
+                    <input value="{{ old('price') ?? $product->price }}" type="number" name="price" id="price"
                         class="form-control @error('price') is-invalid @enderror" placeholder="Price" required>
                     @error('price')
                         <span class="invalid-feedback" role="alert">
@@ -105,13 +105,15 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    <div class="img-holder"></div>
 
                 </div>
                 <div class="form-item">
                     {{-- material --}}
                     <label for="material">Material</label>
-                    <input value="{{ old('material') ?? $product->material}}" type="text" name="material" id="material"
-                        class="form-control @error('material') is-invalid @enderror" placeholder="Material" required>
+                    <input value="{{ old('material') ?? $product->material }}" type="text" name="material"
+                        id="material" class="form-control @error('material') is-invalid @enderror" placeholder="Material"
+                        required>
                     @error('material')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -123,8 +125,9 @@
                         {{-- length --}}
                         <div class="measurement-item">
                             <label for="length">Length</label>
-                            <input value="{{ old('length') ?? $product->length}}" type="number" name="length" id="length"
-                                class="form-control @error('length') is-invalid @enderror" placeholder="Length" required>
+                            <input value="{{ old('length') ?? $product->length }}" type="number" name="length"
+                                id="length" class="form-control @error('length') is-invalid @enderror"
+                                placeholder="Length" required>
                             @error('length')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -134,8 +137,9 @@
                         {{-- width --}}
                         <div class="measurement-item">
                             <label for="width">Width</label>
-                            <input value="{{ old('width') ?? $product->width }}" type="number" name="width" id="width"
-                                class="form-control @error('width') is-invalid @enderror" placeholder="Width" required>
+                            <input value="{{ old('width') ?? $product->width }}" type="number" name="width"
+                                id="width" class="form-control @error('width') is-invalid @enderror"
+                                placeholder="Width" required>
                             @error('width')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -145,7 +149,7 @@
                     </div>
                     {{-- stock --}}
                     <label for="stock">Stock</label>
-                    <input value="{{ old('stock') ?? $product->stock}}" type="number" name="stock" id="stock"
+                    <input value="{{ old('stock') ?? $product->stock }}" type="number" name="stock" id="stock"
                         class="form-control @error('stock') is-invalid @enderror" placeholder="Stock" required>
                     @error('stock')
                         <span class="invalid-feedback" role="alert">
@@ -155,8 +159,9 @@
 
                     {{-- description --}}
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" 
-                        autocomplete="off" placeholder="Art Description" required style="height: 50%">{{ old('description') ?? $product->description}}</textarea>
+                    <textarea name="description" id="description" type="text"
+                        class="form-control @error('description') is-invalid @enderror" name="description" autocomplete="off"
+                        placeholder="Art Description" required style="height: 50%">{{ old('description') ?? $product->description }}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -174,4 +179,34 @@
 
 @push('styles')
     @vite('resources/css/artist/artCreate.css')
+@endpush
+@push('after-scripts')
+    <script>
+        const input = document.querySelector('input[type="file"]');
+        const imgHolder = document.querySelector('.img-holder');
+
+        input.addEventListener('change', function() {
+            while (imgHolder.firstChild) {
+                imgHolder.removeChild(imgHolder.firstChild);
+            }
+
+            const files = Array.from(input.files);
+
+            files.forEach((file, i) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxHeight = '100px';
+                    img.style.padding = '10px';
+                    img.classList.add('img-preview');
+
+                    imgHolder.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 @endpush

@@ -36,6 +36,7 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "{{ route('viewAdmin') }}",
                 columns: [{
                         data: null,
