@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    
+
     <div class="container Product-Details-Container">
 
         {{-- ini untuk bagian atas --}}
@@ -53,7 +53,19 @@
 
                 <div class="product-stock">
 
-                    <input type="number" value="50" min="0" max="100" step="1"/>
+                    <div class="input-group w-auto justify-content-end align-items-center">
+                        <button type="button" class="button-minus border icon-shape icon-sm" data-field="quantity" style="height: 44px; width: 44px; background-color: var(--bg-overlay-1);">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.8332 10.8307H4.1665V9.16406H15.8332V10.8307Z" fill="#CEFE06"/>
+                            </svg>
+                        </button>
+                        <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field border-0 text-center" style="height: 44px; width: 88px; background-color: var(--bg-overlay-1); color: var(--text-primary);">
+                        <button type="button" class="button-plus border icon-shape icon-sm" data-field="quantity" style="height: 44px; width: 44px; background-color: var(--bg-overlay-1);">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.8332 9.16406H15.8332V10.8307H10.8332V15.8307H9.1665V10.8307H4.1665V9.16406H9.1665V4.16406H10.8332V9.16406Z" fill="#CEFE06"/>
+                            </svg>
+                        </button>
+                    </div>
 
                     <span style="margin-left: 10px; color:var(--text-primary);">Stock: {{ $product->stock }}</span>
                 </div>
@@ -127,16 +139,44 @@
             </div>
         </div>
     </div>
+
 @endsection
 
-
 @push('after-scripts')
-    <script type="module">
-        import {InputSpinner} from "./src/InputSpinner.js"
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function incrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
 
-        const inputSpinnerElements = document.querySelectorAll("input[type='number']")
-        for (const inputSpinnerElement of inputSpinnerElements) {
-            new InputSpinner(inputSpinnerElement)
+            if (!isNaN(currentVal)) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
         }
+
+        function decrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal) && currentVal > 0) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        $('.input-group').on('click', '.button-plus', function(e) {
+            incrementValue(e);
+        });
+
+        $('.input-group').on('click', '.button-minus', function(e) {
+            decrementValue(e);
+        });
     </script>
 @endpush
