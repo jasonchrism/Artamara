@@ -62,9 +62,9 @@ class ArtSalesController extends Controller
                 <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . 'Label" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                           
+
                                 <h5 class="modal-title" id="' . $modalId . 'Label">Delete Product</h5>
-                            
+
                             <div class="content-body-delete">
                                 <p style="color: var(--bs-secondary-txt);">Are you sure to delete this product?</p>
                             </div>
