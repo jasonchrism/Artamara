@@ -111,8 +111,9 @@ class EditProfileController extends Controller
             ]);
         }
 
-
-        return redirect('/myprofile')->with('title','Profile successfully updated!');
+        return redirect('/myprofile')->with([
+            'address_title' => 'Profile successfully updated!',
+        ]);
     }
 
     /**
