@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Artist;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -8,17 +8,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ChangePasswordController extends Controller
+class EditPasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user_id = Auth::user()->user_id;
-        $user_profile = User::where('user_id', '=', $user_id)->get();
-        return view('buyer.changepassword', [
-            'user_profile' => $user_profile[0],
+        return view('artist.home');
+    }
+
+    public function showData() {
+        $artist_id = Auth::user()->user_id;
+        $user = User::query()->where('user_id', $artist_id)->get();
+
+        return view('artist.changepassword', [
+            'artist' => $user[0],
         ]);
     }
 
@@ -78,16 +83,15 @@ class ChangePasswordController extends Controller
                 'password'=>bcrypt($request->newPassword)
             ]);
 
-            return redirect('/myprofile/password')->with([
+            return redirect('/myprofile/changepassword')->with([
                 'address_title' => 'password updated',
             ]);
         }else{
-            return redirect('/myprofile/password')->with([
+            return redirect('/myprofile/changepassword')->with([
                 'address_title' => 'Old password does not matched',
                 'error' => 'error'
             ]);
         }
-        
     }
 
     /**

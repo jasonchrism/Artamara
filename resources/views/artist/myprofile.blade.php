@@ -11,10 +11,10 @@
 @section('content')
     <ul class="nav nav-pills" id="myTab">
         <li class="nav-item tab-link tab-active">
-            <a class="" href="#">Profile</a>
+            <a class="" href="/dashboard/artist/myprofile">Profile</a>
         </li>
         <li class="nav-item tab-link">
-            <a class="" href="#">Change Password</a>
+            <a class="" href="/dashboard/artist/myprofile/changepassword">Change Password</a>
         </li>
     </ul>
         
@@ -32,15 +32,15 @@
                     <div class="d-flex flex-column justify-content-center profile-picture-container">
                         @if (Auth::user()->profile_picture == '-')
                         <div class="profile-pic-container">
-                            <img src="https://via.placeholder.com/400x600" alt="">
+                            <img src="https://via.placeholder.com/400x600" alt="" id="photopreview1">
                         </div>
                         @else
                         <div class="profile-pic-container">
-                            <img src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="">
+                            <img src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="" id="photopreview1">
                         </div>
                         @endif
                         <div class="d-flex justify-content-center add-pic-container">
-                            <input type="file" name="profile_picture" id="profile_picture" class="inputfile @error('profile_picture') is-invalid @enderror" style="display: none;"/>
+                            <input type="file" name="profile_picture" id="profile_picture" onchange="previewImage(event)"  class="inputfile @error('profile_picture') is-invalid @enderror" style="display: none; cursor:pointer;" />
                             <label for="profile_picture" class="profile-pic-label">Choose Avatar</label>
                             @error('profile_picture')
                                 <span class="invalid-feedback" role="alert">
@@ -118,3 +118,16 @@
         </div>
     </div>
 @endsection
+
+<script>
+    const previewImage = (event) =>{
+        const files = event.target.files;
+        if(files.length > 0) {
+            const imageURL = URL.createObjectURL(files[0]);
+            const imageElement = document.getElementById("photopreview1");
+            imageElement.src = imageURL;
+        }
+    }
+
+
+</script>

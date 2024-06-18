@@ -1,5 +1,9 @@
 @vite('resources/css/admin/home.css')
+@vite('resources/css/admin/home.css')
 @extends('layouts.dashboard')
+@section('header_title')
+    Welcome, Admin
+@endsection
 @section('header_title')
     Welcome, Admin
 @endsection

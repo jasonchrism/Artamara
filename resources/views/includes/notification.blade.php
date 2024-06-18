@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/notification.css')
 </head>
-<body>
+<body> -->
     <!-- {{ session('message') }} -->
     
-    <div class="notification {{ session('status') == 'error' ? 'error' : '' }} {{ session('title') ? '' : 'no-title' }} " id="notif">
+    <!-- <div class="notification {{ session('status') == 'error' ? 'error' : '' }} {{ session('title') ? '' : 'no-title' }} " id="notif">
         <div class="d-flex">
             <div>
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="notification-icon">
@@ -52,4 +52,4 @@
         });
     </script>
 </body>
-</html>
+</html> -->
