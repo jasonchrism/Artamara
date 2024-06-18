@@ -77,6 +77,7 @@
                         name: 'total_price'
                     },
                     {
+                        // how to call quantity from order_items table
                         data: 'quantity',
                         name: 'quantity'
                     },
