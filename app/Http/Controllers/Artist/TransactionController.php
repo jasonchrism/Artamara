@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -16,32 +17,17 @@ class TransactionController extends Controller
     //  asumsikan untuk saat ini hanya untuk menampilkan packing
     public function index(Request $request)
     {
-        // dd($request->ajax());
 
-        // $data = Order::whereHas('orderDetail.product', function ($query) {
-        //     $query->where('user_id', auth()->user()->user_id);
-        // })->with('orderDetail.product')->get();
-        // dd($data);
-        // dd('hello');
         if ($request->ajax()) {
-            // dd(4);
-            // dd(auth()->user()->user_id);
-            // $data = Product::with('Category')->where('user_id', auth()->user()->user_id)->get();
-            // dd($data);
-            $data = Order::whereHas('orderDetail.product', function ($query) {
-                $query->where('user_id', auth()->user()->user_id);
-            })->with('orderDetail.product')->get();
-
-
-
+            $authUserId = Auth::user()->user_id;
+            $data = Order::select('orders.*')
+                ->join('order_details', 'orders.order_id', '=', 'order_details.order_id')
+                ->join('products', 'order_details.product_id', '=', 'products.product_id')
+                ->where('products.user_id', $authUserId)
+                ->with(['orderDetail.product'])
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                // ->addColumn('quantity', function ($row) {
-                //     return $row->orderDetail->pluck('quantity')->implode(', ');
-                // })
-                // ->addColumn('title', function ($row) {
-                //     return $row->orderDetails->pluck('product.title')->implode(', ');
-                // })
                 ->addColumn('action', function ($row) {
                     $detailsUrl = route('artist-sales.show', $row->order_id);
                     $deleteProduct = route('artist-sales.destroy', $row->order_id);
@@ -104,7 +90,6 @@ class TransactionController extends Controller
         }
         // dd('hello');
         // Ini untuk kasih nama page
-        $pageTitle = 'Products';
         return view('artist.transaction');
     }
 

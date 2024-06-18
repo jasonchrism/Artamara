@@ -23,7 +23,7 @@ class ArtRequestUpdate extends FormRequest
     public function rules(): array
     {
         return [
-            // 'photo' => 'required|array|min:1|max:5|',
+            'photo' => 'array|min:1|max:5|',
             'photo.*' => 'image|max:2048',
             'title' => 'required|string|min:3|max:50',
             'description' => 'required|string|min:3|max:200',
