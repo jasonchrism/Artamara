@@ -50,13 +50,12 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            console.log('hello');
 
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax:"{{route('artist-transactions.index')}}",
+                ajax: "{{ route('artist-transactions.index') }}",
                 columns: [{
                         data: null,
                         name: 'no',
@@ -78,12 +77,29 @@
                     },
                     {
                         // how to call quantity from order_items table
-                        data: 'quantity',
-                        name: 'quantity'
+                        data: null,
+                        name: 'quantity',
+                        render: function(data, type, row) {
+                            // Assuming 'orderDetails' is accessible in row data
+                            if (row.hasOwnProperty('order_detail') && row.order_detail.length > 0) {
+                                return row.order_detail[0]
+                                .quantity; // Access first order detail's quantity
+                            } else {
+                                return 0; // Handle cases where no order details exist (optional)
+                            }
+                        }
                     },
                     {
-                        data: 'title',
-                        name: 'title'
+                        data: null,
+                        name: 'title',
+                        render: function(data, type, row) {
+                            // Assuming 'orderDetails' is accessible in row data
+                            if (row.hasOwnProperty('order_detail') && row.order_detail.length > 0) {
+                                return row.order_detail[0].product.title
+                            } else {
+                                return 0; // Handle cases where no order details exist (optional)
+                            }
+                        }
                     },
                     {
                         data: 'action',
@@ -93,9 +109,6 @@
                     },
                 ]
             });
-            console.log('hello2');
         });
     </script>
-
-
 @endsection
