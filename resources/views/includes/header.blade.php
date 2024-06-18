@@ -6,7 +6,7 @@
                 @if (Auth::user()->profile_picture == '-')
                 <img class="image-profile" src="https://via.placeholder.com/800x600" alt="tet">
                 @else
-                    <img class="image-profile" src="{{ Auth::user()->profile_picture }}" alt="tet">
+                    <img class="image-profile" src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="tet">
                 @endif
 
                 <p>{{ Auth::user()->name }}</p>

@@ -11,7 +11,7 @@
 
 
 {{-- Ini isi konten view users --}}
-@section('content') 
+@section('content')
 
     <div class="container user-container">
         <table class="table table-borderless data-table user-table">

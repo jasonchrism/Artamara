@@ -10,9 +10,19 @@ use Thiagoprz\CompositeKey\HasCompositeKey;
 
 class OrderDetail extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
+    use HasUuids;
 
     use HasCompositeKey;
+
+    public function getIncrementing()
+    {
+        return false; // or $this->getUuidsIncrementing();
+    }
+    public function getCompositeKey()
+    {
+        return ['order_id', 'product_id']; // Adjust according to your composite key columns
+    }
 
     protected $primaryKey = ['order_id', 'product_id'];
     protected $fillable = [
@@ -27,7 +37,11 @@ class OrderDetail extends Model
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }
 
-    public function product(): BelongsTo {
+    // public function product(): BelongsTo {
+    //     return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    // }
+    public function product()
+    {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
 }
