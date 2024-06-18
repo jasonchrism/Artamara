@@ -1,21 +1,25 @@
-@vite('resources/css/buyer/tabprofile.css')
-
-@extends('layouts.app')
+@vite('resources/css/artist/myprofile.css')
 @include('includes.addressNotification')
 
+@extends('layouts.dashboard')
+
+@section('title')
+    My Profile
+@endsection
+
+@section('header_title')
+    Welcome, {{ $artist->name }}
+@endsection
+
 @section('content')
-    <div style="margin-top: 62px;">
-        <ul class="nav nav-pills" id="myTab">
-            <li class="nav-item tab-link">
-                <a class="" href="/myprofile">Profile</a>
-            </li>
-            <li class="nav-item tab-link tab-active">
-                <a class="" href="/myprofile/password">Change Password</a>
-            </li>
-            <li class="nav-item tab-link">
-                <a class="" href="/myaddress">Address</a>
-            </li>
-        </ul>
+    <ul class="nav nav-pills" id="myTab">
+        <li class="nav-item tab-link">
+            <a class="" href="/dashboard/artist/myprofile">Profile</a>
+        </li>
+        <li class="nav-item tab-link tab-active">
+            <a class="" href="/dashboard/artist/myprofile/changepassword">Change Password</a>
+        </li>
+    </ul>
 
         {{-- !-- View change password --> --}}
         <div id="change-password" class="tab-name text-white">
@@ -27,7 +31,7 @@
                     <p class="profile-subtitle">Your password, your fortress. Make it strong, keep it safe.</p>
 
                     <div class="password-content row">
-                        <form action="{{ route('front.changepassword.update') }}" method="post">
+                        <form action="{{ route('changeartistpassword.update') }}" method="post">
                             @csrf
                             @method('PUT')
 
@@ -38,7 +42,7 @@
                                 <div class="inputerror d-flex flex-column">
                                     <div class="inputbox d-flex align-items-center">
                                         <input id="oldPassword" type="password"
-                                            class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword"
+                                            class="form-control @error('oldPassword') is-invalid @enderror" name="newPassword"
                                             value="">
                                         <i class="fa-regular fa-eye" id="togglePassword2"></i>
                                     </div>

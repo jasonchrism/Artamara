@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Artist\ArtAuctionController;
 use App\Http\Controllers\Artist\ArtSalesController;
+use App\Http\Controllers\Artist\EditPasswordController;
 use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Artist\RatingController;
 use App\Http\Controllers\Artist\TransactionController;
@@ -80,6 +81,8 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
     Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
     Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
+    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData'])->name('showProfile');
+    Route::put('/changepassword', [EditPasswordController::class, 'update'])->name('changeartistpassword.update');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
     Route::resource('artist-transactions', TransactionController::class);
