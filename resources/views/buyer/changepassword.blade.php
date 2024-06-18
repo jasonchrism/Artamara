@@ -34,37 +34,46 @@
                             <div>
                                 <label for="oldPassword"
                                     class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
-
-                                <div class="inputbox d-flex align-items-center">
-                                    <input id="oldPassword" type="password"
-                                        class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword"
-                                        value="">
-                                    <i class="fa-regular fa-eye" id="togglePassword"></i>
-                                </div>
-                                @error('oldPassword')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                
+                                <div class="inputerror d-flex flex-column">
+                                    <div class="inputbox d-flex align-items-center">
+                                        <input id="oldPassword" type="password"
+                                            class="form-control @error('oldPassword') is-invalid @enderror" name="newPassword"
+                                            value="">
+                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
+                                    </div>
+                                    <div class="errormessage">
+                                        @error('oldPassword')
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>  
                             </div>
+                            
 
                             <div>
                                 <label for="newPassword"
                                     class="text-white fw-semibold mb-2 mt-3">{{ __('New Password') }}</label>
 
-                                <div class="inputbox d-flex align-items-center">
-                                    <input id="newPassword" type="password"
-                                        class="form-control @error('newPassword') is-invalid @enderror" name="newPassword"
-                                        value="">
-                                    <i class="fa-regular fa-eye" id="togglePassword2"></i>
-                                </div>
-
-                                @error('newPassword')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="inputerror d-flex flex-column">
+                                    <div class="inputbox d-flex align-items-center">
+                                        <input id="newPassword" type="password"
+                                            class="form-control @error('newPassword') is-invalid @enderror" name="newPassword"
+                                            value="">
+                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
+                                    </div>
+                                    <div class="errormessage">
+                                        @error('newPassword')
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>       
                             </div>
+
 
                             <div>
                                 <label for="confirmPassword"
