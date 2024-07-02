@@ -27,7 +27,7 @@
                 <p class="profile-subtitle">Manage your profile with ease and enjoy a safer, more secure experience.</p>
 
                 <div class="profile-content">
-                    <form action="{{ route('front.editprofile.update') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('editProfile') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -89,22 +89,60 @@
                                     </span>
                                 @enderror
 
+                                <label for="cardphoto" class="text-white fw-semibold mb-2 mt-3">{{ __('Card Photo') }}</label>
+                                <div class="idcard-Img">
+                                    @if (Auth::user()->id_photo == '-')
+                                    <img src="https://via.placeholder.com/800x600" alt="">
+                                    @else
+                                    <img src="{{ Storage::url(Auth::user()->id_photo) }}" alt="">
+                                    @endif
+                                </div>
+
+                                <label for="street"
+                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Street') }}</label>
+                                <input id="street" type="text"
+                                    class="form-control @error('street') is-invalid @enderror" name="street"
+                                    value="{{ $address['street'] }}">
+
                                 <div class="form-row d-flex">
                                     <div class="form-group" style="width: 265px">
-                                        <label for="phone_number"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
-                                        <input id="phone_number" type="text"
-                                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                            value="{{ $address['phone_number'] }}">
+                                        <label for="province"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Province') }}</label>
+                                        <input id="province" type="text"
+                                            class="form-control @error('province') is-invalid @enderror" name="province"
+                                            value="{{ $address['province'] }}">
                                     </div>
                                     <div class="form-group right-form" style="width: 265px">
-                                        <label for="phone_number"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
-                                        <input id="phone_number" type="text"
-                                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                            value="{{ $address['phone_number'] }}">
+                                        <label for="city"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('City') }}</label>
+                                        <input id="city" type="text"
+                                            class="form-control @error('city') is-invalid @enderror" name="city"
+                                            value="{{ $address['city'] }}">
                                     </div>
                                 </div>
+
+                                <div class="form-row d-flex">
+                                    <div class="form-group" style="width: 265px">
+                                        <label for="district"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('District') }}</label>
+                                        <input id="district" type="text"
+                                            class="form-control @error('district') is-invalid @enderror" name="district"
+                                            value="{{ $address['district'] }}">
+                                    </div>
+                                    <div class="form-group right-form" style="width: 265px">
+                                        <label for="postal_code"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Postal Code') }}</label>
+                                        <input id="postal_code" type="text"
+                                            class="form-control @error('postal_code') is-invalid @enderror" name="postal_code"
+                                            value="{{ $address['postal_code'] }}">
+                                    </div>
+                                </div>
+
+                                <label for="description"
+                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Description') }}</label>
+                                <input id="description" type="text"
+                                    class="form-control @error('description') is-invalid @enderror" name="description"
+                                    value="{{ $address['description'] }}">
                                 
 
                                 <div class="rightbutton d-flex justify-content-end">
