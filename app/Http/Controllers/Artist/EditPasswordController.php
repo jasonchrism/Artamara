@@ -83,13 +83,13 @@ class EditPasswordController extends Controller
                 'password'=>bcrypt($request->newPassword)
             ]);
 
-            return redirect('/myprofile/changepassword')->with([
+            return redirect('/dashboard/artist/myprofile/changepassword')->with([
                 'address_title' => 'password updated',
             ]);
         }else{
-            return redirect('/myprofile/changepassword')->with([
+            return redirect('/dashboard/artist/myprofile/changepassword')->with([
                 'address_title' => 'Old password does not matched',
-                'error' => 'error'
+                'status' => 'error'
             ]);
         }
     }

@@ -59,12 +59,11 @@ class HomeController extends Controller
         ]);
 
         try {
+            $photoPath = $user[0]['profile_picture'];
             if (request()->hasFile('profile_picture')) {
                 $photoPath = request()->file('profile_picture')->store('photos', 'public');
-            } else {
-                $photoPath = '-';
             }
-
+            
             DB::beginTransaction();
             $address->update([
                 'street' => $request->input('street'),
@@ -73,7 +72,6 @@ class HomeController extends Controller
                 'postal_code' => $request->input('postal_code'),
                 'province' => $request->input('province'),
             ]);
-            
             $user[0]->update([
                 'name' => $request->input('name'),
                 'username' => $request->input('username'),
@@ -81,10 +79,10 @@ class HomeController extends Controller
                 'phone_number' => $request->input('phone_number'),
                 'profile_picture' => $photoPath,
                 ]);
-    
-            DB::commit();
+
+                DB::commit();
         } catch(Exception $e) {
-            
+            dd(3);
             DB::rollBack();
             return redirect('/dashboard/artist/myprofile')->with([
                 'address_title' => 'Profile not updated!',
