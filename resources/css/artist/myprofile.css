@@ -2,7 +2,7 @@
 
 .profile-container{
     width: 900px;
-    max-height: 1000px;
+    max-height: 1300px;
     margin-top: 24px;
     background-color: var(--bg-overlay-1);
     display: flex;
@@ -66,6 +66,11 @@
 
 .right-form{
     margin-left: 20px;
+}
+
+.idcard-Img img{
+    width: 224px;
+    height: 109px;
 }
 
 @media screen and (max-width: 950px){

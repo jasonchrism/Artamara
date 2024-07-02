@@ -87,8 +87,8 @@ class HomeController extends Controller
             
             DB::rollBack();
             return redirect('/dashboard/artist/myprofile')->with([
-                'address_title' => 'Address not updated!',
-                'error' => 'error'
+                'address_title' => 'Profile not updated!',
+                'status' => 'error'
             ]);
         }
 
