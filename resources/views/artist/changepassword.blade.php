@@ -21,91 +21,90 @@
         </li>
     </ul>
 
-        {{-- !-- View change password --> --}}
-        <div id="change-password" class="tab-name text-white">
-            <div class="d-flex justify-content-center">
-                <div class="password-container">
-                    <p class="fw-bold profile-title">
-                        Change Password
-                    </p>
-                    <p class="profile-subtitle">Your password, your fortress. Make it strong, keep it safe.</p>
+    {{-- !-- View change password --> --}}
+    <div id="change-password" class="tab-name text-white">
+        <div class="d-flex justify-content-center">
+            <div class="password-container">
+                <p class="fw-bold profile-title">
+                    Change Password
+                </p>
+                <p class="profile-subtitle">Your password, your fortress. Make it strong, keep it safe.</p>
 
-                    <div class="password-content row">
-                        <form action="{{ route('changeartistpassword.update') }}" method="post">
-                            @csrf
-                            @method('PUT')
+                <div class="password-content row">
+                    <form action="{{ route('front.changepassword.update') }}" method="post">
+                        @csrf
+                        @method('PUT')
 
-                            <div>
-                                <label for="oldPassword"
-                                    class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
-                                
-                                <div class="inputerror d-flex flex-column">
-                                    <div class="inputbox d-flex align-items-center">
-                                        <input id="oldPassword" type="password"
-                                            class="form-control @error('oldPassword') is-invalid @enderror" name="newPassword"
-                                            value="">
-                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
-                                    </div>
-                                    <div class="errormessage">
-                                        @error('oldPassword')
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>  
+                        <div>
+                            <label for="oldPassword" class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
+
+                            <div class="inputerror d-flex flex-column">
+                                <div class="inputbox d-flex align-items-center">
+                                    <input id="oldPassword" type="password"
+                                        class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword"
+                                        value="">
+                                    <i class="fas fa-eye" id="togglePassword"></i>
+                                </div>
+                                <div class="errormessage">
+                                    @error('oldPassword')
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                            
+                        </div>
 
-                            <div>
-                                <label for="newPassword"
-                                    class="text-white fw-semibold mb-2 mt-3">{{ __('New Password') }}</label>
 
-                                <div class="inputerror d-flex flex-column">
-                                    <div class="inputbox d-flex align-items-center">
-                                        <input id="newPassword" type="password"
-                                            class="form-control @error('newPassword') is-invalid @enderror" name="newPassword"
-                                            value="">
-                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
-                                    </div>
-                                    <div class="errormessage">
-                                        @error('newPassword')
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>       
+                        <div>
+                            <label for="newPassword"
+                                class="text-white fw-semibold mb-2 mt-3">{{ __('New Password') }}</label>
+
+                            <div class="inputerror d-flex flex-column">
+                                <div class="inputbox d-flex align-items-center">
+                                    <input id="newPassword" type="password"
+                                        class="form-control @error('newPassword') is-invalid @enderror" name="newPassword"
+                                        value="">
+                                    <i class="fas fa-eye" id="togglePassword2"></i>
+                                </div>
+                                <div class="errormessage">
+                                    @error('newPassword')
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
+                        </div>
 
 
-                            <div>
-                                <label for="confirmPassword"
-                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Confirm Password') }}</label>
-                                <input id="confirmPassword" type="password"
-                                    class="form-control @error('confirmPassword') is-invalid @enderror"
-                                    name="confirmPassword" value="">
+                        <div>
+                            <label for="confirmPassword"
+                                class="text-white fw-semibold mb-2 mt-3">{{ __('Confirm Password') }}</label>
+                            <input id="confirmPassword" type="password"
+                                class="form-control @error('confirmPassword') is-invalid @enderror" name="confirmPassword"
+                                value="">
 
-                                @error('confirmPassword')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('confirmPassword')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
-                            <div class="rightbutton d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn btn-primary mb-3">
-                                    Save
-                                </button>
-                            </div>
+                        <div class="rightbutton d-flex justify-content-end mt-3">
+                            <button type="submit" class="btn btn-primary mb-3">
+                                Save
+                            </button>
+                        </div>
 
 
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
 

@@ -1,3 +1,124 @@
+/* View Edit Profile CSS*/
+
+.profile-container{
+    width: 900px;
+    max-height: 1000px;
+    margin-top: 24px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+    padding: 29px 40px 29px 40px;
+}
+
+.profile-title{
+    font-size: 18px;
+}
+
+.profile-subtitle{
+    font-size: 14px;
+    color : var(--text-secondary);
+}
+
+.profile-content{
+    padding-top: 20px;
+}
+
+.profile-image img{
+    width: 250px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.profile-image label{
+    border-radius: 0px;
+    background-color: transparent;
+    margin-top: 20px;
+    width: auto;
+    height: auto;
+    padding: 10px 25px 10px 25px;
+    border: 1px solid var(--bg-overlay-2);
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.rightbutton button{
+    padding: 10px 25px 10px 25px;
+}
+
+.profile-form label{
+    width: auto;
+}
+
+.inputbox {
+    margin-bottom: 10px;
+}
+
+.form-split input{
+    width: 200px;
+}
+
+.right-form{
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 950px){
+    .profile-container{
+        padding-bottom: 40px;
+    }
+
+    .profile-content .row{
+        justify-content: space-around;
+    }
+
+    .profile-content .col-4{
+        width: auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-content .col-8{
+        width: 100%;
+    }
+}
+
+/* Edit Password CSS*/
+
+.password-container{
+    width: 750px;
+    max-height: 810px;
+    margin-top: 24px;
+    background-color: var(--bg-overlay-1);
+    display: flex;
+    flex-direction: column;
+    padding: 29px 40px 29px 40px;
+}
+
+.password-content{
+    padding-top: 20px;
+}
+
+.password-content .inputbox{
+    position: relative;
+}
+
+.password-content i{
+    color: var(--text-secondary);
+    position: absolute;
+    right: 4%;
+    cursor: pointer;
+}
+
+.password-content label{
+    width: auto;
+}
+
 .nav-pills {
     border-bottom: 1px solid var(--bg-overlay-1);
 }
@@ -23,183 +144,5 @@
 @media screen and (max-width: 400px) {
     .nav-pills .nav-item a{
         font-size: 12px;
-    }
-}
-
-.form-container {
-    width: 730px;
-    height: 100%;
-    background-color: var(--bg-overlay-1);
-}
-
-.top {
-    margin-top: 32px;
-    margin-left: 50.5px;
-}
-
-.ml-11 {
-    margin-left: 11px;
-}
-
-.title {
-    color: var(--text-primary);
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-.title-description {
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.left {
-    width: 220.5px;
-}
-
-.profile-picture-container {
-    margin-top: 25px;
-    margin-left: 50.5px;
-}
-
-.profile-pic-container {
-    background-color: white;
-    width: 167px;
-    height: 167px;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.profile-pic-container img {
-    width: 167px;
-    height: 167px;
-}
-
-.profile-pic-label {
-    padding: 10px;
-    width: fit-content;
-    border: 1px solid var(--bg-overlay-2);
-}
-
-.right {
-    width: 100%;
-    margin-top: 25px;
-    margin-left: 25px;
-    margin-right: 49.5px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    margin-bottom: 6px;
-    color: var(--text-primary);
-}
-
-.form-group .artist-email {
-    color: var(--text-secondary);
-}
-
-.form-group input {
-    width: 100%;
-}
-
-.form-group img {
-    width: 224px;
-    height: 109px;
-}
-
-.form-group-detail {
-    width: 50%;
-}
-
-.form-email {
-    margin-bottom: 5px;
-}
-
-.form-control {
-    height: 37px;
-}
-
-.btn-primary {
-    margin-top: 16px;
-}
-
-@media screen and (max-width: 675px) {
-    .left {
-        width: 200px;
-    }
-
-    .profile-pic-container {
-        width: 130px;
-        height: 130px;
-    }
-
-    .profile-pic-container img{
-        width: 100%;
-        height: 100%;
-    }
-
-    .profile-pic-label {
-        width: 95px;
-        height: 40px;
-        font-size: 10px;
-    }
-
-    .right .form-group label{
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 625px) {
-    .form-container {
-        width: 375px;
-    }
-
-    .right {
-        margin-right: 20px;
-        margin-left: 20px;
-    }
-
-    .top {
-        margin-left: 20px;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
-
-    .profile-picture-container {
-        margin-left: 20px;
-    }
-
-    .right .form-group input {
-        width: 185px;
-    }
-
-    .form-group {
-        width: 200px;
-    }
-
-    .form-group img {
-        width: 185px;
-    }
-
-    .form-group-detail {
-        width: 200px;
-    }
-
-    .form-group .form-group-detail input {
-        width: 85px;
-    }
-
-    .ml-11 {
-        margin-left: 0px;
-    }
-
-    .btn-primary {
-        margin-right: 18px;
     }
 }

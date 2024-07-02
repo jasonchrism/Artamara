@@ -40,7 +40,7 @@
                                         <input id="oldPassword" type="password"
                                             class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword"
                                             value="">
-                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
+                                        <i class="fa-regular fa-eye" id="togglePassword"></i>
                                     </div>
                                     <div class="errormessage">
                                         @error('oldPassword')
@@ -107,40 +107,40 @@
 
     <!-- Javascript for eye toggle -->
     <script>
-        const togglePassword = document.querySelector("#togglePassword");
-        const password = document.querySelector('#oldPassword')
-
-
-        togglePassword.addEventListener('click', function(e) {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-
-            if (togglePassword.classList.contains('fa-eye')) {
-                togglePassword.classList.remove('fa-eye');
-                togglePassword.classList.add('fa-eye-slash');
-            } else if (togglePassword.classList.contains('fa-eye-slash')) {
-                togglePassword.classList.remove('fa-eye-slash');
-                togglePassword.classList.add('fa-eye');
-            }
-
-        });
-
-        const togglePassword2 = document.querySelector("#togglePassword2");
-        const password2 = document.querySelector('#newPassword')
-
-
-        togglePassword2.addEventListener('click', function(e) {
-            const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
-            password2.setAttribute('type', type);
-
-            if (togglePassword2.classList.contains('fa-eye')) {
-                togglePassword2.classList.remove('fa-eye');
-                togglePassword2.classList.add('fa-eye-slash');
-            } else if (togglePassword2.classList.contains('fa-eye-slash')) {
-                togglePassword2.classList.remove('fa-eye-slash');
-                togglePassword2.classList.add('fa-eye');
-            }
-
-        });
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector('#oldPassword')
+    
+    
+    togglePassword.addEventListener('click', function(e) {
+        const type = password.getAttribute('type') === 'password'? 'text' : 'password';
+        password.setAttribute('type', type);
+    
+        if (togglePassword.classList.contains('fa-eye')) {
+            togglePassword.classList.remove('fa-eye');
+            togglePassword.classList.add('fa-eye-slash');
+        } else if (togglePassword.classList.contains('fa-eye-slash')) {
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
+        }
+    
+    });
+    
+    const togglePassword2 = document.querySelector("#togglePassword2");
+    const password2 = document.querySelector('#newPassword')
+    
+    
+    togglePassword2.addEventListener('click', function(e) {
+        const type = password2.getAttribute('type') === 'password'? 'text' : 'password';
+        password2.setAttribute('type', type);
+    
+        if (togglePassword2.classList.contains('fa-eye')) {
+            togglePassword2.classList.remove('fa-eye');
+            togglePassword2.classList.add('fa-eye-slash');
+        } else if (togglePassword2.classList.contains('fa-eye-slash')) {
+            togglePassword2.classList.remove('fa-eye-slash');
+            togglePassword2.classList.add('fa-eye');
+        }
+    
+    });
     </script>
 @endsection
