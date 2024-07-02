@@ -55,13 +55,13 @@
 
                     <div class="input-group w-auto justify-content-end align-items-center">
                         <button type="button" class="button-minus border icon-shape icon-sm" data-field="quantity" style="height: 44px; width: 44px; background-color: var(--bg-overlay-1);">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
                                 <path d="M15.8332 10.8307H4.1665V9.16406H15.8332V10.8307Z" fill="#CEFE06"/>
                             </svg>
                         </button>
                         <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field border-0 text-center" style="height: 44px; width: 88px; background-color: var(--bg-overlay-1); color: var(--text-primary);">
                         <button type="button" class="button-plus border icon-shape icon-sm" data-field="quantity" style="height: 44px; width: 44px; background-color: var(--bg-overlay-1);">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none;">
                                 <path d="M10.8332 9.16406H15.8332V10.8307H10.8332V15.8307H9.1665V10.8307H4.1665V9.16406H9.1665V4.16406H10.8332V9.16406Z" fill="#CEFE06"/>
                             </svg>
                         </button>
