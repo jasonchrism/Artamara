@@ -51,9 +51,7 @@
 
                             <div class="profile-form col-8">
                                 <label for="name" class="text-white fw-semibold mb-2">{{ __('Name') }}</label>
-                                <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value='{{ $artist['name'] }}''>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value='{{ $artist['name'] }}''>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -68,8 +66,7 @@
                                 <label for="username"
                                     class="text-white fw-semibold mb-2 mt-3">{{ __('Username') }}</label>
                                 <input id="username" type="text"
-                                    class="form-control @error('username') is-invalid @enderror" name="username"
-                                    value="{{ $artist['username'] }}">
+                                    class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $artist['username'] }}">
 
                                 @error('username')
                                     <span class="invalid-feedback" role="alert">
@@ -77,11 +74,8 @@
                                     </span>
                                 @enderror
 
-                                <label for="phone_number"
-                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
-                                <input id="phone_number" type="text"
-                                    class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
-                                    value="{{ $address['phone_number'] }}">
+                                <label for="phone_number" class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
+                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $address['phone_number'] }}">
 
                                 @error('phone_number')
                                     <span class="invalid-feedback" role="alert">
@@ -98,52 +92,78 @@
                                     @endif
                                 </div>
 
-                                <label for="street"
-                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Street') }}</label>
-                                <input id="street" type="text"
-                                    class="form-control @error('street') is-invalid @enderror" name="street"
-                                    value="{{ $address['street'] }}">
+                                <div class="inputerror d-flex flex-column">
+                                    <label for="street" class="text-white fw-semibold mb-2 mt-3">{{ __('Street') }}</label>
+                                    <input id="street" type="text" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ $address['street'] }}">
+                                    <div class="errormessage">
+                                        @error('street')
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
 
                                 <div class="form-row d-flex">
                                     <div class="form-group" style="width: 265px">
-                                        <label for="province"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Province') }}</label>
-                                        <input id="province" type="text"
-                                            class="form-control @error('province') is-invalid @enderror" name="province"
-                                            value="{{ $address['province'] }}">
+                                        <label for="province" class="text-white fw-semibold mb-2 mt-3">{{ __('Province') }}</label>
+                                        <input id="province" type="text" class="form-control @error('province') is-invalid @enderror" name="province" value="{{ $address['province'] }}">
+                                        <div class="errormessage">
+                                            @error('province')
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <div class="form-group right-form" style="width: 265px">
-                                        <label for="city"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('City') }}</label>
-                                        <input id="city" type="text"
-                                            class="form-control @error('city') is-invalid @enderror" name="city"
-                                            value="{{ $address['city'] }}">
+                                        <label for="city" class="text-white fw-semibold mb-2 mt-3">{{ __('City') }}</label>
+                                        <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ $address['city'] }}">
+                                        <div class="errormessage">
+                                            @error('city')
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-row d-flex">
                                     <div class="form-group" style="width: 265px">
-                                        <label for="district"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('District') }}</label>
-                                        <input id="district" type="text"
-                                            class="form-control @error('district') is-invalid @enderror" name="district"
-                                            value="{{ $address['district'] }}">
+                                        <label for="district" class="text-white fw-semibold mb-2 mt-3">{{ __('District') }}</label>
+                                        <input id="district" type="text" class="form-control @error('district') is-invalid @enderror" name="district" value="{{ $address['district'] }}">
+                                        <div class="errormessage">
+                                            @error('district')
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <div class="form-group right-form" style="width: 265px">
-                                        <label for="postal_code"
-                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Postal Code') }}</label>
-                                        <input id="postal_code" type="text"
-                                            class="form-control @error('postal_code') is-invalid @enderror" name="postal_code"
-                                            value="{{ $address['postal_code'] }}">
+                                        <label for="postal_code" class="text-white fw-semibold mb-2 mt-3">{{ __('Postal Code') }}</label>
+                                        <input id="postal_code" type="text" class="form-control @error('postal_code') is-invalid @enderror" name="postal_code" value="{{ $address['postal_code'] }}">
+                                        <div class="errormessage">
+                                            @error('postal_code')
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
-                                <label for="description"
-                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Description') }}</label>
-                                <input id="description" type="text"
-                                    class="form-control @error('description') is-invalid @enderror" name="description"
-                                    value="{{ $address['description'] }}">
-                                
+                                <label for="description" class="text-white fw-semibold mb-2 mt-3">{{ __('Description') }}</label>
+                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ $address['description'] }}">
+                                <div class="errormessage">
+                                    @error('description')
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
                                 <div class="rightbutton d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary mt-3">

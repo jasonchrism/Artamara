@@ -31,7 +31,7 @@
                 <p class="profile-subtitle">Your password, your fortress. Make it strong, keep it safe.</p>
 
                 <div class="password-content row">
-                    <form action="{{ route('front.changepassword.update') }}" method="post">
+                    <form action="{{ route('changeartistpassword.update') }}" method="post">
                         @csrf
                         @method('PUT')
 
