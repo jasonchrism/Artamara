@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MyTransactionsController extends Controller
 {
@@ -11,7 +14,19 @@ class MyTransactionsController extends Controller
      */
     public function index()
     {
-        return view('buyer.mytransactions');
+        $user_id = Auth::user()->user_id;
+        $user = User::where('user_id', '=', $user_id)->get();
+        // dd($user);
+
+        $unpaid = Order::with('payment')->where('user_id', '=', $user_id)->whereHas('payment', function ($query) {
+            $query->where('status', 'UNPAID');
+        })->get();
+        // dd($unpaid);
+
+        return view('buyer.mytransactions', [
+            'user' => $user[0],
+            'unpaid' => $unpaid,
+        ]);
     }
 
     /**

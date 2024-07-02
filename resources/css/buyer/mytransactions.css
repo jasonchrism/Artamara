@@ -5,12 +5,47 @@
 }
 
 .nav-pills .nav-item.tab-active a {
-    color: var(--primary); 
-    border-bottom: 2px solid var(--primary); 
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
 }
 
 .nav-pills .nav-item a:hover {
     text-decoration: none;
+}
+
+/* dari sini adalah konten-nya */
+.transaction-container
+{
+    background-color: var(--bg-overlay-1);
+    margin: 16px 64px 16px 64px;
+}
+
+.User-About-Details
+{
+    display: flex;
+    flex-direction: row;
+    /* border: 1.5px solid var(--bg-overlay-1); */
+    padding: 16px;
+
+}
+
+.User-Details-Pic
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.User-Details-Pic img
+{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.User-name
+{
+    display: flex;
 }
 
 @media screen and (max-width: 635px) {

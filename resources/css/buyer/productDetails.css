@@ -171,6 +171,19 @@
         width: 300px;
     }
 }
+@media screen and (max-width: 900px){
+    body{
+        margin: 32px 36px 0;
+    }
+    .buy-now
+    {
+        width: 250px;
+    }
+    .col-sm-3 {
+        flex: 0 0 auto;
+        width: 40%;
+    }
+}
 @media screen and (max-width: 768px){
     body{
         margin: 32px 36px 0;

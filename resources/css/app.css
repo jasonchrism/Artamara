@@ -24,7 +24,7 @@
 body{
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-primary);
-    margin: 48px 165px 0;   
+    margin: 48px 165px 0;
     font-size: 1em;
     /* position: relative; */
     overflow-x: hidden;
@@ -142,9 +142,10 @@ body{
         margin: 48px 56px 0;
     }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 800px){
     body{
         margin: 32px 36px 0;
+
     }
 }
 @media screen and (max-width: 375px){
