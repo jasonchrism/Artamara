@@ -49,6 +49,7 @@ class HomeController extends Controller
             'name' => ['required', 'string', 'max:255', 'min:1'],
             'username' => ['required', 'string', 'max:255', 'min:1'],
             'phone_number' => 'required|min:10|max:15',
+            'profile_picture' => 'image|mimes:png,jpg,jpeg|max:2048',
             'street' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'district' => ['required', 'string', 'max:255'],

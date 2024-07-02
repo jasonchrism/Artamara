@@ -17,106 +17,117 @@
             <a class="" href="/dashboard/artist/myprofile/changepassword">Change Password</a>
         </li>
     </ul>
-        
-    <div class="profile-container d-flex justify-content-center">
-        <div class="form-container">
-            <div class="top">
-                <p class="title fw-semibold">Profile</p>
-                <p class="title-description">Manage your profile with ease and enjoy a safer, more secure experience.</p>
-            </div>
-            <form action="{{ route('editProfile') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="bottom d-flex">
-                <div class="left">
-                    <div class="d-flex flex-column justify-content-center profile-picture-container">
-                        @if (Auth::user()->profile_picture == '-')
-                        <div class="profile-pic-container">
-                            <img src="https://via.placeholder.com/400x600" alt="" id="photopreview1">
-                        </div>
-                        @else
-                        <div class="profile-pic-container">
-                            <img src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="" id="photopreview1">
-                        </div>
-                        @endif
-                        <div class="d-flex justify-content-center add-pic-container">
-                            <input type="file" name="profile_picture" id="profile_picture" onchange="previewImage(event)"  class="inputfile @error('profile_picture') is-invalid @enderror" style="display: none; cursor:pointer;" />
-                            <label for="profile_picture" class="profile-pic-label">Choose Avatar</label>
-                            @error('profile_picture')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="right">
-                        <div class="form-group">
-                            <label for="name" class="fw-semibold">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ $artist->name }}">
-                        </div>
-                        <div class="form-group form-email">
-                            <label for="email" class="fw-semibold">Email</label>
-                            <label for="emailValue" class="artist-email">{{ $artist->email }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="fw-semibold">Username</label>
-                            <input type="text" name="username" id="username" class="form-control" value="{{ $artist->username }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="fw-semibold">Phone number</label>
-                            <input type="text" name="phone_number" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $artist->phone_number }}">
-                            @error('phone_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="card-photo" class="fw-semibold">Card Photo</label>
-                            <img src="https://via.placeholder.com/800x600" alt="">
-                        </div>
-                        <div class="form-group">
-                            <label for="street" class="fw-semibold">Street</label>
-                            <input type="text" name="street" id="street" class="form-control" value="{{ $address->street }}">
-                        </div>
-                        <div class="form-group d-flex flex-row">
-                            <div class="form-group-detail">
-                                <label for="street" class="fw-semibold">Province</label>
-                                <input type="text" name="province" id="province" class="form-control" value="{{ $address->province }}">
-                            </div>
-                            <div class="form-group-detail ml-11">
-                                <label for="street" class="fw-semibold">City</label>
-                                <input type="text" name="city" id="city" class="form-control" value="{{ $address->city }}">
-                            </div>
-                        </div>
-                        <div class="form-group d-flex flex-row">
-                            <div class="form-group-detail">
-                                <label for="street" class="fw-semibold">District</label>
-                                <input type="text" name="district" id="district" class="form-control" value="{{ $address->district }}">
-                            </div>
-                            <div class="form-group-detail ml-11">
-                                <label for="street" class="fw-semibold">Postal Code</label>
-                                <input type="text" name="postal_code" id="postal_code" class="form-control @error('postal_code') is-invalid @enderror" value="{{ $address->postal_code }}">
-                                @error('postal_code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+    
+    <div id="profile" class="tab-name text-white">
+        <div class="d-flex justify-content-center">
+            <div class="profile-container">
+                <p class="fw-bold profile-title">
+                    Profile
+                </p>
+                <p class="profile-subtitle">Manage your profile with ease and enjoy a safer, more secure experience.</p>
+
+                <div class="profile-content">
+                    <form action="{{ route('front.editprofile.update') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="row">
+                            <div class="profile-image col-4 d-flex align-items-center flex-column">
+                                @if (Auth::user()->profile_picture == '-')
+                                    <img src="https://via.placeholder.com/800x600" alt="" id="photopreview1">
+                                @else
+                                    <img src="{{ Storage::url(Auth::user()->profile_picture) }}" alt="" id="photopreview1">
+                                @endif
+                                <input type="file" name="profile_picture" id="profile_picture" onchange="previewImage(event)"
+                                    class="inputfile @error('profile_picture') is-invalid @enderror" />
+                                <label for="profile_picture">Choose Avatar</label>
+
+                                @error('profile_picture')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
+
+                            <div class="profile-form col-8">
+                                <label for="name" class="text-white fw-semibold mb-2">{{ __('Name') }}</label>
+                                <input id="name" type="text"
+                                    class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value='{{ $artist['name'] }}''>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <label for="email"
+                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Email') }}</label>
+                                <p class="profile-subtitle">{{ $artist['email'] }}</p>
+
+                                <label for="username"
+                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Username') }}</label>
+                                <input id="username" type="text"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    value="{{ $artist['username'] }}">
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <label for="phone_number"
+                                    class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
+                                <input id="phone_number" type="text"
+                                    class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                                    value="{{ $address['phone_number'] }}">
+
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <div class="form-row d-flex">
+                                    <div class="form-group" style="width: 265px">
+                                        <label for="phone_number"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
+                                        <input id="phone_number" type="text"
+                                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                                            value="{{ $address['phone_number'] }}">
+                                    </div>
+                                    <div class="form-group right-form" style="width: 265px">
+                                        <label for="phone_number"
+                                        class="text-white fw-semibold mb-2 mt-3">{{ __('Phone number') }}</label>
+                                        <input id="phone_number" type="text"
+                                            class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
+                                            value="{{ $address['phone_number'] }}">
+                                    </div>
+                                </div>
+                                
+
+                                <div class="rightbutton d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary mt-3">
+                                        Save
+                                    </button>
+                                </div>
+
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="street" class="fw-semibold">Description</label>
-                            <input type="text" name="description" id="description" class="form-control" value="{{ $address->description }}">
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <button class="btn btn-primary" type="submit">Save</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+        
+    
 @endsection
 
 <script>

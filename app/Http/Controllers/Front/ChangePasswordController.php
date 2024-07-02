@@ -84,7 +84,7 @@ class ChangePasswordController extends Controller
         }else{
             return redirect('/myprofile/password')->with([
                 'address_title' => 'Old password does not matched',
-                'error' => 'error'
+                'status' => 'error'
             ]);
         }
         

@@ -17,6 +17,7 @@
     @vite('resources/css/sidebar.css')
     @vite('resources/css/header.css')
     @stack('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -29,7 +30,9 @@
         table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
             background-color: var(--bg-overlay-1);
         }
-        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
             background-color: var(--bg-overlay-1);
         }
     </style>
