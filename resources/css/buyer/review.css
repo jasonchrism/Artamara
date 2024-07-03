@@ -128,3 +128,27 @@
 .rate label {
     height: 36px;
 }
+
+@media screen and (max-width: 500px) {
+    .review-container {
+        width: 400px;
+    }
+
+    .product-container {
+        width: 380px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .product-price {
+        margin-right: 8px;
+    }
+
+    .product-subcontainer {
+        margin-left: 8px;
+    }
+
+    .product-container-title {
+        margin-left: 8px;
+    }
+}
