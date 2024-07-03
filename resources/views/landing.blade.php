@@ -32,6 +32,7 @@
         <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
             @foreach($products as $p)
             <div class="col-md-3 mb-3">
+<<<<<<< Updated upstream
                 <a href="/productDetails/{{$p->product_id}}">
                     <div class="card">
                         <img src="{{ $p->thumbnail }}" class="card-img-top" alt="...">
@@ -41,6 +42,16 @@
                             <p class="card-desc">{{ $p->year }}</p>
                             <h5 class="card-title" style="color: var(--primary); font-weight:400;">{{ $p->price }}</h5>
                         </div>
+=======
+                <div class="card">
+                    <img src="{{ $p->thumbnail }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $p->title }}</h5>
+                        <p class="card-desc">{{ $p->description }}</p>
+                        <p class="card-desc">{{ $p->year }}</p>
+                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">
+                                    {{ 'Rp' . number_format($p->price, 0, ',', '.') }}</h5>
+>>>>>>> Stashed changes
                     </div>
                 </a>
             </div>
