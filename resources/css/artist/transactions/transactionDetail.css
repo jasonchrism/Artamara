@@ -1,0 +1,55 @@
+.order-details-container {
+    background-color: var(--bg-overlay-1);
+    width: 423px;
+    height: auto;
+    margin-right: 24px;
+}
+
+.order-details-header {
+    margin-top: 32px;
+    margin-left: 36px;
+    margin-bottom: 30px;
+}
+
+.order-container {
+    margin-left: 36px;
+    margin-bottom: 20px;
+}
+
+.item-details-container {
+    background-color: var(--bg-overlay-1);
+    width: 663px;
+    height: auto;
+}
+
+.item-details-header {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-left: 32px;
+    margin-bottom: 38px;
+}
+
+.item-picture {
+    width: 80px;
+    height: 80px;
+    margin-right: 24px;
+}
+
+.details-container {
+    margin-left: 48px;
+    margin-right: 32px;
+    margin-bottom: 40px;
+}
+
+.transaction-detail-container {
+    margin-bottom: 230px;
+}
+
+.sent-btn-container {
+    margin-right: 32px;
+    margin-bottom: 32px;
+}
+
+.modal-content {
+    background-color: var(--bg-overlay-1);
+}

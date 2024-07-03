@@ -10,6 +10,8 @@ use App\Http\Controllers\Artist\EditPasswordController;
 use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Artist\RatingController;
 use App\Http\Controllers\Artist\TransactionController;
+use App\Http\Controllers\Artist\TransactionDetailController;
+use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
 use App\Http\Controllers\Front\CatalogController;
 use App\Http\Controllers\Buyer\UserAddressController;
 use App\Http\Controllers\Front\ChangePasswordController;
@@ -62,6 +64,8 @@ Route::name('front.')->group(function () {
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
+
+    Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
 });
 
 Auth::routes();
@@ -77,16 +81,19 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::post('/banArtist/{id}', [ViewUsersController::class, 'banArtist'])->name('banArtist');
     Route::post('/deleteArtist/{id}', [ViewUsersController::class, 'deleteArtist'])->name('deleteArtist');
 });
+
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
     Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
     Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
-    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData'])->name('showProfile');
+    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);  
     Route::put('/changepassword', [EditPasswordController::class, 'update'])->name('changeartistpassword.update');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
     Route::resource('artist-transactions', TransactionController::class);
     Route::resource('rating', RatingController::class);
+
+    Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
 });
 
 

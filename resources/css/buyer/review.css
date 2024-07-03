@@ -1,0 +1,130 @@
+.review-container {
+    width: 515px;
+    height: 589px;
+    background-color: var(--bg-overlay-1);
+    margin-top: 54px;
+    margin-bottom: 125px;
+}
+
+.review-title {
+    color: var(--text-primary);
+    margin-top: 24px;
+    margin-left: 32px;
+    font-size: 20px;
+}
+
+.review-subtitle {
+    color: var(--text-secondary);
+    margin-top: 8px;
+    margin-left: 32px;
+    font-size: 14px;
+}
+
+.profile-container {
+    margin-top: 18px;
+    margin-left: 32px;
+}
+
+.profile-picture {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    margin-right: 8px;
+}
+
+.product-container {
+    width: 451px;
+    height: auto;
+    margin-top: 16px;
+    margin-left: 32px;
+    border: 1px solid #464646;
+    margin-bottom: 16px;
+}
+
+.name-quantity p {
+    font-size: 14px;
+}
+
+.product-subcontainer {
+    margin-left: 20px;
+    margin-bottom: 8px;
+}
+
+.product-container-title {
+    font-size: 14px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 16px;
+}
+
+.product-price {
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.product-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 20px;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    display: none;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: var(--primary);
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: var(--primary);
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: var(--primary);
+}
+
+.comment-container {
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-bottom: 24px;
+}
+
+.submit-btn-container {
+    margin-right: 32px;
+}
+
+.submit-btn-container {
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.rate label {
+    height: 36px;
+}

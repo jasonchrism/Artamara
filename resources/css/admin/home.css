@@ -15,7 +15,6 @@ i {
 }
 
 input{
-    width: 36%;
     border: none;
     cursor: pointer;
 }
@@ -81,4 +80,47 @@ input{
     width: 482px;
     height: 208px;
     background-color: var(--bg-overlay-1);
+}
+
+.image-test {
+    background-color: var(--bg-overlay-1);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+@media screen and (max-width: 1440px) {
+    .mr-left {
+        margin-right: 34px;
+    }
+
+    .count-container {
+        flex-direction: column;
+    }
+
+    .item-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .third-container {
+        flex-direction: column;
+    }
+
+    .monthly {
+        margin-bottom: 40px;
+    }
+
+    .fourth-container {
+        flex-direction: column;
+    }
+
+    .return {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 1030px) {
+    .monthly {
+        width: 90%;
+    }
 }
