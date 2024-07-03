@@ -19,7 +19,8 @@
 .item-details-container {
     background-color: var(--bg-overlay-1);
     width: 663px;
-    height: auto;
+    max-height: 754px;
+    overflow-y: auto;
 }
 
 .item-details-header {
@@ -52,4 +53,60 @@
 
 .modal-content {
     background-color: var(--bg-overlay-1);
+}
+
+.order-details-p {
+    font-size: 20px;
+}
+
+.buyer-name {
+    margin-left: 32px;
+}
+
+.sent-btn {
+    width: 80px;
+    height: 40px;
+}
+
+@media screen and (max-width: 1000px) {
+    .order-details-p {
+        font-size: 16px;
+    }
+
+    .order-container p {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .item-container p {
+        font-size: 12px;
+    }
+
+    .item-details-header {
+        font-size: 16px;
+    }
+
+    .item-picture {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .details-container {
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 16px;
+    }
+
+    .buyer-name {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .sent-btn {
+        width: 70px;
+        height: 40px;
+        text-align: center;
+    }
 }
