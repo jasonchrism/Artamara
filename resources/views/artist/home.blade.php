@@ -40,7 +40,7 @@ Welcome, {{ Auth::user()->username }}
                 <p class="text-white">Total Orders</p>
             </div>
         </div>
-        <div class="item-container d-flex flex-column justify-content-center">
+        <div class="item-container d-flex flex-column justify-content-center" style="margin-bottom: 0;">
             <div style="margin-left: 24px;">
                 <h3 class="text-primary">230.302</h3>
                 <p class="text-white">Total Customers</p>
@@ -58,7 +58,25 @@ Welcome, {{ Auth::user()->username }}
         <div class="return">
             <p>Return Requests</p>
             <div class="return-container">
-                
+                <div class="return-table-border">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="color: var(--text-secondary);">No</th>
+                                <th scope="col" style="color: var(--text-secondary);">Id</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for($i = 1; $i < 8; $i++) <tr>
+                                <td scope="row">{{ $i }}</td>
+                                <td>12345678</td>
+                                <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
+                                </tr>
+                                @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -66,14 +84,54 @@ Welcome, {{ Auth::user()->username }}
     <div class="fourth-container d-flex">
         <div class="on-going-auctions">
             <p>On Going Auctions</p>
-            <div class="on-going-auctions-table">
-
+            <div class="on-going-auctions-container d-flex justify-content-center align-items-center">
+                <div class="on-going-auctions-border">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="color: var(--text-secondary);">No</th>
+                                <th scope="col" style="color: var(--text-secondary);">Title</th>
+                                <th scope="col" style="color: var(--text-secondary);">Last Price</th>
+                                <th scope="col" style="color: var(--text-secondary);">Ends in</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for($i = 1; $i < 8; $i++) <tr>
+                                <td scope="row">{{ $i }}</td>
+                                <td>Senja Kemala</td>
+                                <td>Rp200.000.000</td>
+                                <td>1d : 4h : 30s</td>
+                                </tr>
+                                @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="recent-transactions">
             <p>Recent Transactions</p>
-            <div class="recent-transactions-table">
-
+            <div class="recent-transactions-container d-flex justify-content-center align-items-center">
+                <div class="recent-transactions-border">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="color: var(--text-secondary);">No</th>
+                                <th scope="col" style="color: var(--text-secondary);">Id</th>
+                                <th scope="col" style="color: var(--text-secondary);">Ttile</th>
+                                <th scope="col" style="color: var(--text-secondary);">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for($i = 1; $i < 8; $i++) <tr>
+                                <td scope="row">{{ $i }}</td>
+                                <td>12345678</td>
+                                <td>Senja Kemala</td>
+                                <td>Aug 24, 2024</td>
+                                </tr>
+                                @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

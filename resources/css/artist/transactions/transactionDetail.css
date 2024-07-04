@@ -73,6 +73,10 @@
     margin-bottom: 56px;
 }
 
+.quantity-p {
+    margin-right: 40px;
+}
+
 @media screen and (max-width: 1000px) {
     .order-details-p {
         font-size: 16px;
@@ -136,5 +140,22 @@
     .item-details-container {
         width: 400px;
         margin-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .order-details-container {
+        width: 330px;
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .item-details-container {
+        width: 330px;
+        margin-bottom: 80px;
+    }
+
+    .quantity-p {
+        margin-right: 10px;
     }
 }

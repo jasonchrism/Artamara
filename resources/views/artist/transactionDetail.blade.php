@@ -83,7 +83,7 @@
                         <p class="text-secondary">Sepi dipenghujung tahun</p>
                     </div>
                     <div class="item-quantity d-flex">
-                        <p class="text-white" style="margin-right: 40px;">1x</p>
+                        <p class="text-white quantity-p">1x</p>
                         <p class="text-white">Rp120.000.000</p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         <p class="text-secondary">Sepi dipenghujung tahun</p>
                     </div>
                     <div class="item-quantity d-flex">
-                        <p class="text-white" style="margin-right: 40px;">1x</p>
+                        <p class="text-white quantity-p">1x</p>
                         <p class="text-white">Rp120.000.000</p>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         <p class="text-secondary">Sepi dipenghujung tahun</p>
                     </div>
                     <div class="item-quantity d-flex">
-                        <p class="text-white" style="margin-right: 40px;">1x</p>
+                        <p class="text-white quantity-p">1x</p>
                         <p class="text-white">Rp120.000.000</p>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         <p class="text-secondary">Sepi dipenghujung tahun</p>
                     </div>
                     <div class="item-quantity d-flex">
-                        <p class="text-white" style="margin-right: 40px;">1x</p>
+                        <p class="text-white quantity-p">1x</p>
                         <p class="text-white">Rp120.000.000</p>
                     </div>
                 </div>
