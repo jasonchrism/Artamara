@@ -45,15 +45,43 @@ input{
     margin-bottom: 20px;
 }
 
-.return-table {
+.return-subtable {
+    margin: 12px;
+    border: 1px solid white;
+}
+
+.return-container {
     width: 386px;
     height: 276px;
     background-color: var(--bg-overlay-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .return p {
     margin-top: 32px;
     margin-bottom: 20px;
+}
+
+.return-table-border {
+    width: 370px;
+    height: 260px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
+}
+
+a.check-btn {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+tr th {
+    border: none;
+}
+
+tr td {
+    border: none;
 }
 
 .on-going-auctions {
@@ -65,21 +93,35 @@ input{
     margin-bottom: 20px;
 }
 
-.on-going-auctions-table {
+.on-going-auctions-container {
     width: 503px;
     height: 208px;
     background-color: var(--bg-overlay-1);
 }
 
-.verification-requests p {
+.on-going-auctions-border {
+    width: 487px;
+    height: 192px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
+}
+
+.recent-transactions p {
     margin-top: 32px;
     margin-bottom: 20px;
 }
 
-.verification-requests-table {
+.recent-transactions-container {
     width: 482px;
     height: 208px;
     background-color: var(--bg-overlay-1);
+}
+
+.recent-transactions-border {
+    width: 466px;
+    height: 192px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
 }
 
 .image-test {
@@ -88,7 +130,7 @@ input{
     min-height: 100%;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1430px) {
     .mr-left {
         margin-right: 34px;
     }
@@ -122,5 +164,66 @@ input{
 @media screen and (max-width: 1030px) {
     .monthly {
         width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .on-going-auctions-container {
+        width: 100%;
+    }
+
+    .recent-transactions-container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .total-earnings {
+        font-size: 30px;
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .total-earnings {
+        font-size: 24px;
+        width: 14px;
+    }
+
+    .on-going-auctions {
+        width: 290px;
+        margin-right: 0;
+    }
+
+    .recent-transactions {
+        width: 290px;
+    }
+
+    .return {
+        width: 290px;
+    }
+
+    .monthly {
+        width: 290px;
+    }
+
+    .return-container {
+        width: 100%;
+    }
+
+    h3.text-primary {
+        font-size: 30px;
+    }
+
+    input#currencyInput.text-primary.fw-semibold.total-earnings {
+        width: 250px;
+    }
+
+    i#togglePassword.bi {
+        margin-left: 16px;
+    }
+
+    .mr-left {
+        margin-left: 0px;
     }
 }
