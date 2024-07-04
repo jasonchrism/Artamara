@@ -68,6 +68,11 @@
     height: 40px;
 }
 
+.logo-container {
+    margin-top: 48px;
+    margin-bottom: 56px;
+}
+
 @media screen and (max-width: 1000px) {
     .order-details-p {
         font-size: 16px;
@@ -108,5 +113,28 @@
         width: 70px;
         height: 40px;
         text-align: center;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    html {
+        display: flex;
+        justify-content: center;
+    }
+
+    .transaction-detail-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-details-container {
+        width: 400px;
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .item-details-container {
+        width: 400px;
+        margin-bottom: 80px;
     }
 }
