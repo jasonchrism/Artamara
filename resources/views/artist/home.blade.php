@@ -57,14 +57,14 @@ Welcome, {{ Auth::user()->username }}
         </div>
         <div class="return">
             <p>Return Requests</p>
-            <div class="return-container">
+            <div class="return-container d-flex justify-content-center align-items-center">
                 <div class="return-table-border">
                     <table class="table text-center">
                         <thead>
                             <tr>
-                                <th scope="col" style="color: var(--text-secondary);">No</th>
-                                <th scope="col" style="color: var(--text-secondary);">Id</th>
-                                <th scope="col"></th>
+                                <th scope="col" style="color: var(--text-secondary); border: none;">No</th>
+                                <th scope="col" style="color: var(--text-secondary); border: none;">Id</th>
+                                <th scope="col" style="border: none;"></th>
                             </tr>
                         </thead>
                         <tbody>

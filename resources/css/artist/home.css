@@ -45,15 +45,17 @@ input{
     margin-bottom: 20px;
 }
 
-.return-subtable {
-    margin: 12px;
-    border: 1px solid white;
-}
-
 .return-container {
     width: 386px;
     height: 276px;
     background-color: var(--bg-overlay-1);
+}
+
+.return-table-border {
+    width: 370px;
+    height: 260px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
 }
 
 .return p {
@@ -93,7 +95,55 @@ input{
     min-height: 100%;
 }
 
-@media screen and (max-width: 1440px) {
+.recent-transactions-container {
+    width: 482px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.recent-transactions-border {
+    width: 466px;
+    height: 192px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
+}
+
+.image-test {
+    background-color: var(--bg-overlay-1);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+tbody td {
+    border: none;
+}
+
+.check-btn {
+    margin-bottom: 5px;
+}
+
+.on-going-auctions-container {
+    width: 503px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.on-going-auctions-border {
+    width: 487px;
+    height: 192px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
+}
+
+thead tr th {
+    border: none;
+}
+
+.third-container {
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 1400px) {
     .mr-left {
         margin-right: 34px;
     }
@@ -127,5 +177,72 @@ input{
 @media screen and (max-width: 1030px) {
     .monthly {
         width: 90%;
+    }
+}
+@media screen and (max-width: 530px) {
+    .total-earnings {
+        font-size: 24px;
+        width: 14px;
+    }
+
+    .on-going-auctions {
+        width: 290px;
+        margin-right: 0;
+    }
+
+    .on-going-auctions-container {
+        width: 100%;
+    }
+
+    .recent-transactions {
+        width: 290px;
+    }
+
+    .recent-transactions-container {
+        width: 100%;
+    }
+
+    .return {
+        width: 290px;
+    }
+
+    .monthly {
+        width: 290px;
+    }
+
+    .return-container {
+        width: 100%;
+    }
+
+    h3.text-primary {
+        font-size: 30px;
+    }
+
+    input#currencyInput.text-primary.fw-semibold.total-earnings {
+        width: 20px;
+    }
+
+    i#togglePassword.bi {
+        margin-left: 10px;
+    }
+
+    .mr-left {
+        margin-left: 0px;
+    }
+
+    table thead th {
+        font-size: 14px;
+    }
+
+    table tbody td {
+        font-size: 12px;
+    }
+
+    .check-btn {
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 13px;
     }
 }
