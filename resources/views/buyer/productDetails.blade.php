@@ -72,7 +72,8 @@
 
                 <div class="two-button-section">
                     <button class="btn btn-primary buy-now">BUY NOW</button>
-                    <button class="btn btn-secondary cart"><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button class="btn btn-secondary cart">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.59375 21.0938C9.02522 21.0938 9.375 20.744 9.375 20.3125C9.375 19.881 9.02522 19.5312 8.59375 19.5312C8.16228 19.5312 7.8125 19.881 7.8125 20.3125C7.8125 20.744 8.16228 21.0938 8.59375 21.0938Z" stroke="#CEFE06" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M19.5312 21.0938C19.9627 21.0938 20.3125 20.744 20.3125 20.3125C20.3125 19.881 19.9627 19.5312 19.5312 19.5312C19.0998 19.5312 18.75 19.881 18.75 20.3125C18.75 20.744 19.0998 21.0938 19.5312 21.0938Z" stroke="#CEFE06" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M2.34375 3.90625H5.46875L7.8125 17.1875H20.3125" stroke="#CEFE06" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
