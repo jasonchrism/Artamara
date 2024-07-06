@@ -220,10 +220,12 @@ tr td {
     }
 
     i#togglePassword.bi {
-        margin-left: 16px;
+        margin-left: 10px;
     }
 
     .mr-left {
         margin-left: 0px;
     }
+
+    
 }
