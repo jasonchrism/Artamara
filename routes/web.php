@@ -1,32 +1,33 @@
 <?php
 
-use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
-use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
-use App\Http\Controllers\Artist\ArtAuctionController;
-use App\Http\Controllers\Artist\ArtSalesController;
-use App\Http\Controllers\Artist\EditPasswordController;
-use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
-use App\Http\Controllers\Artist\RatingController;
-use App\Http\Controllers\Artist\TransactionController;
-use App\Http\Controllers\Artist\TransactionDetailController;
-use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
-use App\Http\Controllers\Front\CatalogController;
-use App\Http\Controllers\Buyer\UserAddressController;
-use App\Http\Controllers\Front\ChangePasswordController;
-use App\Http\Controllers\Front\EditProfileController;
-use App\Http\Controllers\Front\LandingController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MyTransactionsController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\GuestMiddleware;
+use App\Http\Middleware\ArtistMiddleware;
+use App\Http\Controllers\addCartController;
 use App\Http\Controllers\ViewUsersController;
+use App\Http\Controllers\Artist\RatingController;
+use App\Http\Controllers\Front\CatalogController;
+use App\Http\Controllers\Front\LandingController;
+use App\Http\Controllers\MyTransactionsController;
 use App\Http\Controllers\productDetailsController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Artist\ArtSalesController;
+use App\Http\Controllers\Artist\ArtAuctionController;
+use App\Http\Controllers\Buyer\UserAddressController;
+use App\Http\Controllers\Front\EditProfileController;
+use App\Http\Controllers\Artist\TransactionController;
+use App\Http\Controllers\Artist\EditPasswordController;
+use App\Http\Controllers\Front\ChangePasswordController;
+use App\Http\Controllers\Artist\TransactionDetailController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
+use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
+use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
+use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
+use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ Route::name('front.')->group(function () {
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
+    Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
 });
