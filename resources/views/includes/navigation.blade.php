@@ -103,7 +103,7 @@
                         </div>
                     @foreach ($cartItems as $item)
                         <li class="cart-item d-flex align-items-center">
-                            <img class="cart-image" src="{{ Storage::url($item->product->photo) }}">
+                            <img class="cart-image" src="{{$item->product->thumbnail}}">
                             <a class="dropdown-item" href="/productDetails/{{$item->product->product_id}}">{{$item->product->title}}</a>
                             <p class="price-tag">Rp {{number_format($item->product->price, 0, ',', '.')}}</p>
                         </li>
