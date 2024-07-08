@@ -9,19 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class addCartController extends Controller
 {
-
-    public function navbarcart()
-    {
-        $cartItems = collect();
-
-        if (Auth::check()) {
-            $user = Auth::user()->user_id;
-            $cartItems = Cart::where($user)->with('product')->get();
-        }
-
-        return view('navigation', compact('cartItems'));
-    }
-
     public function addcart(Request $request, $id ){
         if(Auth::id()){
         $user = Auth::user()->user_id;
@@ -29,9 +16,12 @@ class addCartController extends Controller
 
         $cart = Cart::query()->where('user_id','=', $user)->where('product_id','=', $product->product_id)->first();
         if ($cart) {
+            $cart->quantity += $request->quantity;
+
+            $cart->save();
+    
             return redirect()->back()->with([
-                'address_title' => 'Product already added to the cart!',
-                'status' => 'error'
+                'address_title' => 'Product quantity added to cart!',
             ]);
         } else {
             $cart = new Cart([
