@@ -1,62 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Buyer;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\UserAddress;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
-class UserAddressController extends Controller
+class OrderController extends Controller
 {
-    public function index()
-    {
-        $user_id = Auth::user()->user_id;
-        $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
-            ->where('user_addresses.user_id', '=', $user_id)
-            ->orderBy('user_addresses.is_default', 'desc')
-            ->get();
-
-        $is_address_null = $user_address->first();
-        $countries = config('countries');
+    public function create(){
+        $userId = Auth::user()->user_id;
+        $addressDefault = UserAddress::where('user_id', '=', $userId)->where('is_default', 1)->first();
         
-        return view('buyer.viewaddress', [
-            'user_addresses' => $user_address,
-            'countries' => $countries,
-            'is_address_null' => $is_address_null,
-        ]);
+        $userAddress = UserAddress::where('user_id', '=', $userId)->get();
+
+        $isAddressNull = $userAddress->first();
+
+        return view('buyer.order.orderDetails', compact('addressDefault', 'userAddress', 'isAddressNull'));
     }
-
-
-    public function create(Request $request)
-    {
-        $user_id = Auth::user()->user_id;
-        $past_address = UserAddress::query()->where('user_id', '=', $user_id);
-        $past_address->update([
-            'is_default' => 0,
-        ]);
-
-        $address_id = $request->input('set-default-address-id');
-        $address = UserAddress::query()->where('address_id', '=', $address_id);
-
-        $address->update([
-            'is_default' => 1,
-        ]);
-
-        return redirect('/myaddress');
-    }
-
-    public function addAddress() {
+    
+    public function createAddress() {
         $countries = config('countries');
-        return view('buyer.addaddress', [
+        return view('buyer.order.addAddress', [
             'countries' => $countries,
         ]);
     }
-
     public function store(Request $request)
     { 
         $user_id = Auth::user()->user_id;      
@@ -113,20 +84,17 @@ class UserAddressController extends Controller
             ]);
         }
 
-        return redirect('/myaddress')->with('address_title', 'Address successfully created!');
+        return redirect()->route('front.order.create')->with('address_title', 'Address successfully created!');
     }
-
-    public function updateAddress($id) {
+    public function updateAddress($id){
         $address = Address::query()->where('address_id', '=', $id)->get();
         $countries = config('countries');
-        return view('buyer.updateaddress', [
+        return view('buyer.order.updateAddress', [
             'address' => $address[0],
             'countries' => $countries,
         ]);
     }
-
-    public function update(Request $request)
-    {
+    public function changeAddress(Request $request){
         $address_id = $request->input('update-address-id');
         $address = Address::find($address_id);
         $request->validate([
@@ -165,16 +133,32 @@ class UserAddressController extends Controller
             ]);
         }
 
-        return redirect('/myaddress')->with('address_title', 'Address successfully updated!');
+        return redirect()->route('front.order.create')->with('address_title', 'Address successfully updated!');
     }
+    public function chooseAddress(Request $request)
+    {
+        $user_id = Auth::user()->user_id;
+        $past_address = UserAddress::query()->where('user_id', '=', $user_id);
+        $past_address->update([
+            'is_default' => 0,
+        ]);
 
+        $address_id = $request->input('set-default-address-id');
+        $address = UserAddress::query()->where('address_id', '=', $address_id);
 
-    public function destroy(Request $request)
+        $address->update([
+            'is_default' => 1,
+        ]);
+
+        return redirect()->route('front.order.create')->with('address_title', 'Address successfully changed!');
+    }
+    public function deleteAddress(Request $request)
     {
         $address_id = $request->input('delete-address-id');
         $address = Address::query()->where('address_id', '=', $address_id);
         $address->delete();
 
-        return redirect('/myaddress');
+        return redirect()->route('front.order.create')->with('address_title', 'Address successfully deleted!');
     }
 }
+
