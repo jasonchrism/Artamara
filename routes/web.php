@@ -28,6 +28,7 @@ use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
 use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
 use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +66,9 @@ Route::name('front.')->group(function () {
     Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
-    Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart');
+    Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
 });

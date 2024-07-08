@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class addCartController extends Controller
 {
+
+    public function navbarcart()
+    {
+        $cartItems = collect();
+
+        if (Auth::check()) {
+            $user = Auth::user()->user_id;
+            $cartItems = Cart::where($user)->with('product')->get();
+        }
+
+        return view('navigation', compact('cartItems'));
+    }
+
     public function addcart(Request $request, $id ){
         if(Auth::id()){
         $user = Auth::user()->user_id;
