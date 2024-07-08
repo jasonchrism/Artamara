@@ -199,6 +199,8 @@ a:hover {
 
 .cart-item .price-tag{
     color: var(--text-primary);
+    width: 230px;
+    text-align: right;
 }
 
 .custom-position {
