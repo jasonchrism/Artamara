@@ -28,6 +28,7 @@ use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
 use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
 use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 
 /*
@@ -71,6 +72,13 @@ Route::name('front.')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+    Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
+    Route::get('/orderDetails/address/{id}/update', [OrderController::class, 'updateAddress'])->name('order.address.update');
+    Route::get('/orderDetails/address/create', [OrderController::class, 'createAddress'])->name('order.address.create');
+    Route::post('/orderDetails/address/store', [OrderController::class, 'store'])->name('order.address.store');
+    Route::put('/orderDetails/address/change', [OrderController::class, 'changeAddress'])->name('order.address.change');
+    Route::put('/orderDetails/address/choose', [OrderController::class, 'chooseAddress'])->name('order.address.choose');
+    Route::delete('/orderDetails/address/delete', [OrderController::class, 'deleteAddress'])->name('order.address.delete');
 });
 
 Auth::routes();

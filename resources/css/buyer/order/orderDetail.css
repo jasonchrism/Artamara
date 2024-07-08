@@ -1,0 +1,103 @@
+.head-address{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.detail-address{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.btn-address{
+    float: right    ;
+    font-size: 12px;
+    border: 1px solid var(--primary);
+}
+.btn-address:hover{
+    font-size: 12px;
+    border: 1px solid var(--primary);
+    background-color: #2c2c2c;
+}
+.address-content{
+    flex: 1;
+}
+.modal-header{
+    border: none;
+}
+.modal-footer{
+    border: none;
+}
+.modal-title{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+.close{
+    background-color: transparent;
+    border: none;
+}
+.btn-add{
+    font-size: 16px;
+}
+
+.address-box {   
+    height: 178px;
+    border: 1.5px solid var(--bg-overlay-2);
+}
+.default-address {
+    border: 1.5px solid var(--primary);
+    background-color: rgba(206, 254, 6, 0.1);
+}
+
+.address-name {
+    margin-top: 24px;
+    margin-left: 16px;
+}
+
+.address-name p {
+    font-size: 16px;
+}
+
+.address-detail {
+    margin-top: 8px;
+    margin-left: 48px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.submit-address-btn {
+    width: 539px;
+    margin-top: 56px;
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+.set-default-btn {
+    background-color: var(--primary);
+    margin-left: 16px;
+    font-size: 12px;
+    color: var(--bg-primary);
+    padding: 8px 15px;
+    border: none;
+}
+
+.edit-address-btn {
+    background-color: transparent;
+    border: none;
+    margin-right: 12px;
+    margin-left: 12px;
+    padding: 8px 15px;
+    font-size: 12px;
+}
+
+.edit-btn-container {
+    margin-bottom: 24px;
+    display: flex;
+}
+
+.location-icon{
+    width: auto;
+}
+

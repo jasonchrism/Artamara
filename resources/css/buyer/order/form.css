@@ -1,0 +1,61 @@
+.form-add-container {
+    width: 619px;
+    background-color: var(--bg-overlay-1);
+    margin-top: 24.5px;
+    padding: 32px;
+}
+
+.add-address-title {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.address-label {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.add-input-container {
+    margin-bottom: 12px;
+}
+
+.add-address-country {
+    background-color: var(--bg-overlay-1);
+    color: var(--text-primary);
+}
+
+.add-address-description {
+    height: 136px;
+    resize: none;
+}
+
+.add-address-description::-webkit-scrollbar {
+    display: none;
+}
+
+.create-address-container {
+    margin-top: 0px;
+}
+
+.submit-add-address-container {
+
+}
+
+.submit-add-address-btn {
+    width: 100%;
+    margin-top:10px;
+}
+
+/* Update User Address CSS */
+.update-address-container {
+    margin-top: 0px;
+    margin-bottom: 200px;
+}
+
+.submit-update-address-btn {
+    width: 100%;
+    margin-top:10px;
+}
