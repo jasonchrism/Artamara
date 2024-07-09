@@ -60,7 +60,6 @@
 
 
                 <div class="product-stock">
-
                     <div class="input-group w-auto justify-content-end align-items-center">
                         <button type="button" class="button-minus border icon-shape icon-sm" data-field="quantity"
                             style="height: 44px; width: 44px; background-color: var(--bg-overlay-1);">
@@ -69,7 +68,7 @@
                                 <path d="M15.8332 10.8307H4.1665V9.16406H15.8332V10.8307Z" fill="#CEFE06" />
                             </svg>
                         </button>
-                        <input type="number" step="1" max="10" value="1" name="quantity"
+                        <input id="quantity" type="number" step="1" max="10" value="1" name="quantity"
                             class="quantity-field border-0 text-center inputcartnumber"
                             style="height: 44px; width: 88px; background-color: var(--bg-overlay-1); color: var(--text-primary);">
                         <button type="button" class="button-plus border icon-shape icon-sm" data-field="quantity"
@@ -87,13 +86,26 @@
                 </div>
 
                 <div class="two-button-section d-flex">
-                    <form action="{{route('front.order.create')}}" method="get">
-                        <button type="submit" class="btn btn-primary buy-now">BUY NOW</button>
-                    </form>
+                    @if (Auth::check())
+                        <form action="{{ route('front.order.session') }}" method="post">
+                            @csrf
+                            <input type="hidden" value="{{ json_encode([$product->product_id]) }}" name="product">
+                            <input id="quantity2" type="number" step="1" max="10"   
+                                value="{{ json_encode('1') }}" name="quantity"
+                                class="quantity-field border-0 text-center inputcartnumber" hidden>
+                            <button type="submit" class="btn btn-primary buy-now">BUY NOW</button>
+                        </form>
+                    @else
+                        <form action="{{ route('login') }}" method="get">
+                            <button type="submit" class="btn btn-primary buy-now">BUY NOW</button>
+                        </form>
+                    @endif
+
                     {{-- cart button --}}
                     <form action="{{ route('front.addcart', $product->product_id) }}" method="POST">
                         @csrf
-                        @method('POST')
+                        <input id="quantity3" type="number" step="1" max="10" value="1"
+                            name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
                         <div class="cart-form">
                             <button class="btn btn-secondary cart" type="submit">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
@@ -226,10 +238,17 @@
 
         $('.input-group').on('click', '.button-plus', function(e) {
             incrementValue(e);
+            const qty = document.getElementById('quantity');
+            const qtyBuy = document.getElementById('quantity2');
+            qtyBuy.value = qty.value;
+            
         });
 
         $('.input-group').on('click', '.button-minus', function(e) {
             decrementValue(e);
+            const qty = document.getElementById('quantity');
+            const qtyBuy = document.getElementById('quantity2');
+            qtyBuy.value = qty.value;
         });
     </script>
 @endpush

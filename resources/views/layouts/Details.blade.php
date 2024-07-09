@@ -20,7 +20,6 @@
 
 <body>
     <div id="app">
-
         {{-- content --}}
         @yield('content')
 

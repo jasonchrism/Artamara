@@ -101,3 +101,19 @@
     width: auto;
 }
 
+.wrap-left{
+    width: 60%;
+}
+
+.wrap-right{
+    width: 40%;
+}
+
+.desc-ship{
+    font-size: 14px;
+    margin-bottom: 64px;
+}
+
+.desc-payment{
+    font-size: 14px;
+}

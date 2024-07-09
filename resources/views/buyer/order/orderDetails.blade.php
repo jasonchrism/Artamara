@@ -7,9 +7,9 @@
 
 @section('content')
     <div class="order-container mt-5">
-        <h4 class="text-white">Order & Shipment</h4>
+        <h4 class="text-white mb-4">Order & Shipment</h4>
         <div class="d-flex">
-            <div class="wrap-left w-50">
+            <div class="wrap-left">
                 <div class="address-container bg-overlay-1 p-4 w-100 mb-3">
                     <h6 class="text-white fw-medium mb-3">Shipping Address</h6>
                     <div class="d-flex">
@@ -87,7 +87,7 @@
                                                             <!-- </form> -->
                                                             <button type="button" class="edit-address-btn text-primary"
                                                                 data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                                data-bs-target="#{{$address['address_id']}}">
+                                                                data-bs-target="#{{ $address['address_id'] }}">
                                                                 Delete
                                                             </button>
                                                         @else
@@ -112,7 +112,7 @@
                                                             <!-- </form> -->
                                                             <button type="button" class="edit-address-btn text-primary"
                                                                 data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                                data-bs-target="#{{$address['address_id']}}">
+                                                                data-bs-target="#{{ $address['address_id'] }}">
                                                                 Delete
                                                             </button>
                                                         @endif
@@ -132,20 +132,48 @@
                     </div>
                 </div>
 
-                <div class="order-container bg-overlay-1 p-4 w-100">
-                    <h6 class="text-white fw-medium mb-3">artist name</h6>
-                    <div class="d-flex ps-3 justify-content-between">
-                        <img src="/assets/art1.jpg" alt="" class="object-fit-cover" style="width: 80px; height:80px">
-                        <div class="product-content w-50">
-                            <h6 class="text-white">Title</h6>
-                            <p class="text-secondary">Year</p>
+                @foreach ($order as $item)
+                    <div class="order-container bg-overlay-1 p-4 w-100">
+                        <h6 class="text-white fw-medium mb-3">{{ $item['product']->user->name }}</h6>
+                        <div class="d-flex ps-3 justify-content-between">
+                            <img src="{{$item['product']->thumbnail}}" alt="" class="object-fit-cover"
+                                style="width: 80px; height:80px">
+                            <div class="product-content w-50">
+                                <h6 class="text-white">{{ $item['product']->title }}</h6>
+                                <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                            </div>
+                            <p>{{$item['quantity']}}x</p>
+                            <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
                         </div>
-                        <p>1x</p>
-                        <p>Rp100.000.000</p>
                     </div>
-                </div>
+                @endforeach
             </div>
             <div class="wrap-right">
+                <div class="summary-container bg-overlay-1 p-4 w-100 ms-4">
+                    <h5 class="text-white fw-medium mb-3">Order Summary</h5>
+                    <div class="d-flex justify-content-between mb-3">
+                        <p class="text-secondary-txt">Total Price ({{$order->count()}} items)</p>
+                        <p class="text-white">{{ 'Rp' . number_format($total, 0, ',', '.') }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <p class="text-secondary-txt">Shipment ({{$shipment['region']}})</p>
+                        <p class="text-white">{{ 'Rp' . number_format($shipment['cost'], 0, ',', '.') }}</p>
+                    </div>
+                    <p class="text-secondary-txt desc-ship">*Based on the inputted address, the shipping
+                        cost is divided into 2 rates: domestic
+                        and international.</p>
+
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-white">Grand Total</h6>
+                        <p class="text-white">{{ 'Rp' . number_format($grandTotal, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+                <div class="ms-4 mt-3 w-100">
+                    <button class="btn btn-primary w-100 mb-3">Pay Now</button>
+                    <p class="text-secondary-txt w-100 text-center desc-payment">All payment is covered by third party
+                        partner You will
+                        redirect to payment section</p>
+                </div>
 
             </div>
         </div>
@@ -155,8 +183,8 @@
             <form action="{{ route('front.order.address.delete') }}" method="post">
                 @csrf
                 @method('DELETE')
-                <div class="modal fade" id="{{$address['address_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="{{ $address['address_id'] }}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" style="background-color: var(--bg-overlay-2); z-index:9999">
                         <div class="modal-content"
                             style="background-color: var(--bg-overlay-1); border-radius: 0; z-index:99999;">
@@ -179,4 +207,3 @@
             </form>
         @endforeach
     @endsection
-
