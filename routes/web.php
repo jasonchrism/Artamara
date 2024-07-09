@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,13 +73,15 @@ Route::name('front.')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+    Route::post('/orderDetails/session', [OrderController::class, 'addSession'])->name('order.session');
     Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
-    Route::get('/orderDetails/address/{id}/update', [OrderController::class, 'updateAddress'])->name('order.address.update');
-    Route::get('/orderDetails/address/create', [OrderController::class, 'createAddress'])->name('order.address.create');
-    Route::post('/orderDetails/address/store', [OrderController::class, 'store'])->name('order.address.store');
-    Route::put('/orderDetails/address/change', [OrderController::class, 'changeAddress'])->name('order.address.change');
-    Route::put('/orderDetails/address/choose', [OrderController::class, 'chooseAddress'])->name('order.address.choose');
-    Route::delete('/orderDetails/address/delete', [OrderController::class, 'deleteAddress'])->name('order.address.delete');
+    Route::post('/orderDetails/store', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/orderDetails/address/{id}/update', [OrderAddressController::class, 'updateAddress'])->name('order.address.update');
+    Route::get('/orderDetails/address/create', [OrderAddressController::class, 'createAddress'])->name('order.address.create');
+    Route::post('/orderDetails/address/store', [OrderAddressController::class, 'store'])->name('order.address.store');
+    Route::put('/orderDetails/address/change', [OrderAddressController::class, 'changeAddress'])->name('order.address.change');
+    Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
+    Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
 });
 
 Auth::routes();
