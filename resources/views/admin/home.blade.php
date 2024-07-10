@@ -10,7 +10,7 @@ Welcome, Admin
 <div class="mr-left">
     <div class="total-earnings-container">
         <div class="d-flex">
-            <input type="text" value="Rp1.121.140.000.000" class="text-primary fw-semibold total-earnings" id="currencyInput" disabled>
+            <input type="text" value="{{ $total['total_earnings'] }}" class="text-primary fw-semibold total-earnings" id="currencyInput" disabled>
             <i class="bi d-flex justify-content-center align-items-center" id="togglePassword">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="eyeIcon">
                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
@@ -25,25 +25,25 @@ Welcome, Admin
     <div class="count-container d-flex">
         <div class="item-container d-flex flex-column justify-content-center">
             <div style="margin-left: 24px;">
-                <h3 class="text-primary">5.040</h3>
+                <h3 class="text-primary">{{ $total['product_count'] }}</h3>
                 <p class="text-white">Artwork Collections</p>
             </div>
         </div>
         <div class="item-container d-flex flex-column justify-content-center">
             <div style="margin-left: 24px;">
-                <h3 class="text-primary">102</h3>
+                <h3 class="text-primary">{{ $total['auction_count'] }}</h3>
                 <p class="text-white">Auctions Held</p>
             </div>
         </div>
         <div class="item-container d-flex flex-column justify-content-center">
             <div style="margin-left: 24px;">
-                <h3 class="text-primary">102.320</h3>
+                <h3 class="text-primary">{{ $total['order_count'] }}</h3>
                 <p class="text-white">Total Orders</p>
             </div>
         </div>
         <div class="item-container d-flex flex-column justify-content-center" style="margin-bottom: 0;">
             <div style="margin-left: 24px;">
-                <h3 class="text-primary">230.302</h3>
+                <h3 class="text-primary">{{ $total['order_count'] }}</h3>
                 <p class="text-white">Total Customers</p>
             </div>
         </div>
@@ -69,12 +69,13 @@ Welcome, Admin
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i = 1; $i < 8; $i++) <tr>
-                                <td scope="row">{{ $i }}</td>
-                                <td>12345678</td>
+                            @foreach($returnRequests as $return)
+                            <tr>
+                                <td scope="row">{{ $loop->index + 1 }}</td>
+                                <td>{{ $return->order_id }}</td>
                                 <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
-                                </tr>
-                                @endfor
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -97,13 +98,14 @@ Welcome, Admin
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i = 1; $i < 8; $i++) <tr>
-                                <td scope="row">{{ $i }}</td>
-                                <td>Senja Kemala</td>
-                                <td>Rp200.000.000</td>
-                                <td>1d : 4h : 30s</td>
+                            @foreach($onGoingAuctions as $auction)
+                                <tr>
+                                    <td scope="row">{{ $loop->index + 1 }}</td>
+                                    <td>{{ $auction->product->title }}</td>
+                                    <td>Rp{{ $auction->start_price }}</td>
+                                    <td id="remaining_time_{{ $auction->product_id }}">{{ $auction->remaining_time }}</td>
                                 </tr>
-                                @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -123,13 +125,14 @@ Welcome, Admin
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i = 1; $i < 8; $i++) <tr>
-                                <td scope="row">{{ $i }}</td>
-                                <td>12345678</td>
-                                <td>Senja Kemala</td>
-                                <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
+                            @foreach($verificationRequests as $verif) 
+                                <tr>
+                                    <td scope="row">{{ $loop->index + 1 }}</td>
+                                    <td>{{ $verif->user_id }}</td>
+                                    <td>{{ $verif->name }}</td>
+                                    <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
                                 </tr>
-                                @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -139,6 +142,40 @@ Welcome, Admin
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    setInterval(function() {
+        @foreach($onGoingAuctions as $auction)
+        var startDate = new Date("{{ $auction->start_date }}");
+        var endDate = new Date("{{ $auction->end_date }}");
+        var now = new Date();
+
+        var diffStart = startDate - now;
+        var diffEnd = endDate - now;
+
+        var remainingTime = '';
+        if (diffStart > 0) {
+            remainingTime = 'Auction starts soon';
+        } else {
+            if (diffEnd > 0) {
+                var diff = diffEnd;
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                remainingTime = days + 'd : ' + hours + 'h : ' + minutes + 'm : ' + seconds + 's';
+            } else if (diffStart > 0) {
+                remainingTime = 'Auction starts soon';
+            } else {
+                remainingTime = 'Auction ended';
+            }
+        }
+
+        document.getElementById('remaining_time_{{ $auction->product_id }}').innerText = remainingTime;
+        @endforeach
+    }, 1000);
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

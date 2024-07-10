@@ -7,8 +7,11 @@ use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\ProductAuction;
+use App\Models\Refund;
 use App\Models\User;
 use App\Models\UserAddress;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +26,37 @@ class HomeController extends Controller
     {
         $artist_id = Auth::id();
 
+        // Monthly Earnings
+        $sixMonthsAgo = Carbon::now()->subMonths(6)->startOfMonth();
+
+        $orders = Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
+            $query->where('user_id', $artist_id);
+        })
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
+            ->where('created_at', '>=', $sixMonthsAgo)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('month', 'desc')
+            ->limit(6)
+            ->get();
+
+        $totalPrice = array_fill(0, 5, 0);
+
+        for ($i = 0; $i < 6; $i++) {
+            $month = Carbon::now()->subMonths($i)->format('n');
+            $totalPrice[$i] = isset($orders[$i]['total_price']) ? $orders[$i]['total_price'] : 0;
+        }
+
+        // Return Requests
+        $returnRequests = Refund::whereHas('order.orderDetail.product', function ($query) use ($artist_id) {
+            $query->where('user_id', $artist_id);
+        })->with(['order.orderDetail.product' => function ($query) use ($artist_id) {
+            $query->where('user_id', $artist_id);
+        }])
+            ->where('status', 'ARTIST REVIEW')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Recent Transactions
         $recentTransactions = Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
             $query->where('user_id', $artist_id);
         })->with(['orderDetail' => function ($query) use ($artist_id) {
@@ -30,16 +64,61 @@ class HomeController extends Controller
                 $query->where('user_id', $artist_id);
             });
         }])
-        ->orderBy('created_at', 'asc')
-        ->take(10)
-        ->get();
+            ->orderBy('created_at', 'asc')
+            ->take(10)
+            ->get();
 
         foreach ($recentTransactions as $recent) {
             $recent->formatted_date = $recent->created_at->format('F d, Y');
         }
 
+        // On Going Auctions
+        $onGoingAuctions = ProductAuction::whereHas('product', function ($query) use ($artist_id) {
+            $query->where('user_id', $artist_id);
+        })->get();
+
+        foreach ($onGoingAuctions as $auction) {
+            $createdAt = Carbon::parse($auction->created_at);
+            $now = Carbon::now();
+            $diff = $now->diff($createdAt);
+
+            $remainingTime = '';
+            if ($diff->d > 0) {
+                $remainingTime .= $diff->d . 'd : ';
+            }
+            if ($diff->h > 0) {
+                $remainingTime .= $diff->h . 'h : ';
+            }
+            if ($diff->i > 0) {
+                $remainingTime .= $diff->i . 'm : ';
+            }
+            if ($diff->s > 0) {
+                $remainingTime .= $diff->s . 's';
+            }
+
+            $auction->remaining_time = $remainingTime;
+        }
+
+        // Total Earnings
+        $total = [
+            'product_count' => Product::where('user_id', $artist_id)->count(),
+            'auction_count' => ProductAuction::whereHas('product', function ($query) use ($artist_id) {
+                $query->where('user_id', $artist_id);
+            })->count(),
+            'order_count' => Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
+                $query->where('user_id', $artist_id);
+            })->count(),
+            'total_earnings' => 'Rp' . number_format(Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
+                $query->where('user_id', $artist_id);
+            })->sum('total_price'), 0, ',', '.')
+        ];
+
         return view('artist.home', [
             'recentTransactions' => $recentTransactions,
+            'totalPrice' => $totalPrice,
+            'onGoingAuctions' => $onGoingAuctions,
+            'returnRequests' => $returnRequests,
+            'total' => $total
         ]);
     }
 
