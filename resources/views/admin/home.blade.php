@@ -185,18 +185,35 @@ Welcome, Admin
 <script>
     const ctx = document.getElementById('myChart');
 
+    function getLast6Months() {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let result = [];
+        let date = new Date();
+
+        for (let i = 0; i < 6; i++) {
+            result.push(months[date.getMonth()]);
+            date.setMonth(date.getMonth() - 1);
+        }
+
+        return result.reverse();
+    }
+
+    const last6Months = getLast6Months();
+
+    var totalPrice = @json($totalPrice);
+
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            labels: last6Months,
             datasets: [{
                 label: 'Monthly Earnings',
-                data: [12, 19, 3, 5, 2, 3],
+                data: totalPrice,
                 borderWidth: 1,
                 fill: true,
                 backgroundColor: 'rgba(206, 254, 6, 0.2)',
                 borderColor: 'rgba(206, 254, 6, 1)',
-                tension: 0.4 
+                tension: 0.4
             }]
         },
         options: {
@@ -208,4 +225,5 @@ Welcome, Admin
         }
     });
 </script>
+
 @endsection

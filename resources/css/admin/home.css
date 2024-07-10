@@ -143,6 +143,24 @@ thead tr th {
     margin-bottom: 15px;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-overlay-1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bg-overlay-2);
+}
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #3b3b3b;
+}
+
 @media screen and (max-width: 1400px) {
     .mr-left {
         margin-right: 34px;
