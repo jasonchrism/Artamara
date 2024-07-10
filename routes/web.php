@@ -65,7 +65,7 @@ Route::name('front.')->group(function () {
     Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
     Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
 
-    Route::get('/mytransactions', [MyTransactionsController::class, 'index'])->name('mytransactions');
+    Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
@@ -102,7 +102,7 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
     Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
     Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
-    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);  
+    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);
     Route::put('/changepassword', [EditPasswordController::class, 'update'])->name('changeartistpassword.update');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
