@@ -117,18 +117,21 @@ Welcome, {{ Auth::user()->username }}
                             <tr>
                                 <th scope="col" style="color: var(--text-secondary);">No</th>
                                 <th scope="col" style="color: var(--text-secondary);">Id</th>
-                                <th scope="col" style="color: var(--text-secondary);">Ttile</th>
+                                <th scope="col" style="color: var(--text-secondary);">Title</th>
                                 <th scope="col" style="color: var(--text-secondary);">Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i = 1; $i < 8; $i++) <tr>
-                                <td scope="row">{{ $i }}</td>
-                                <td>12345678</td>
-                                <td>Senja Kemala</td>
-                                <td>Aug 24, 2024</td>
-                                </tr>
-                                @endfor
+                            @foreach($recentTransactions as $order)
+                                @foreach($order->orderDetail as $od)
+                                    <tr>
+                                        <td scope="row">{{ $loop->parent->index + 1 }}</td>
+                                        <td>{{ $od->product->product_id }}</td>
+                                        <td>{{ $od->product->title }}</td>
+                                        <td>{{ $order->formatted_date }}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
