@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Artist;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\UserAddress;
 use Exception;
@@ -18,10 +21,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('artist.home');
+        $artist_id = Auth::id();
+
+        $recentTransactions = Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
+            $query->where('user_id', $artist_id);
+        })->with(['orderDetail' => function ($query) use ($artist_id) {
+            $query->whereHas('product', function ($query) use ($artist_id) {
+                $query->where('user_id', $artist_id);
+            });
+        }])
+        ->orderBy('created_at', 'asc')
+        ->take(10)
+        ->get();
+
+        foreach ($recentTransactions as $recent) {
+            $recent->formatted_date = $recent->created_at->format('F d, Y');
+        }
+
+        return view('artist.home', [
+            'recentTransactions' => $recentTransactions,
+        ]);
     }
 
-    public function showProfile() {
+    public function showProfile()
+    {
         $artist_id = Auth::user()->user_id;
         $user = User::query()->where('user_id', $artist_id)->get();
         $address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
@@ -35,7 +58,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function editProfile(Request $request) {
+    public function editProfile(Request $request)
+    {
         $artist_id = Auth::user()->user_id;
         $user = User::query()->where('user_id', $artist_id)->get();
         $address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
@@ -44,7 +68,7 @@ class HomeController extends Controller
             ->get();
 
         $address = Address::find($address[0]['address_id']);
-            
+
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'min:1'],
             'username' => ['required', 'string', 'max:255', 'min:1'],
@@ -63,7 +87,7 @@ class HomeController extends Controller
             if (request()->hasFile('profile_picture')) {
                 $photoPath = request()->file('profile_picture')->store('photos', 'public');
             }
-            
+
             DB::beginTransaction();
             $address->update([
                 'street' => $request->input('street'),
@@ -78,10 +102,10 @@ class HomeController extends Controller
                 'about' => $request->input('description'),
                 'phone_number' => $request->input('phone_number'),
                 'profile_picture' => $photoPath,
-                ]);
+            ]);
 
-                DB::commit();
-        } catch(Exception $e) {
+            DB::commit();
+        } catch (Exception $e) {
             dd(3);
             DB::rollBack();
             return redirect('/dashboard/artist/myprofile')->with([
