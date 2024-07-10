@@ -26,7 +26,12 @@ class UserAddress extends Model
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
-    public function userAddress() {
+    // public function userAddress() {
+    //     return $this->belongsTo(Address::class, 'address_id', 'address_id');
+    // }
+
+    // fix
+    public function address() {
         return $this->belongsTo(Address::class, 'address_id', 'address_id');
     }
 }

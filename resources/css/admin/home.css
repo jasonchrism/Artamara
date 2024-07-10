@@ -45,23 +45,10 @@ input{
     margin-bottom: 20px;
 }
 
-.return-subtable {
-    margin: 12px;
-    border: 1px solid white;
-}
-
 .return-container {
     width: 386px;
     height: 276px;
     background-color: var(--bg-overlay-1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.return p {
-    margin-top: 32px;
-    margin-bottom: 20px;
 }
 
 .return-table-border {
@@ -71,17 +58,9 @@ input{
     overflow-y: auto;
 }
 
-a.check-btn {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-tr th {
-    border: none;
-}
-
-tr td {
-    border: none;
+.return p {
+    margin-top: 32px;
+    margin-bottom: 20px;
 }
 
 .on-going-auctions {
@@ -91,6 +70,56 @@ tr td {
 .on-going-auctions p {
     margin-top: 32px;
     margin-bottom: 20px;
+}
+
+.on-going-auctions-table {
+    width: 503px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.verification-requests p {
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.verification-requests-table {
+    width: 482px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.chart-container {
+    background-color: var(--bg-overlay-1);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.verification-requests-container {
+    width: 482px;
+    height: 208px;
+    background-color: var(--bg-overlay-1);
+}
+
+.verification-requests-border {
+    width: 466px;
+    height: 192px;
+    border: 1px solid var(--bg-overlay-2);
+    overflow-y: auto;
+}
+
+.image-test {
+    background-color: var(--bg-overlay-1);
+    min-width: 100%;
+    min-height: 100%;
+}
+
+tbody td {
+    border: none;
+}
+
+.check-btn {
+    margin-bottom: 5px;
 }
 
 .on-going-auctions-container {
@@ -106,31 +135,15 @@ tr td {
     overflow-y: auto;
 }
 
-.recent-transactions p {
-    margin-top: 32px;
-    margin-bottom: 20px;
+thead tr th {
+    border: none;
 }
 
-.recent-transactions-container {
-    width: 482px;
-    height: 208px;
-    background-color: var(--bg-overlay-1);
+.third-container {
+    margin-bottom: 15px;
 }
 
-.recent-transactions-border {
-    width: 466px;
-    height: 192px;
-    border: 1px solid var(--bg-overlay-2);
-    overflow-y: auto;
-}
-
-.image-test {
-    background-color: var(--bg-overlay-1);
-    min-width: 100%;
-    min-height: 100%;
-}
-
-@media screen and (max-width: 1430px) {
+@media screen and (max-width: 1400px) {
     .mr-left {
         margin-right: 34px;
     }
@@ -166,24 +179,6 @@ tr td {
         width: 90%;
     }
 }
-
-@media screen and (max-width: 768px) {
-    .on-going-auctions-container {
-        width: 100%;
-    }
-
-    .recent-transactions-container {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 620px) {
-    .total-earnings {
-        font-size: 30px;
-        width: 300px;
-    }
-}
-
 @media screen and (max-width: 530px) {
     .total-earnings {
         font-size: 24px;
@@ -195,8 +190,16 @@ tr td {
         margin-right: 0;
     }
 
-    .recent-transactions {
+    .on-going-auctions-container {
+        width: 100%;
+    }
+
+    .verification-requests {
         width: 290px;
+    }
+
+    .verification-requests-container {
+        width: 100%;
     }
 
     .return {
@@ -205,6 +208,7 @@ tr td {
 
     .monthly {
         width: 290px;
+        height: 150px;
     }
 
     .return-container {
@@ -216,16 +220,35 @@ tr td {
     }
 
     input#currencyInput.text-primary.fw-semibold.total-earnings {
-        width: 250px;
+        width: 20px;
     }
 
     i#togglePassword.bi {
         margin-left: 10px;
+        width: 25px;
     }
 
     .mr-left {
         margin-left: 0px;
     }
 
-    
+    table thead th {
+        font-size: 14px;
+    }
+
+    table tbody td {
+        font-size: 12px;
+    }
+
+    .check-btn {
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 13px;
+    }
+
+    a.btn.btn-primary.check-btn {
+        font-size: 12px;
+    }
 }
