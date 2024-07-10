@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductAuction;
+use App\Models\Refund;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +19,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Monthly Earnings
         $sixMonthsAgo = Carbon::now()->subMonths(6)->startOfMonth();
-
         $order = Order::selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
             ->where('created_at', '>=', $sixMonthsAgo)
             ->groupBy(DB::raw('MONTH(created_at)'))
@@ -30,7 +34,28 @@ class HomeController extends Controller
             $totalPrice[$i] = isset($order[$i]['total_price']) ? $order[$i]['total_price'] : 0;
         }
 
-        return view('admin.home', compact('totalPrice'));
+        // Return Requests
+        $returnRequests = Refund::where('status', 'ADMIN REVIEW')
+        ->orderBy('created_at', 'asc')
+        ->get();
+
+        // On Going Auctions
+        $onGoingAuctions = ProductAuction::query()->get();
+
+        // Total Earnings
+        $total = [
+            'product_count' => Product::query()->count(),
+            'auction_count' => ProductAuction::query()->count(),
+            'order_count' => Order::query()->count(),
+            'total_earnings' => 'Rp' . number_format(Order::query()->sum('total_price'), 0, ',', '.')
+        ];
+
+        // Verification Requests
+        $verificationRequests = User::query()
+            ->where('status', 'UNVERIFIED')
+            ->get();
+
+        return view('admin.home', compact('totalPrice', 'returnRequests', 'onGoingAuctions', 'total', 'verificationRequests'));
     }
 
     /**
