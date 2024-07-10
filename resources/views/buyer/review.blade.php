@@ -14,32 +14,28 @@
 
         <div class="product-container">
             <p class="fw-semibold text-white product-container-title">Product Details</p>
-            <div class="d-flex product-subcontainer justify-content-between align-items-center">
-                <div class="d-flex">
-                    <img src="https://placehold.co/600x400/000000/FFFFFF.png" alt="" class="product-image">
-                    <div class="name-quantity">
-                        <p class="m-0">Mountain Bird</p>
-                        <p class="m-0">1x</p>
+            @foreach($order as $or)
+                @foreach($or->orderDetail as $od)
+                    <div class="d-flex product-subcontainer justify-content-between align-items-center">
+                        <div class="d-flex">
+                            <img src="{{ $od->product->thumbnail }}" alt="" class="product-image">
+                            <div class="name-quantity">
+                                <p class="m-0">{{ $od->product->title }}</p>
+                                <p class="m-0">{{ $od->quantity }}x</p>
+                            </div>
+                        </div>
+                        <p class="product-price fw-semibold">{{ $od->product->price }}</p>
                     </div>
-                </div>
-                <p class="product-price fw-semibold">Rp200.000.000</p>
-            </div>
-
-            <div class="d-flex product-subcontainer justify-content-between align-items-center">
-                <div class="d-flex">
-                    <img src="https://placehold.co/600x400/000000/FFFFFF.png" alt="" class="product-image">
-                    <div class="name-quantity">
-                        <p class="m-0">Mountain Bird</p>
-                        <p class="m-0">1x</p>
-                    </div>
-                </div>
-                <p class="product-price fw-semibold">Rp200.000.000</p>
-            </div>
+                @endforeach
+            @endforeach
         </div>
 
-        <form class="py-2 px-4" action="" method="POST" autocomplete="off">
+        <form class="" action="{{ route('front.buyer.store.review') }}" method="POST" autocomplete="off">
             @csrf
-            <p class="fw-semibold" style="margin-left: 8px; font-size: 14px;">Rating</p>
+            <p class="fw-semibold" style="margin-left: 32px; font-size: 14px;">Rating</p>
+            @foreach($order as $or)
+            <input type="hidden" value="{{ $or->order_id }}" name="order_id"> 
+            @endforeach
             <div class="form-group row">
                 <div class="col">
                     <div class="rate">
@@ -56,16 +52,16 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="comment-container">
+                <p class="text-white fw-semibold" style="font-size: 14px; margin-bottom: 8px;">Reviews</p>
+                <textarea name="review" id="review" placeholder="write a review" class="form-control"></textarea>
+            </div>
+            
+            <div class="submit-btn-container d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
         </form>
-
-        <div class="comment-container">
-            <p class="text-white fw-semibold" style="font-size: 14px; margin-bottom: 8px;">Reviews</p>
-            <textarea name="review" id="review" placeholder="write a review" class="form-control"></textarea>
-        </div>
-
-        <div class="submit-btn-container d-flex justify-content-end">
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
     </div>
 </div>
 
