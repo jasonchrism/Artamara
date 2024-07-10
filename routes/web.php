@@ -66,6 +66,7 @@ Route::name('front.')->group(function () {
     Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
 
     Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
+    Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details

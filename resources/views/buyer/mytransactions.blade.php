@@ -157,7 +157,7 @@
                             <div class="order-footer-btn">
                                 <button class="btn-bordered" data-bs-toggle="modal" data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
                                 <button class="btn-report">Report</button>
-                                <button class="btn btn-primary">Confirmed Order</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ 'confirmationModal-' . $orderId }}" data-bs-dismiss="modal">Confirmed Order</button>
                             </div>
                         </div>
                     @endif
@@ -191,6 +191,7 @@
         @endforeach
     </div>
 
+    {{-- ini untuk order details modal --}}
     @foreach ($groupedProducts as $orderId => $orderData)
     {{-- {{dd($orderData)}} --}}
     <div class="modal fade" id="{{ 'orderDetailsModal-' . $orderId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -354,6 +355,29 @@
                 @endif
           </div>
         </div>
-      </div>
+    </div>
+    {{-- modal confirmation order --}}
+    <div class="modal fade" id="{{ 'confirmationModal-' . $orderId }}" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="confirmation-content">
+              <div class="confirmation-header">
+                  <p class="confirmation-title" id="exampleModalLabel">Confirm Order</p>
+              </div>
+              <div class="confirmation-body">
+                <p>Confirming this order will finalize your purchase and initiate the payment process. Once confirmed, changes to the order will not be permitted.</p>
+              </div>
+              <div class="confirmation-footer">
+
+                <form action="{{route('front.confirmTransactions', ['status' => $status, 'orderId' => $orderId])}}" method="post">
+                    @csrf
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
     @endforeach
+
 @endsection
