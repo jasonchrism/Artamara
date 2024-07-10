@@ -258,7 +258,7 @@ a:hover {
     }
 }
 
-input[type="checkbox"] {
+.navigationcheckbox {
     display: none;
 }
 
