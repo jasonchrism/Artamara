@@ -196,6 +196,15 @@ class MyTransactionsController extends Controller
         return view('buyer.mytransactions', compact('groupedProducts', 'status'));
     }
 
+    public function confirmation(Request $request, $status, $orderId)
+    {
+        $order = Order::find($orderId);
+        $order->status = 'CONFIRMED';
+        $order->save();
+
+        return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
+
+    }
     /**
      * Show the form for creating a new resource.
      */
