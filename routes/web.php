@@ -82,6 +82,9 @@ Route::name('front.')->group(function () {
     Route::put('/orderDetails/address/change', [OrderAddressController::class, 'changeAddress'])->name('order.address.change');
     Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
     Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
+
+    //payment
+    Route::get("/payment/success", [OrderController::class, 'success'])->name('payment.success');
 });
 
 Auth::routes();

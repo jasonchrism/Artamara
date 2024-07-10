@@ -91,7 +91,7 @@
                             @csrf
                             <input type="hidden" value="{{ json_encode([$product->product_id]) }}" name="product">
                             <input id="quantity2" type="number" step="1" max="10"   
-                                value="{{ json_encode('1') }}" name="quantity"
+                                value="1" name="quantity"
                                 class="quantity-field border-0 text-center inputcartnumber" hidden>
                             <button type="submit" class="btn btn-primary buy-now">BUY NOW</button>
                         </form>
@@ -102,7 +102,7 @@
                     @endif
 
                     {{-- cart button --}}
-                    <form action="{{ route('front.addcart', $product->product_id) }}" method="POST">
+                    <form action="{{auth()->check() ? route('front.addcart', $product->product_id) : route('login')}}" method="{{auth()->check() ? "POST" : "GET"}}">
                         @csrf
                         <input id="quantity3" type="number" step="1" max="10" value="1"
                             name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
