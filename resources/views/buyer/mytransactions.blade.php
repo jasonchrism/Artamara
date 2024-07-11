@@ -78,13 +78,15 @@
                                     <div class="product-list-left-desc">
 
                                         <p>{{ $product->title }}</p>
-                                        <p>{{ $product->orderDetail[0]->quantity }}x</p>
+                                        <p>{{ $product->orderDetail->where('order_id', $orderId)->first()->quantity }}x</p>
+
 
                                     </div>
 
                                 </div>
 
                                 <div class="product-list-left">
+
                                     <p>{{ 'Rp' . number_format($product->price, 0, ',', '.') }}</p>
 
 
@@ -101,7 +103,8 @@
                 <div class="price-total">
 
                     <p>Total:
-                        <strong>{{ 'Rp' . number_format($product->orderDetail[0]->order->total_price, 0, ',', '.') }}</strong>
+                        <strong>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->total_price, 0, ',', '.') }}</strong>
+
                     </p>
 
                 </div>
@@ -282,7 +285,7 @@
                                                 <div class="product-list-left-desc">
 
                                                     <p>{{ $product->title }}</p>
-                                                    <p>{{ $product->orderDetail[0]->quantity }}x</p>
+                                                    <p>{{ $product->orderDetail->where('order_id', $orderId)->first()->quantity }}x</p>
 
                                                 </div>
 
@@ -327,13 +330,13 @@
                         </div>
                         <div class="orderline">
                             <p id="left-orderline">Total price</p>
-                            <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->total_price, 0, ',', '.') }}</p>
+                            <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->total_price, 0, ',', '.') }}</p>
 
                         </div>
 
                         <div class="orderline">
                             <p id="left-orderline">Total shipment</p>
-                            <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->shipment_fee, 0, ',', '.') }}</p>
+                            <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->shipment_fee, 0, ',', '.') }}</p>
 
                         </div>
 

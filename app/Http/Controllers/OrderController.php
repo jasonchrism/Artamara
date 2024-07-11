@@ -106,6 +106,7 @@ class OrderController extends Controller
         $addressId = $request->input('addressId');
 
         try {
+
             $now = Carbon::now('Asia/Jakarta');
 
             // Add 24 hours to the current time
@@ -125,6 +126,7 @@ class OrderController extends Controller
             $order->is_auction = 0;
             $order->end_date = $formattedTime;
             $order->save();
+            
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -133,6 +135,7 @@ class OrderController extends Controller
             \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
             // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = config('midtrans.is3ds');
+
 
             $params = array(
                 'transaction_details' => array(
