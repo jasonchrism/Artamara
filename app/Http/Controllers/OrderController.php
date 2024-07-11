@@ -69,6 +69,14 @@ class OrderController extends Controller
             $product = $request->input('product');
             $product = json_decode($product)[0];
             $quantity = $request->input('quantity');
+            $data = Product::find($product);
+            $tempStock = $data->stock - $quantity;
+            if ($tempStock < 0) {
+                return redirect()->route('front.productDetails', $product)->with([
+                    'status' => 'error',
+                    'address_title' => 'Cannot purchase more than ' . $data->stock . ' items'
+                ]);
+            }
             session([
                 'order' =>
                 [
@@ -84,6 +92,16 @@ class OrderController extends Controller
             $orders = json_decode($orders);
             $tempOrder = [];
             foreach ($orders as $order) {
+                // dd($order);
+                $data = Product::find($order->product_id);
+                dd($order->quantity);
+                $tempStock = $data->stock - $order->quantity;
+                // dd($tempStock);
+                if ($tempStock < 0) {
+                    return redirect()->route('front.cart')->with([
+                        'address_title' => 'Cannot purchase more than ' . $data->stock . ' items'
+                    ]);
+                }
                 $tempOrder[] = [
                     'product' => $order->product_id,
                     'quantity' => $order->quantity
@@ -126,7 +144,7 @@ class OrderController extends Controller
             $order->is_auction = 0;
             $order->end_date = $formattedTime;
             $order->save();
-            
+
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -162,6 +180,7 @@ class OrderController extends Controller
                 $orderDetail->save();
 
                 $product = Product::find($orderDetail->product_id);
+
                 $product->stock -= $orderDetail->quantity;
                 $product->save();
             }
@@ -172,16 +191,23 @@ class OrderController extends Controller
         return redirect($paymentUrl);
     }
 
-    public function success(Request $request)
+    public function payment(Request $request)
     {
         $orderId = $request->get('order_id');
         $status = $request->get('transaction_status');
 
         $order = Order::find($orderId);
         $payment = Payment::find($order->payment_id);
-        if($status == "settlement"){
+        if ($status == "settlement") {
             $payment->status = 'PAID';
+        }else if($status == "pending"){
+            $payment->status = "UNPAID";
+        }else if($status == "failure"){
+            $payment->status = 'CANCELLED';
         }
         $payment->save();
+        return view('buyer.order.afterPayment', [
+            'status' => $status
+        ]);
     }
 }

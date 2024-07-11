@@ -1,0 +1,8 @@
+.btn-after{
+    width: 300px;
+}
+.btn-details{
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
