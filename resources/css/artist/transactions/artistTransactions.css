@@ -1,35 +1,33 @@
-.nav-pills .nav-item a
-{
+.nav-pills .nav-item a {
     display: block;
     padding: 10px 15px;
     cursor: pointer;
 }
 
-.nav-pills .nav-item.tab-active a
-{
+.nav-pills .nav-item.tab-active a {
     color: var(--primary);
     border-bottom: 2px solid var(--primary);
 }
 
-.nav-pills .nav-item a{
+.nav-pills .nav-item a {
     color: var(--text-primary);
     text-decoration: none;
 }
 
-.nav-pills .nav-item a:hover
-{
+.nav-pills .nav-item a:hover {
     text-decoration: none;
     color: var(--primary);
 }
 
 /* datatables */
-.packing-table
-{
+.packing-table {
     text-align: center;
 }
 
 th.packing-table-title.sorting {
     text-align: center;
+    display: table-cell;
+    vertical-align: middle;
     color: var(--text-secondary);
 }
 
@@ -106,4 +104,13 @@ table.dataTable {
 
 .btn-secondary {
     background-color: transparent;
+}
+
+.dropdown-menu.custom-dropdown-menu.show {
+    top: auto;
+    right: auto;
+    /* Position it to the right */
+    left: 0;
+    transform: translateX(100%);
+    /* Adjust as needed */
 }

@@ -13,19 +13,24 @@
             <ul class="nav nav-pills" id="myTab">
 
                 <li class="nav-item tab-link tab-active">
-                    <a class="" href="#">Packing</a>
+                    <a class="tabs" href="{{ route('tabs', 'PACKING') }}"
+                        data-ajax-url="{{ route('tabs', 'PACKING') }}">Packing</a>
                 </li>
                 <li class="nav-item tab-link">
-                    <a class="" href="#">Shipping</a>
+                    <a class="tabs" href="{{ route('tabs', 'SHIPPING') }}"
+                        data-ajax-url="{{ route('tabs', 'SHIPPING') }}">Shipping</a>
                 </li>
                 <li class="nav-item tab-link">
-                    <a class="" href="#">Finished</a>
+                    <a class="tabs" href="{{ route('tabs', 'CONFIRMED') }}"
+                        data-ajax-url="{{ route('tabs', 'CONFIRMED') }}">Finished</a>
                 </li>
                 <li class="nav-item tab-link">
-                    <a class="" href="#">Returned</a>
+                    <a class="tabs" href="{{ route('tabs', 'RETURNED') }}"
+                        data-ajax-url="{{ route('tabs', 'RETURNED') }}">Returned</a>
                 </li>
                 <li class="nav-item tab-link">
-                    <a class="" href="#">Cancelled</a>
+                    <a class="tabs" href="{{ route('tabs', 'CANCELLED') }}"
+                        data-ajax-url="{{ route('tabs', 'CANCELLED') }}">Cancelled</a>
                 </li>
 
             </ul>
@@ -38,11 +43,11 @@
                 <tr>
                     <th class="packing-table-title">No</th>
                     <th class="packing-table-title">Order ID</th>
+                    <th class="packing-table-title">Buyer Name</th>
                     <th class="packing-table-title">End Date</th>
+                    <th class="packing-table-title">Payment Method</th>
                     <th class="packing-table-title">Total Price</th>
-                    <th class="packing-table-title">Quantity</th>
-                    <th class="packing-table-title">Title</th>
-                    <th class="packing-table-title" width="100px">Action</th>
+                    <th class="packing-table-title" width="100px"></th>
                 </tr>
             </thead>
         </table>
@@ -50,12 +55,16 @@
     </div>
     <script type="text/javascript">
         $(function() {
-
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: "{{ route('artist-transactions.index') }}",
+                ajax: {
+                    url: "{{ route('artist-transactions.index') }}", // Default URL
+                    data: function(d) {
+                        d.status = 'PACKING'; // Default status
+                    }
+                },
                 columns: [{
                         data: null,
                         name: 'no',
@@ -68,38 +77,20 @@
                         name: 'order_id'
                     },
                     {
+                        data: 'user.name',
+                        name: 'user.name'
+                    },
+                    {
                         data: 'end_date',
                         name: 'end_date'
                     },
                     {
+                        data: 'payment.payment_method.name',
+                        name: 'payment.payment_method.name'
+                    },
+                    {
                         data: 'total_price',
                         name: 'total_price'
-                    },
-                    {
-                        // how to call quantity from order_items table
-                        data: null,
-                        name: 'quantity',
-                        render: function(data, type, row) {
-                            // Assuming 'orderDetails' is accessible in row data
-                            if (row.hasOwnProperty('order_detail') && row.order_detail.length > 0) {
-                                return row.order_detail[0]
-                                .quantity; // Access first order detail's quantity
-                            } else {
-                                return 0; // Handle cases where no order details exist (optional)
-                            }
-                        }
-                    },
-                    {
-                        data: null,
-                        name: 'title',
-                        render: function(data, type, row) {
-                            // Assuming 'orderDetails' is accessible in row data
-                            if (row.hasOwnProperty('order_detail') && row.order_detail.length > 0) {
-                                return row.order_detail[0].product.title
-                            } else {
-                                return 0; // Handle cases where no order details exist (optional)
-                            }
-                        }
                     },
                     {
                         data: 'action',
@@ -108,6 +99,20 @@
                         searchable: false
                     },
                 ]
+            });
+            // Handle tab click event
+            $('a.tabs').on('click', function(e) {
+                e.preventDefault();
+                var ajaxUrl = $(this).data('ajax-url');
+                var status = $(this).text().toUpperCase(); // Assuming tab text is the status
+
+                // Update DataTables AJAX with the new URL
+                table.ajax.url(ajaxUrl).load();
+                // Remove active class from all tabs
+                $('li.nav-item').removeClass('tab-active');
+
+                // Add active class to the clicked tab's parent li
+                $(this).parent('li').addClass('tab-active');    
             });
         });
     </script>

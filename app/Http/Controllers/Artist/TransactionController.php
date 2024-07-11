@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Artist;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
+use App\Models\Address;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -17,21 +23,20 @@ class TransactionController extends Controller
     //  asumsikan untuk saat ini hanya untuk menampilkan packing
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
+            Log::info("hello");
             $authUserId = Auth::user()->user_id;
-            $data = Order::select('orders.*')
-                ->join('order_details', 'orders.order_id', '=', 'order_details.order_id')
-                ->join('products', 'order_details.product_id', '=', 'products.product_id')
-                ->where('products.user_id', $authUserId)
-                ->with(['orderDetail.product'])
+            $data = Order::with(['orderDetail.product', 'payment.paymentMethod', 'user'])
+                ->where('status', 'PACKING')
+                ->whereHas('orderDetail.product', function ($query) use ($authUserId) {
+                    $query->where('user_id', $authUserId);
+                })
                 ->get();
+            Log::info($data);
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $detailsUrl = route('artist-sales.show', $row->order_id);
-                    $deleteProduct = route('artist-sales.destroy', $row->order_id);
-                    $updatesUrl = route('artist-sales.edit', $row->order_id);
+                    $detailsUrl = route('artist-transactions.show', $row->order_id);
                     // intinya ini untuk balikin dropdown ke tables
                     $modalId = 'modal-' . $row->order_id;
                     $csrfToken = csrf_token();
@@ -51,12 +56,9 @@ class TransactionController extends Controller
                         </defs>
                     </svg>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu custom-dropdown-menu">
                         <li><a class="dropdown-item" href="' . $detailsUrl . '">Details</a></li>
-                        <li><a class="dropdown-item" href="' . $updatesUrl . '">Update</a></li>
-                        <li>
-                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#' . $modalId . '">Delete</button>
-                        </li>
+                        
                     </ul>
                 </div>
 
@@ -70,14 +72,7 @@ class TransactionController extends Controller
                                 <p style="color: var(--bs-secondary-txt);">Are you sure to delete this product?</p>
                             </div>
                             <div class="footer-modal-delete">
-                                <form action="' . $deleteProduct . '" method="post">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="' . $csrfToken . '">
-                                    <div class = "button-action-delete">
-                                        <button type="button" class="close" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Delete</button>
-                                    </div>
-                                </form>
+                               
                             </div>
                         </div>
                     </div>
@@ -92,9 +87,58 @@ class TransactionController extends Controller
         // Ini untuk kasih nama page
         return view('artist.transaction');
     }
+    public function tabs(Request $request, $status)
+    {
+        // Log::info("hello tabs");
+        if ($request->ajax()) {
+            $authUserId = Auth::user()->user_id;
+            $data = Order::where('status', $status)
+                ->with(['orderDetail.product', 'payment.paymentMethod', 'user'])
+                ->whereHas('orderDetail.product', function ($query) use ($authUserId) {
+                    $query->where('user_id', $authUserId);
+                })
+                ->get();
+            Log::info($data);
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $detailsUrl = route('artist-transactions.show', $row->order_id);
+                    $modalId = 'modal-' . $row->order_id;
+                    $csrfToken = csrf_token();
+                    $actionBtn = '
+                <div class="dropdown">
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_219_3359)">
+                        <path
+                            d="M5 10C5.53043 10 6.03914 10.2107 6.41421 10.5858C6.78929 10.9609 7 11.4696 7 12C7 12.5304 6.78929 13.0391 6.41421 13.4142C6.03914 13.7893 5.53043 14 5 14C4.46957 14 3.96086 13.7893 3.58579 13.4142C3.21071 13.0391 3 12.5304 3 12C3 11.4696 3.21071 10.9609 3.58579 10.5858C3.96086 10.2107 4.46957 10 5 10ZM12 10C12.5304 10 13.0391 10.2107 13.4142 10.5858C13.7893 10.9609 14 11.4696 14 12C14 12.5304 13.7893 13.0391 13.4142 13.4142C13.0391 13.7893 12.5304 14 12 14C11.4696 14 10.9609 13.7893 10.5858 13.4142C10.2107 13.0391 10 12.5304 10 12C10 11.4696 10.2107 10.9609 10.5858 10.5858C10.9609 10.2107 11.4696 10 12 10ZM19 10C19.5304 10 20.0391 10.2107 20.4142 10.5858C20.7893 10.9609 21 11.4696 21 12C21 12.5304 20.7893 13.0391 20.4142 13.4142C20.0391 13.7893 19.5304 14 19 14C18.4696 14 17.9609 13.7893 17.5858 13.4142C17.2107 13.0391 17 12.5304 17 12C17 11.4696 17.2107 10.9609 17.5858 10.5858C17.9609 10.2107 18.4696 10 19 10Z"
+                            fill="#464646" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_219_3359">
+                                <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    </button>
+                    <ul class="dropdown-menu custom-dropdown-menu">
+                        <li><a class="dropdown-item" href="' . $detailsUrl . '">Details</a></li>
+                    </ul>
+                </div>
+
+                <div class="modal fade" id="' . $modalId . '" tabindex="-1" aria-labelledby="' . $modalId . 'Label" aria-hidden="true">
+                </div>
+                ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('artist.transaction');
+    }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resou   rce.
      */
     public function create()
     {
@@ -112,9 +156,101 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $artist_transaction)
     {
-        //
+        $authUserId = Auth::user()->user_id;
+        $data = Product::whereHas('orderDetail', function ($query) use ($artist_transaction) {
+            $query->where('order_id', $artist_transaction);
+        })
+            ->with(['orderDetail.order', 'user'])
+            ->orderBy('user_id') // Assuming user_id is the artist's id
+            ->get();
+
+        $groupedProducts = [];
+        foreach ($data as $product) {
+
+            // ini nambahin table order detail ke product
+
+            foreach ($product->orderDetail as $orderDetail) {
+                if ($orderDetail->order_id != $artist_transaction) {
+                    continue; // Skip if order_id does not match the specific order_id
+                }
+
+                $address_ID = Order::with('userAddress')
+                    ->where('order_id', $orderDetail->order_id)
+                    ->pluck('address_id')
+                    ->first();
+
+                // dd($address_ID);
+                $address = Address::where('address_id', $address_ID)
+                    ->first();
+
+                $payment_id = Order::where('order_id', $orderDetail->order_id)->pluck('payment_id')->first();
+                // dd($payment_id);
+
+                $paymentmethod_id = Payment::with('PaymentMethod')
+                    ->where('payment_id', $payment_id)
+                    ->pluck('payment_method_id')
+                    ->first();
+                // dd($address);
+
+                $payment_method = PaymentMethod::where('payment_method_id', $paymentmethod_id)->pluck('name')->first();
+                // dd($payment_method);
+
+                // ini orderID yang diambil dari orderDetail di table order
+                $orderId = $orderDetail->order->order_id;
+
+                $total = $orderDetail->order->total_price;
+                $shipment = $orderDetail->order->shipment_fee;
+                $grand_total = $total + $shipment;
+                // dd($grand_total);
+                // ini ambil user id sesuai dari product yang dicek
+                $artistId = $product->user_id; // Assuming user_id is the artist's ID
+                $artistName = $product->user->name; // Assuming 'name' is the field for artist's name
+
+                // ini ambil tanggalnya
+                $createdAt = $orderDetail->order->created_at;
+                $orderstatus = $orderDetail->order->status;
+                // $buyer = $orderDetail->user->name;
+                $buyer = $orderDetail->order->user->name;
+
+                $paymentMax = Carbon::parse($createdAt)->addHours(24);
+
+                // ini cek apakah order id (array sekian) sudah ada di array grouped
+                // kalau belum ada, dibikin dan dikasih array baru di dalamnya
+                // isinya created at dan artist
+                if (!isset($groupedProducts[$orderId])) {
+                    $groupedProducts[$orderId] = [
+                        'created_at' => $createdAt,
+                        'payment_max' => $paymentMax,
+                        'orderstatus' => $orderstatus,
+                        'buyer_address' => $address,
+                        'payment_method' => $payment_method,
+                        'grand_total' => $grand_total,
+                        'buyer' => $buyer,
+                        'artists' => []
+                    ];
+                }
+
+                // di sini tuh cek orderid sekian dari dari array groupedproducts
+                // nah, cek apakah di array artists, cek apakah ada index dari artistID
+                // kalau belum, bikin array lagi di dalam artist untuk index itu
+                if (!isset($groupedProducts[$orderId]['artists'][$artistId])) {
+                    $groupedProducts[$orderId]['artists'][$artistId] = [
+                        'name' => $artistName,
+                        'products' => []
+                    ];
+                }
+
+                // nah, ini product-nya, isi dari tralala itu
+                $groupedProducts[$orderId]['artists'][$artistId]['products'][] = [
+                    'product' => $product,
+                    'quantity' => $orderDetail->quantity
+                ];
+            }
+        }
+        // dd($groupedProducts, $artist_transaction);
+        return view('artist.transactionDetail', compact('groupedProducts'));
     }
 
     /**
@@ -122,7 +258,6 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
@@ -130,7 +265,19 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        // dd($id, $request->all());
+        $order = Order::findOrFail($id);
+
+        $order->receipt_number = $request->input('receipt_number');
+        
+        if ($order->status === 'PACKING') {
+            $order->status = 'SHIPPING';
+        }
+
+        $order->save();
+        // Redirect back with a success message
+        return redirect()->route('artist-transactions.index')->with('success', 'Receipt number updated successfully.');
     }
 
     /**
