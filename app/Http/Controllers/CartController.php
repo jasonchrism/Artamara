@@ -18,51 +18,43 @@ class CartController extends Controller
         return view('buyer.cart', compact('user_cart'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function updateQuantity(Request $request){
+        // dd($request);
+        try {
+            $productId = $request->input('product_id');
+            $quantity = $request->input('quantity');
+
+            $request->validate([
+                'product_id' => 'required',
+                'quantity' => 'required|integer|min:1'
+            ]);
+
+            $cartItem = Cart::where('user_id', Auth::id())
+                ->where('product_id', $productId)
+                ->firstOrFail();
+
+            $cartItem->quantity = $quantity;
+            $cartItem->save();
+
+            return response()->json([
+                'success' => true,
+                'quantity' => $cartItem->quantity
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function deleteCart(Request $request){
+        $product_id = $request->input('delete-product-id');
+        $cart = Cart::query()->where('product_id', '=', $product_id);
+        $cart->delete();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->back()->with([
+            'address_title' => 'Product removed from cart!',
+        ]);
     }
 }
