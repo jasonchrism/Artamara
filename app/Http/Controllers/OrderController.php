@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Midtrans\Notification;
 
 class OrderController extends Controller
 {
@@ -57,24 +58,42 @@ class OrderController extends Controller
         }
 
         $order = collect($tempOrders);
-
-        return view('buyer.order.orderDetails', compact('addressDefault', 'userAddress', 'isAddressNull', 'order', 'total', 'shipment'));
+        $groupedOrder = $order->groupBy('product.user.name');
+        // dd($order);
+        return view('buyer.order.orderDetails', compact('addressDefault', 'userAddress', 'isAddressNull', 'order', 'total', 'shipment', 'groupedOrder'));
     }
 
-    public function addSession(Request $request)
+    public function addSession(Request $request, $state)
     {
-        $product = $request->input('product');
-        $product = json_decode($product)[0];
-        $quantity = $request->input('quantity');
-        session([
-            'order' =>
-            [
+        if ($state == "buy") {
+            $product = $request->input('product');
+            $product = json_decode($product)[0];
+            $quantity = $request->input('quantity');
+            session([
+                'order' =>
                 [
-                    'product' => $product,
-                    'quantity' => $quantity
+                    [
+                        'product' => $product,
+                        'quantity' => $quantity
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+            // dd(session('order'));
+        } else if ($state == "cart") {
+            $orders = $request->input('selected_products');
+            $orders = json_decode($orders);
+            $tempOrder = [];
+            foreach ($orders as $order) {
+                $tempOrder[] = [
+                    'product' => $order->product_id,
+                    'quantity' => $order->quantity
+                ];
+            };
+            session([
+                'order' => $tempOrder
+            ]);
+            // dd(session('order'));
+        }
         return redirect()->action([OrderController::class, 'create']);
     }
 
@@ -94,7 +113,7 @@ class OrderController extends Controller
 
             // Format the time as needed
             $formattedTime = $timePlus24Hours->toDateTimeString();
-        
+
             DB::beginTransaction();
 
             $order = new Order();
@@ -129,12 +148,19 @@ class OrderController extends Controller
             $payment->payment_method_id = '1';
             $payment->save();
 
-            foreach ($orders as $item) {               
+            $order->payment_id = $payment->payment_id;
+            $order->save();
+
+            foreach ($orders as $item) {
                 $orderDetail = new OrderDetail();
                 $orderDetail->order_id = $order->order_id;
                 $orderDetail->product_id = $item->product->product_id;
                 $orderDetail->quantity = $item->quantity;
                 $orderDetail->save();
+
+                $product = Product::find($orderDetail->product_id);
+                $product->stock -= $orderDetail->quantity;
+                $product->save();
             }
             DB::commit();
         } catch (Exception $e) {
@@ -143,7 +169,16 @@ class OrderController extends Controller
         return redirect($paymentUrl);
     }
 
-    public function success(){
-        
+    public function success(Request $request)
+    {
+        $orderId = $request->get('order_id');
+        $status = $request->get('transaction_status');
+
+        $order = Order::find($orderId);
+        $payment = Payment::find($order->payment_id);
+        if($status == "settlement"){
+            $payment->status = 'PAID';
+        }
+        $payment->save();
     }
 }

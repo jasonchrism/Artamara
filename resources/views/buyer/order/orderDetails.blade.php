@@ -139,21 +139,23 @@
                     </div>
                 </div>
 
-                @foreach ($order as $item)
-                    <div class="order-container bg-overlay-1 p-4 w-100">
-                        <h6 class="text-white fw-medium mb-3">{{ $item['product']->user->name }}</h6>
-                        <div class="d-flex ps-3 justify-content-between">
-                            <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover"
-                                style="width: 80px; height:80px">
-                            <div class="product-content w-50">
-                                <h6 class="text-white">{{ $item['product']->title }}</h6>
-                                <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                <div class="order-container bg-overlay-1 p-4 w-100">
+                    @foreach ($groupedOrder as $artistName => $items)
+                        <h6 class="text-white fw-medium mb-3">{{ $artistName }}</h6>
+                        @foreach ($items as $item)
+                            <div class="d-flex ps-3 pb-3 pe-1 justify-content-between">
+                                <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover"
+                                    style="width: 80px; height:80px">
+                                <div class="product-content w-50">
+                                    <h6 class="text-white">{{ $item['product']->title }}</h6>
+                                    <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                                </div>
+                                <p>{{ $item['quantity'] }}x</p>
+                                <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
                             </div>
-                            <p>{{ $item['quantity'] }}x</p>
-                            <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
-                        </div>
-                    </div>
-                @endforeach
+                        @endforeach
+                    @endforeach
+                </div>
             </div>
             <div class="wrap-right">
                 <div class="summary-container bg-overlay-1 p-4 w-100 ms-4">
@@ -221,29 +223,3 @@
             </form>
         @endforeach
     @endsection
-    {{-- @push('after-scripts')
-        <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script>
-        <script type="text/javascript">
-            document.getElementById('pay-button').onclick = function() {
-                // SnapToken acquired from previous step
-                snap.pay('6cc9b9b0-f86d-41a6-8683-6be54a22434b', {
-                    // Optional
-                    onSuccess: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onPending: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onError: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    }
-                });
-            };
-        </script>
-    @endpush --}}

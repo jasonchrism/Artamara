@@ -87,7 +87,7 @@
 
                 <div class="two-button-section d-flex">
                     @if (Auth::check())
-                        <form action="{{ route('front.order.session') }}" method="post">
+                        <form action="{{ route('front.order.session', 'buy') }}" method="post">
                             @csrf
                             <input type="hidden" value="{{ json_encode([$product->product_id]) }}" name="product">
                             <input id="quantity2" type="number" step="1" max="10"   

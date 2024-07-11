@@ -73,7 +73,7 @@ Route::name('front.')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
-    Route::post('/orderDetails/session', [OrderController::class, 'addSession'])->name('order.session');
+    Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
     Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
     Route::post('/orderDetails/store', [OrderController::class, 'store'])->name('order.store');
     Route::get('/orderDetails/address/{id}/update', [OrderAddressController::class, 'updateAddress'])->name('order.address.update');
@@ -85,6 +85,7 @@ Route::name('front.')->group(function () {
 
     //payment
     Route::get("/payment/success", [OrderController::class, 'success'])->name('payment.success');
+    Route::post("/payment/notification", [OrderController::class, 'notification'])->name('payment.notification');
 });
 
 Auth::routes();
