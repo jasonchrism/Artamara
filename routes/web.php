@@ -116,6 +116,7 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
     Route::resource('artist-transactions', TransactionController::class);
+    Route::get('artist-status/{status}', [TransactionController::class, 'tabs'])->name('tabs');
     Route::resource('rating', RatingController::class);
 
     Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
