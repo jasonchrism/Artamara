@@ -72,6 +72,9 @@ Route::name('front.')->group(function () {
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('updateQuantity');
+    Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
+
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
     Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
