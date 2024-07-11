@@ -23,14 +23,21 @@
                                 fill="#CEFE06" />
                         </svg>
                         <div class="address-content ps-2">
-                            <p class="head-address">{{ $addressDefault->userAddress->receiver }},
-                                {{ $addressDefault->userAddress->phone_number }}</p>
-                            <p class="detail-address text-white">{{ $addressDefault->userAddress->description }},
-                                {{ $addressDefault->userAddress->street }}, {{ $addressDefault->userAddress->district }},
-                                {{ $addressDefault->userAddress->city }}, {{ $addressDefault->userAddress->province }},
-                                {{ $addressDefault->userAddress->postal_code }}</p>
-                            <button class="btn btn-address text-primary" type="button" data-bs-toggle="modal"
-                                data-bs-target="#address">Change Address</button>
+                            @if ($addressDefault)
+                                <p class="head-address">{{ $addressDefault->address->receiver }},
+                                    {{ $addressDefault->address->phone_number }}</p>
+                                <p class="detail-address text-white">{{ $addressDefault->address->description }},
+                                    {{ $addressDefault->address->street }}, {{ $addressDefault->address->district }},
+                                    {{ $addressDefault->address->city }}, {{ $addressDefault->address->province }},
+                                    {{ $addressDefault->address->postal_code }}</p>
+                                <button class="btn btn-address text-primary" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#address">Change Address</button>
+                            @else
+                                <p class="head-address">No Address</p>
+                                <button class="btn btn-address text-primary" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#address">Change Address</button>
+                            @endif
+
                         </div>
                     </div>
 
@@ -65,15 +72,15 @@
                                                         <div class="d-flex address-name">
                                                             <img src="/assets/location-icon.svg" alt=""
                                                                 class="me-2 location-icon">
-                                                            <p>{{ $address->userAddress->receiver }} ,
-                                                                {{ $address->userAddress->phone_number }}</p>
+                                                            <p>{{ $address->address->receiver }} ,
+                                                                {{ $address->address->phone_number }}</p>
                                                         </div>
-                                                        <p class="address-detail">{{ $address->userAddress->street }},
-                                                            {{ $address->userAddress->district }},
-                                                            {{ $address->userAddress->city }},
-                                                            {{ $address->userAddress->province }},
-                                                            {{ $address->userAddress->country }},
-                                                            {{ $address->userAddress->postal_code }}</p>
+                                                        <p class="address-detail">{{ $address->address->street }},
+                                                            {{ $address->address->district }},
+                                                            {{ $address->address->city }},
+                                                            {{ $address->address->province }},
+                                                            {{ $address->address->country }},
+                                                            {{ $address->address->postal_code }}</p>
                                                     </div>
                                                     <div class="edit-btn-container mt-auto">
                                                         @if ($address->is_default)
@@ -132,31 +139,33 @@
                     </div>
                 </div>
 
-                @foreach ($order as $item)
-                    <div class="order-container bg-overlay-1 p-4 w-100">
-                        <h6 class="text-white fw-medium mb-3">{{ $item['product']->user->name }}</h6>
-                        <div class="d-flex ps-3 justify-content-between">
-                            <img src="{{$item['product']->thumbnail}}" alt="" class="object-fit-cover"
-                                style="width: 80px; height:80px">
-                            <div class="product-content w-50">
-                                <h6 class="text-white">{{ $item['product']->title }}</h6>
-                                <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                <div class="order-container bg-overlay-1 p-4 w-100">
+                    @foreach ($groupedOrder as $artistName => $items)
+                        <h6 class="text-white fw-medium mb-3">{{ $artistName }}</h6>
+                        @foreach ($items as $item)
+                            <div class="d-flex ps-3 pb-3 pe-1 justify-content-between">
+                                <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover"
+                                    style="width: 80px; height:80px">
+                                <div class="product-content w-50">
+                                    <h6 class="text-white">{{ $item['product']->title }}</h6>
+                                    <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                                </div>
+                                <p>{{ $item['quantity'] }}x</p>
+                                <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
                             </div>
-                            <p>{{$item['quantity']}}x</p>
-                            <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
-                        </div>
-                    </div>
-                @endforeach
+                        @endforeach
+                    @endforeach
+                </div>
             </div>
             <div class="wrap-right">
                 <div class="summary-container bg-overlay-1 p-4 w-100 ms-4">
                     <h5 class="text-white fw-medium mb-3">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-3">
-                        <p class="text-secondary-txt">Total Price ({{$order->count()}} items)</p>
+                        <p class="text-secondary-txt">Total Price ({{ $order->count() }} items)</p>
                         <p class="text-white">{{ 'Rp' . number_format($total, 0, ',', '.') }}</p>
                     </div>
                     <div class="d-flex justify-content-between mb-4">
-                        <p class="text-secondary-txt">Shipment ({{$shipment['region']}})</p>
+                        <p class="text-secondary-txt">Shipment ({{ $shipment['region'] }})</p>
                         <p class="text-white">{{ 'Rp' . number_format($shipment['cost'], 0, ',', '.') }}</p>
                     </div>
                     <p class="text-secondary-txt desc-ship">*Based on the inputted address, the shipping
@@ -165,16 +174,23 @@
 
                     <div class="d-flex justify-content-between">
                         <h6 class="text-white">Grand Total</h6>
-                        <p class="text-white">{{ 'Rp' . number_format($grandTotal, 0, ',', '.') }}</p>
+                        <p class="text-white">{{ 'Rp' . number_format($shipment['cost'] + $total, 0, ',', '.') }}</p>
                     </div>
                 </div>
                 <div class="ms-4 mt-3 w-100">
-                    <button class="btn btn-primary w-100 mb-3">Pay Now</button>
+                    <form action="{{ route('front.order.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" value="{{ $order }}" name="order">
+                        <input type="hidden" value="{{ $total }}" name="totalPrice">
+                        <input type="hidden" value="{{ $shipment['cost'] }}" name="shipmentCost">
+                        <input type="hidden" value="{{ $addressDefault ? $addressDefault->address_id : null }}"
+                            name="addressId">
+                        <button class="btn btn-primary w-100 mb-3" id="pay-button">Pay Now</button>
+                    </form>
                     <p class="text-secondary-txt w-100 text-center desc-payment">All payment is covered by third party
                         partner You will
                         redirect to payment section</p>
                 </div>
-
             </div>
         </div>
 

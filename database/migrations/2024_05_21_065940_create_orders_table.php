@@ -17,11 +17,11 @@ return new class extends Migration
             $table->uuid('user_id')->nullable(false);
             $table->enum('status', ['SHIPPING', 'CONFIRMED', 'DELIVERED', 'PACKING', 'CANCELLED', 'RETURNED'])->nullable(false);
             $table->unsignedBigInteger('shipment_fee')->nullable(false);
-            $table->uuid('payment_id')->nullable(false);
+            $table->uuid('payment_id')->nullable(true);
             $table->uuid('address_id')->nullable(false);
             $table->timestamp('end_date')->nullable(false);
             $table->boolean('is_auction')->nullable(false)->default(false);
-            $table->string('receipt_number')->nullable(false);
+            $table->string('receipt_number')->nullable(true);
             $table->timestamps();
 
             $table->primary('order_id');

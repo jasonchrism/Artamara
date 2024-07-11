@@ -11,7 +11,6 @@ use Thiagoprz\CompositeKey\HasCompositeKey;
 class OrderDetail extends Model
 {
     use HasFactory;
-    use HasUuids;
 
     use HasCompositeKey;
 
@@ -30,6 +29,8 @@ class OrderDetail extends Model
     'product_id',
     'user_id',
     ];
+
+    public $timestamps = false;
 
     protected $table = "order_details";
 
