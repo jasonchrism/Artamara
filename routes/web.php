@@ -89,8 +89,8 @@ Route::name('front.')->group(function () {
     Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
 
     //payment
-    Route::get("/payment/success", [OrderController::class, 'success'])->name('payment.success');
-    Route::post("/payment/notification", [OrderController::class, 'notification'])->name('payment.notification');
+    Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
+    // Route::post("/payment/notification", [OrderController::class, 'notification'])->name('payment.notification');
 });
 
 Auth::routes();
