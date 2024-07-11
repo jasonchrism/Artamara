@@ -9,8 +9,20 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
     public function index() {
+        $order = Order::with('orderDetail.product')
+            ->where('order_id', '0b7ebf1a-3e62-11ef-84b4-005056c00001')
+            ->get();
 
-        $order = Order::all();
-        return view('buyer.review');
+
+        return view('buyer.review', [
+            'order' => $order,
+        ]);
+    }
+
+    public function store(Request $request) {
+        $rating = $request->input('rating');
+        $comment = $request->input('review');
+
+        dd($request->input('order_id'));
     }
 }

@@ -116,6 +116,7 @@
     margin-right: 0px;
 }
 
+
 .btn-bordered
 {
     border-style: solid;
@@ -142,6 +143,36 @@
 {
     background-color: var(--primary);
     color: var(--bg-primary);
+    font-weight: 600;
+    border: none;
+}
+
+
+.btn-report
+{
+    border-style: solid;
+    border-color: var(--bg-danger);
+    background-color: transparent;
+    padding-block-end: 6px;
+    padding-block-start: 6px;
+    padding-bottom: 4px;
+    padding-inline-end: 12px;
+    padding-inline-start: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 4px;
+    text-align: center;
+    color: var(--bg-danger);
+
+    display: inline-block;
+
+    margin-right: 8px;
+}
+
+.btn-report:hover:not(:disabled)
+{
+    background-color: var(--bg-danger);
+    color: var(--background-label-red);
     font-weight: 600;
     border: none;
 }
@@ -271,6 +302,15 @@
     color: var(--font-active-status);
 }
 
+#status_yellow
+{
+    background-color: #4B5D02;
+    padding: 4px 12px 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--primary);
+}
+
 .address
 {
     display: flex;
@@ -321,6 +361,62 @@
     background-color: transparent;
 }
 
+/* modal confirmation */
+.confirmation-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--text-primary);
+    pointer-events: auto;
+    background-color: var(--bg-overlay-1);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bg-overlay-2);
+    outline: 0;
+    padding: 24px 24px 24px 24px;
+    align-items: flex-start;
+    max-width: none;
+}
+
+.confirmation-header
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.confirmation-title
+{
+    font-size: 20px;
+    font-weight: 500;
+
+}
+.confirmation-body p
+{
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.confirmation-footer
+{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.btn-secondary
+{
+    color: var(--primary) !important;
+    background-color: transparent !important;
+}
+
+.btn-secondary:hover
+{
+    color: #ABD400 !important;
+    background-color: transparent !important;
+}
 
 @media screen and (max-width: 1300px){
     body{
@@ -373,7 +469,7 @@
         text-align: center;
     }
 }
-@media screen and (max-width: 450px){
+@media screen and (max-width: 600px){
     body{
         margin: 24px 20px 0;
     }
@@ -391,6 +487,23 @@
         flex-direction: column;
         padding-bottom: 16px;
         align-items: baseline;
+    }
+
+    .order-footer-btn
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-bordered
+    {
+        margin-right: 0px;
+        margin-bottom: 8px;
+    }
+    .btn-report
+    {
+       margin-right: 0px;
+       margin-bottom: 8px;
     }
 }
 @media screen and (max-width: 375px){

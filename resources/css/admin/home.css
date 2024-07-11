@@ -151,14 +151,16 @@ thead tr th {
     background: var(--bg-overlay-1);
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: var(--bg-overlay-2);
 }
   
-  /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #3b3b3b;
+}
+
+a.btn.btn-primary.check-btn {
+    margin-right: 8px;
 }
 
 @media screen and (max-width: 1400px) {

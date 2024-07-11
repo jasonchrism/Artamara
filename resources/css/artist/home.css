@@ -143,6 +143,26 @@ thead tr th {
     margin-bottom: 15px;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-overlay-1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-overlay-2);
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #3b3b3b;
+}
+
+a.btn.btn-primary.check-btn {
+    margin-right: 8px;
+}
+
 @media screen and (max-width: 1400px) {
     .mr-left {
         margin-right: 34px;
@@ -208,6 +228,7 @@ thead tr th {
 
     .monthly {
         width: 290px;
+        height: 155px;
     }
 
     .return-container {
@@ -245,5 +266,9 @@ thead tr th {
 
     .btn {
         font-size: 13px;
+    }
+
+    a.btn.btn-primary.check-btn {
+        font-size: 12px;
     }
 }

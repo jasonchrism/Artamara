@@ -15,7 +15,7 @@ class ProductAuction extends Model
         'product_id',
     ];
 
-    protected $table = "product_actions";
+    protected $table = "product_auctions";
     protected $primaryKey = 'product_id';
     protected $keyType = 'string';
     public $timestamps = true;

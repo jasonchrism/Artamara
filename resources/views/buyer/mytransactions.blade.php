@@ -105,6 +105,7 @@
                     </p>
 
                 </div>
+
                 {{-- if footer berdasarkan statusnya --}}
                 @if ($status == 'UNPAID')
 
@@ -123,7 +124,6 @@
 
                 @elseif ($status == 'PACKING')
                     <div id = "order-footer-packing"  class="order-footer">
-
                         <div class="order-footer-btn">
                             <button id="btn-bordered-packing" class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">
@@ -133,11 +133,65 @@
                         </div>
                     </div>
 
+                @elseif ($status == 'SHIPPING')
+                    @if ($orderData['orderstatus'] == 'SHIPPING')
+                        <div class="order-footer">
+                            <div class="order-footer-kiri">
+
+                                <p style="color: var(--primary)">On Shipping</p>
+                                <p>Estimated arrival: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                            </div>
+                            <div class="order-footer-btn">
+                                <button class="btn-bordered" data-bs-toggle="modal" data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
+                                <button class="btn-report" disabled>Report</button>
+                                <button class="btn btn-primary" disabled>Confirmed Order</button>
+                            </div>
+                        </div>
+                    @elseif ($orderData['orderstatus'] == 'DELIVERED')
+                        <div class="order-footer">
+                            <div class="order-footer-kiri">
+
+                                <p style="color: var(--primary)">Received</p>
+                                <p>Delivered at: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                            </div>
+                            <div class="order-footer-btn">
+                                <button class="btn-bordered" data-bs-toggle="modal" data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
+                                <button class="btn-report">Report</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ 'confirmationModal-' . $orderId }}" data-bs-dismiss="modal">Confirmed Order</button>
+                            </div>
+                        </div>
+                    @endif
+                @elseif ($status == 'CONFIRMED')
+                    <div class="order-footer">
+                        <div class="order-footer-kiri">
+                            <p style="color: var(--primary)">Confirmed</p>
+                            <p>Confirmed at: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                        </div>
+                        <div class="order-footer-btn">
+                            <button class="btn-bordered" data-bs-toggle="modal"
+                                data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
+                            <button class="btn btn-primary">Review</button>
+                        </div>
+                    </div>
+
+                @elseif ($status == 'CANCELLED')
+                    <div class="order-footer">
+                        <div class="order-footer-kiri">
+                            <p style="color: var(--primary)">Cancelled</p>
+                            {{-- ini asal dulu cancelnya?? --}}
+                            <p>Cancelled at: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                        </div>
+                        <div class="order-footer-btn">
+                            <button class="btn-bordered" data-bs-toggle="modal"
+                                data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
+                        </div>
+                    </div>
                 @endif
             </div>
         @endforeach
     </div>
 
+    {{-- ini untuk order details modal --}}
     @foreach ($groupedProducts as $orderId => $orderData)
     {{-- {{dd($orderData)}} --}}
     <div class="modal fade" id="{{ 'orderDetailsModal-' . $orderId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -167,7 +221,18 @@
                                 <p id="status_red">Waiting for payment</p>
                             @elseif ($status == "PACKING")
                                 <p id="status_blue">On Packing</p>
+                            @elseif ($status == "SHIPPING")
+                                @if ($orderData['orderstatus'] == 'SHIPPING')
+                                    <p id="status_blue">On Shipping</p>
+                                @elseif ($orderData['orderstatus'] == 'DELIVERED')
+                                    <p id="status_blue">Received</p>
+                                @endif
+                            @elseif ($status == "CONFIRMED")
+                                <p id="status_yellow">Finished</p>
+                            @elseif ($status == "CANCELLED")
+                                <p id="status_red">Cancelled</p>
                             @endif
+
                         </div>
                         <div class="orderline">
                             <p id="left-orderline">Purchase date</p>
@@ -290,6 +355,29 @@
                 @endif
           </div>
         </div>
-      </div>
+    </div>
+    {{-- modal confirmation order --}}
+    <div class="modal fade" id="{{ 'confirmationModal-' . $orderId }}" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="confirmation-content">
+              <div class="confirmation-header">
+                  <p class="confirmation-title" id="exampleModalLabel">Confirm Order</p>
+              </div>
+              <div class="confirmation-body">
+                <p>Confirming this order will finalize your purchase and initiate the payment process. Once confirmed, changes to the order will not be permitted.</p>
+              </div>
+              <div class="confirmation-footer">
+
+                <form action="{{route('front.confirmTransactions', ['status' => $status, 'orderId' => $orderId])}}" method="post">
+                    @csrf
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
     @endforeach
+
 @endsection

@@ -37,29 +37,35 @@ class MyTransactionsController extends Controller
                 })
                 ->pluck('order_id')
                 ->toArray();
-        } else if ($status == 'PACKING') {
+        }
+        if ($status == 'PACKING') {
             $order_ids = Order::where('user_id', $user_id)->with('payment')
                 ->whereHas('payment', function ($query) {
                     $query->where('status', 'PAID');
                 })
+                ->where('status', 'PACKING')
                 ->pluck('order_id')
                 ->toArray();
-        } else if ($status == 'SHIPPING') {
+        }
+        if ($status == 'SHIPPING') {
+            $order_ids = Order::where('user_id', $user_id)
+                ->whereIn('status',  [$status, 'DELIVERED'])
+                ->pluck('order_id')
+                ->toArray();
+        }
+        if ($status == 'CONFIRMED') {
             $order_ids = Order::where('user_id', $user_id)
                 ->where('status', $status)
                 ->pluck('order_id')
                 ->toArray();
-        } else if ($status == 'CONFIRMED') {
-            $order_ids = Order::where('user_id', $user_id)
-                ->whereIn('status', [$status, 'DELIVERED'])
-                ->pluck('order_id')
-                ->toArray();
-        } else if ($status == 'RETURNED') {
+        }
+        if ($status == 'RETURNED') {
             $order_ids = Order::where('user_id', $user_id)
                 ->where('status', $status)
                 ->pluck('order_id')
                 ->toArray();
-        } else if ($status == 'CANCELLED') {
+        }
+        if ($status == 'CANCELLED') {
             $order_ids = Order::where('user_id', $user_id)
                 ->where('status', $status)
                 ->pluck('order_id')
@@ -143,9 +149,11 @@ class MyTransactionsController extends Controller
 
                 // ini ambil tanggalnya
                 $createdAt = $orderDetail->order->created_at;
+                $updatedAt = $orderDetail->order->updated_at;
                 $orderstatus = $orderDetail->order->status;
 
                 $paymentMax = Carbon::parse($createdAt)->addHours(24);
+                $estimatedArrival = Carbon::parse($updatedAt)->addHours(72);
 
                 // ini cek apakah order id (array sekian) sudah ada di array grouped
                 // kalau belum ada, dibikin dan dikasih array baru di dalamnya
@@ -158,6 +166,7 @@ class MyTransactionsController extends Controller
                         'buyer_address' => $address,
                         'payment_method' => $payment_method,
                         'grand_total' => $grand_total,
+                        'estimated_arrival' => $estimatedArrival,
                         'artists' => []
                     ];
                 }
@@ -187,6 +196,15 @@ class MyTransactionsController extends Controller
         return view('buyer.mytransactions', compact('groupedProducts', 'status'));
     }
 
+    public function confirmation(Request $request, $status, $orderId)
+    {
+        $order = Order::find($orderId);
+        $order->status = 'CONFIRMED';
+        $order->save();
+
+        return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
+
+    }
     /**
      * Show the form for creating a new resource.
      */
