@@ -24,7 +24,7 @@ class HomeController extends Controller
         $order = Order::selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
             ->where('created_at', '>=', $sixMonthsAgo)
             ->groupBy(DB::raw('MONTH(created_at)'))
-            ->orderBy('month')
+            ->orderBy('month', 'asc')
             ->get();
 
         $totalPrice = array_fill(0, 5, 0); 
