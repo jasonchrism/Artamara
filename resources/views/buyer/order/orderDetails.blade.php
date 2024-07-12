@@ -8,7 +8,7 @@
 @section('content')
     <div class="order-container mt-5">
         <h4 class="text-white mb-4">Order & Shipment</h4>
-        <div class="d-flex">
+        <div class="d-flex wrapper-order">
             <div class="wrap-left">
                 <div class="address-container bg-overlay-1 p-4 w-100 mb-3">
                     <h6 class="text-white fw-medium mb-3">Shipping Address</h6>
@@ -139,26 +139,25 @@
                     </div>
                 </div>
 
-                <div class="order-container bg-overlay-1 p-4 w-100">
+                <div class="product-container bg-overlay-1 w-100">
                     @foreach ($groupedOrder as $artistName => $items)
                         <h6 class="text-white fw-medium mb-3">{{ $artistName }}</h6>
                         @foreach ($items as $item)
-                            <div class="d-flex ps-3 pb-3 pe-1 justify-content-between">
-                                <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover"
-                                    style="width: 80px; height:80px">
-                                <div class="product-content w-50">
-                                    <h6 class="text-white">{{ $item['product']->title }}</h6>
-                                    <p class="text-secondary-txt">{{ $item['product']->year }}</p>
+                            <div class="d-flex justify-content-between wrapper-product-content">
+                                <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover product-img">
+                                <div class="product-content">
+                                    <h6 class="text-white text-truncate product-title">{{ $item['product']->title }}</h6>
+                                    <p class="text-secondary-txt product-year">{{ $item['product']->year }}</p>
                                 </div>
-                                <p>{{ $item['quantity'] }}x</p>
-                                <p>{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
+                                <p class="product-qty">{{ $item['quantity'] }}x</p>
+                                <p class="product-price">{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
                             </div>
                         @endforeach
                     @endforeach
                 </div>
             </div>
             <div class="wrap-right">
-                <div class="summary-container bg-overlay-1 p-4 w-100 ms-4">
+                <div class="bg-overlay-1 p-4 w-100 summary-container">
                     <h5 class="text-white fw-medium mb-3">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-3">
                         <p class="text-secondary-txt">Total Price ({{ $order->count() }} items)</p>
@@ -177,7 +176,7 @@
                         <p class="text-white">{{ 'Rp' . number_format($shipment['cost'] + $total, 0, ',', '.') }}</p>
                     </div>
                 </div>
-                <div class="ms-4 mt-3 w-100">
+                <div class="form-container">
                     <form action="{{ route('front.order.store') }}" method="post">
                         @csrf
                         <input type="hidden" value="{{ $order }}" name="order">
