@@ -132,7 +132,12 @@ class OrderController extends Controller
         $totalPrice = $request->input('totalPrice');
         $shipmentCost = $request->input('shipmentCost');
         $addressId = $request->input('addressId');
-
+        if(!isset($addressId)){
+            return redirect()->action([OrderController::class, 'create'])->with([
+                'address_title' => 'Please select an address to proceed with your order.',
+                'status' => 'error'
+            ]);
+        }
         try {
 
             $now = Carbon::now('Asia/Jakarta');
