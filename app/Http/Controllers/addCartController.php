@@ -16,7 +16,7 @@ class addCartController extends Controller
 
         $cart = Cart::query()->where('user_id','=', $user)->where('product_id','=', $product->product_id)->first();
         if ($cart) {
-            $cart->quantity += $request->quantity;
+            $cart->quantity += $request->quantity+1;
 
             $cart->save();
     
