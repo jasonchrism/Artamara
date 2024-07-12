@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Midtrans\Notification;
 
+use function PHPUnit\Framework\isEmpty;
+
 class OrderController extends Controller
 {
     public function create(Request $request)
@@ -91,15 +93,23 @@ class OrderController extends Controller
             $orders = $request->input('selected_products');
             $orders = json_decode($orders);
             $tempOrder = [];
+
+            if(empty($orders)){
+                return redirect()->route('front.cart')->with([
+                    'address_title' => 'You must select minimum 1 item',
+                    'status' => 'error'
+                ]);
+            }
             foreach ($orders as $order) {
                 // dd($order);
                 $data = Product::find($order->product_id);
-                dd($order->quantity);
+                // dd($order->quantity);
                 $tempStock = $data->stock - $order->quantity;
                 // dd($tempStock);
                 if ($tempStock < 0) {
                     return redirect()->route('front.cart')->with([
-                        'address_title' => 'Cannot purchase more than ' . $data->stock . ' items'
+                        'address_title' => 'Some items in your cart exceed the available stock. Please adjust the quantities',
+                        'status' => 'error'
                     ]);
                 }
                 $tempOrder[] = [
