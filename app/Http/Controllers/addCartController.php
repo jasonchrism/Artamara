@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class addCartController extends Controller
 {
-    public function addcart(Request $request, $id ){
+    public function addcart(Request $request, $id){
         if(Auth::id()){
         $user = Auth::user()->user_id;
         $product = Product::find($id);
 
         $cart = Cart::query()->where('user_id','=', $user)->where('product_id','=', $product->product_id)->first();
         if ($cart) {
-            $cart->quantity += $request->quantity+1;
+            $cart->quantity = $cart->quantity + $request->quantity + 1;
 
             $cart->save();
     
