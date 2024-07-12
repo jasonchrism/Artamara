@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
             ->where('created_at', '>=', $sixMonthsAgo)
             ->groupBy(DB::raw('MONTH(created_at)'))
-            ->orderBy('month', 'desc')
+            ->orderBy('month', 'asc')
             ->limit(6)
             ->get();
 

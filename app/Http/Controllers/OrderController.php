@@ -169,7 +169,6 @@ class OrderController extends Controller
             // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = config('midtrans.is3ds');
 
-
             $params = array(
                 'transaction_details' => array(
                     'order_id' => $order->order_id,
