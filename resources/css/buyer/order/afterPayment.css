@@ -1,8 +1,33 @@
 .btn-after{
     width: 300px;
+    margin-right: 16px;
 }
 .btn-details{
     background-color: transparent;
     border: 1px solid var(--primary);
     color: var(--primary);
+}
+
+.desc{
+    width: 50%;
+    margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 426px) {
+    .title{
+        font-size: 24px;
+    }
+    .img-order{
+        width: 150px;
+        height: 150px;
+    }
+    .desc{
+        width: 90%;
+        margin-bottom: 1.5rem;
+    }
+    .btn-after{
+        width: 300px;
+        margin-right: 0px;
+        margin-bottom: 16px;
+    }
 }
