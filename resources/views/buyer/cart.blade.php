@@ -183,7 +183,6 @@
         console.log(hiddenInput.value);
     }
 
-    //function buat update total price
     function updateTotalPrice() {
         var totalPrice = 0;
 
@@ -191,11 +190,13 @@
             var quantity = parseFloat($(this).data('quantity'));
             var price = parseFloat($(this).data('price'));
 
+            // Debugging lines
             console.log('Product Data:', {
                 quantity: $(this).data('quantity'),
                 price: $(this).data('price')
             });
 
+            // Ensure the values are numbers
             if (!isNaN(quantity) && !isNaN(price)) {
                 totalPrice += quantity * price;
             } else {
@@ -203,9 +204,22 @@
             }
         });
 
-        console.log('Total Price:', totalPrice); 
+        console.log('Total Price:', totalPrice);  // Debugging line
         $('#totalPrice').text('Rp ' + totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 0 }));
     }
+
+    // Event listener for product checkboxes
+    $('.product-checkbox').change(function() {
+        updateTotalPrice();
+    });
+
+    // Event listener for artist checkboxes to check/uncheck all related products
+    $('.artist-checkbox').change(function() {
+        var index = $(this).data('index');
+        var productCheckboxes = $('.product-checkbox[data-artist-index="' + index + '"]');
+        productCheckboxes.prop('checked', this.checked);
+        updateTotalPrice();
+    });
 
     function handleProductCheckboxChange(checkbox) {
         const productId = checkbox.getAttribute('data-id');
@@ -213,7 +227,6 @@
         console.log(quantity);
         if (checkbox.checked) {
             updateSelectedProducts(productId, quantity);
-            updateTotalPrice();
         } else {
             selectedProducts = selectedProducts.filter(product => product.product_id !== productId);
         }
