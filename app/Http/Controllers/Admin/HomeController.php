@@ -34,6 +34,8 @@ class HomeController extends Controller
             $totalPrice[$i] = isset($order[$i]['total_price']) ? $order[$i]['total_price'] : 0;
         }
 
+        $totalPrice = array_reverse($totalPrice);
+
         // Return Requests
         $returnRequests = Refund::where('status', 'ADMIN REVIEW')
         ->orderBy('created_at', 'asc')

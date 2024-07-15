@@ -40,11 +40,12 @@ class HomeController extends Controller
             ->get();
 
         $totalPrice = array_fill(0, 5, 0);
-
         for ($i = 0; $i < 6; $i++) {
             $month = Carbon::now()->subMonths($i)->format('n');
             $totalPrice[$i] = isset($orders[$i]['total_price']) ? $orders[$i]['total_price'] : 0;
         }
+
+        $totalPrice = array_reverse($totalPrice);
 
         // Return Requests
         $returnRequests = Refund::whereHas('order.orderDetail.product', function ($query) use ($artist_id) {
