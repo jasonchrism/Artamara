@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Payment;
@@ -84,9 +85,10 @@ class OrderController extends Controller
                 [
                     [
                         'product' => $product,
-                        'quantity' => $quantity
+                        'quantity' => $quantity,
                     ]
-                ]
+                ],
+                'state' => 'buy'
             ]);
             // dd(session('order'));
         } else if ($state == "cart") {
@@ -94,7 +96,7 @@ class OrderController extends Controller
             $orders = json_decode($orders);
             $tempOrder = [];
 
-            if(empty($orders)){
+            if (empty($orders)) {
                 return redirect()->route('front.cart')->with([
                     'address_title' => 'You must select minimum 1 item',
                     'status' => 'error'
@@ -118,7 +120,8 @@ class OrderController extends Controller
                 ];
             };
             session([
-                'order' => $tempOrder
+                'order' => $tempOrder,
+                'state' => 'cart'
             ]);
             // dd(session('order'));
         }
@@ -132,7 +135,7 @@ class OrderController extends Controller
         $totalPrice = $request->input('totalPrice');
         $shipmentCost = $request->input('shipmentCost');
         $addressId = $request->input('addressId');
-        if(!isset($addressId)){
+        if (!isset($addressId)) {
             return redirect()->action([OrderController::class, 'create'])->with([
                 'address_title' => 'Please select an address to proceed with your order.',
                 'status' => 'error'
@@ -186,6 +189,10 @@ class OrderController extends Controller
             $order->payment_id = $payment->payment_id;
             $order->save();
 
+            $state = session('state');
+            $userId = Auth::user()->user_id;
+
+            
             foreach ($orders as $item) {
                 $orderDetail = new OrderDetail();
                 $orderDetail->order_id = $order->order_id;
@@ -197,7 +204,13 @@ class OrderController extends Controller
 
                 $product->stock -= $orderDetail->quantity;
                 $product->save();
+
+                if ($state == "cart") {
+                    $cart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $orderDetail->product_id]])->first();
+                    $cart->delete();
+                }
             }
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -214,9 +227,9 @@ class OrderController extends Controller
         $payment = Payment::find($order->payment_id);
         if ($status == "settlement") {
             $payment->status = 'PAID';
-        }else if($status == "pending"){
+        } else if ($status == "pending") {
             $payment->status = "UNPAID";
-        }else if($status == "failure"){
+        } else if ($status == "failure") {
             $payment->status = 'CANCELLED';
         }
         $payment->save();
