@@ -156,6 +156,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+
     $(document).ready(function() {
     let selectedProducts = [];
     const hiddenInput = document.getElementById('selected-products');
@@ -181,12 +183,37 @@
         console.log(hiddenInput.value);
     }
 
+    //function buat update total price
+    function updateTotalPrice() {
+        var totalPrice = 0;
+
+        $('.product-checkbox:checked').each(function() {
+            var quantity = parseFloat($(this).data('quantity'));
+            var price = parseFloat($(this).data('price'));
+
+            console.log('Product Data:', {
+                quantity: $(this).data('quantity'),
+                price: $(this).data('price')
+            });
+
+            if (!isNaN(quantity) && !isNaN(price)) {
+                totalPrice += quantity * price;
+            } else {
+                console.error('Invalid data:', { quantity, price });
+            }
+        });
+
+        console.log('Total Price:', totalPrice); 
+        $('#totalPrice').text('Rp ' + totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 0 }));
+    }
+
     function handleProductCheckboxChange(checkbox) {
         const productId = checkbox.getAttribute('data-id');
         const quantity = checkbox.getAttribute('data-quantity');
         console.log(quantity);
         if (checkbox.checked) {
             updateSelectedProducts(productId, quantity);
+            updateTotalPrice();
         } else {
             selectedProducts = selectedProducts.filter(product => product.product_id !== productId);
         }
@@ -208,6 +235,7 @@
             parent.attr('data-quantity', newVal); // Update data-quantity attribute
             updateQuantity(productId, newVal);
             updateQtyInput(productId, newVal);
+            updateTotalPrice();
         } else {
             input.val(0);
         }
@@ -226,6 +254,7 @@
             parent.attr('data-quantity', newVal); // Update data-quantity attribute
             updateQuantity(productId, newVal);
             updateQtyInput(productId, newVal);
+            updateTotalPrice();
         } else {
             input.val(1);
         }
@@ -238,6 +267,7 @@
 
         if (checkbox.prop('checked')) {
             updateSelectedProducts(productId, quantity);
+            updateTotalPrice();
         }
     }
 
@@ -251,6 +281,7 @@
         checkboxes.prop('checked', $(this).prop('checked'));
         checkboxes.each(function() {
             handleProductCheckboxChange(this);
+            updateTotalPrice();
         });
     });
 
