@@ -90,7 +90,7 @@ class UserAddressController extends Controller
             DB::rollBack();
             return redirect('/myaddress')->with([
                 'address_title' => 'Address create failed!',
-                'error' => 'error'
+                'status' => 'error'
             ]);
         }
         

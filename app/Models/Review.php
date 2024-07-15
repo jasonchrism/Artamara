@@ -10,8 +10,10 @@ class Review extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
+    protected $fillable = [
         'order_id',
+        'rating',
+        'comment',
     ];
 
     protected $table = "reviews";

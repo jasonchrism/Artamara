@@ -2,6 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('includes.addressNotification')
     @php
         use Carbon\Carbon;
     @endphp
@@ -173,7 +174,8 @@
                         <div class="order-footer-btn">
                             <button class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
-                            <button class="btn btn-primary">Review</button>
+                            
+                            <a href="/review/{{$orderId}}" class="btn btn-primary">Review</a>
                         </div>
                     </div>
 
