@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Buyer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Review;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
-    public function index() {
+    public function index($id) {
         $order = Order::with('orderDetail.product')
-            ->where('order_id', '0b7ebf1a-3e62-11ef-84b4-005056c00001')
+            ->where('order_id', $id)
             ->get();
-
 
         return view('buyer.review', [
             'order' => $order,
@@ -20,9 +23,29 @@ class ReviewController extends Controller
     }
 
     public function store(Request $request) {
-        $rating = $request->input('rating');
-        $comment = $request->input('review');
+        $reviews = Review::query()->get();
 
-        dd($request->input('order_id'));
+        foreach($reviews as $r) {
+            if ($r->order_id == $request->input('order_id')) {
+                return redirect('/mytransactions/PACKING')->with([
+                    'address_title' => 'You already submitted review',
+                    'status' => 'error'
+                ]);
+            }
+        }
+
+        try {
+            DB::beginTransaction();
+            Review::create([
+                'order_id' => $request->input('order_id'),
+                'rating' => $request->input('rating'),
+                'comment' => $request->input('review'),
+            ]);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+
+        return redirect('/mytransactions/FINISHED')->with('address_title', 'Review has been submitted');
     }
 }

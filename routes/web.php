@@ -76,7 +76,7 @@ Route::name('front.')->group(function () {
     Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
 
 
-    Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+    Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
     Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
     Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
     Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');

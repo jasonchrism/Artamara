@@ -1,6 +1,6 @@
 .review-container {
     width: 515px;
-    height: 589px;
+    height: auto;
     background-color: var(--bg-overlay-1);
     margin-top: 54px;
     margin-bottom: 125px;
@@ -127,6 +127,10 @@
 
 .rate label {
     height: 36px;
+}
+
+.btn-primary {
+    margin-bottom: 20px;
 }
 
 @media screen and (max-width: 500px) {

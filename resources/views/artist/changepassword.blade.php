@@ -35,7 +35,6 @@
                         @csrf
                         @method('PUT')
 
-<<<<<<< Updated upstream
                         <div>
                             <label for="oldPassword" class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
 
@@ -53,27 +52,6 @@
                                         </span>
                                     @enderror
                                 </div>
-=======
-                            <div>
-                                <label for="oldPassword"
-                                    class="text-white fw-semibold mb-2">{{ __('Old Password') }}</label>
-                                
-                                <div class="inputerror d-flex flex-column">
-                                    <div class="inputbox d-flex align-items-center">
-                                        <input id="oldPassword" type="password"
-                                            class="form-control @error('oldPassword') is-invalid @enderror" name="oldPassword"
-                                            value="">
-                                        <i class="fa-regular fa-eye" id="togglePassword2"></i>
-                                    </div>
-                                    <div class="errormessage">
-                                        @error('oldPassword')
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>  
->>>>>>> Stashed changes
                             </div>
                         </div>
 
