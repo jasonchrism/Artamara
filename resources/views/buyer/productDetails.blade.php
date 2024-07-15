@@ -240,15 +240,18 @@
             incrementValue(e);
             const qty = document.getElementById('quantity');
             const qtyBuy = document.getElementById('quantity2');
+            const qtyCart = document.getElementById('quantity3');
             qtyBuy.value = qty.value;
+            qtyCart.value = qty.value;
             
         });
 
         $('.input-group').on('click', '.button-minus', function(e) {
             decrementValue(e);
             const qty = document.getElementById('quantity');
-            const qtyBuy = document.getElementById('quantity2');
+            const qtyCart = document.getElementById('quantity3');
             qtyBuy.value = qty.value;
+            qtyCart.value = qty.value;
         });
     </script>
 @endpush
