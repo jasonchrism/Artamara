@@ -98,7 +98,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-cart">
                         <div class="cart-title d-flex"">
-                            <p class="col-lg-6">Lastest added</p>
+                            <p class="col-lg-6" style="font-size: 16px;">Latest added</p>
                             <a class="col-lg-6 text-end viewmore" href="{{ route('front.cart') }}">View more</a>
                         </div>
                     @foreach ($cartItems as $item)
