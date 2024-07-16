@@ -191,6 +191,31 @@
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
                         </div>
                     </div>
+                @elseif($status == 'RETURNED')
+                    <div class="order-footer">
+                        @if ($orderData['refund_status'] == 'ADMIN REVIEW')
+                            <div class="order-footer-kiri">
+                                <p style="color: var(--primary)">On Review</p>
+                                <p>Returned will be completed: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                            </div>
+                        @elseif ($orderData['refund_status'] == 'ADMIN CONFIRMATION')
+                            <div class="order-footer-kiri">
+                                <p style="color: var(--primary)">Returned Approved</p>
+                                <p>Please send back the item to get refund</p>
+                            </div>
+                        @elseif ($orderData['refund_status'] == 'FINISHED')
+                            <div class="order-footer-kiri">
+                                <p style="color: var(--primary)">Refund Successful</p>
+                                <p>The money should be in your account at: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                            </div>
+                        @endif
+                        <div class="order-footer-btn">
+                            <button class="btn-bordered" data-bs-toggle="modal"
+                                data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
+
+                            <a href="" class="btn btn-primary">Confirm Return</a>
+                        </div>
+                    </div>
                 @endif
             </div>
         @endforeach
@@ -384,7 +409,7 @@
           </div>
     </div>
 
-    {{-- modal confirmation report --}}
+    {{-- modal report --}}
     <div class="modal fade" id="{{'reportordermodal-' . $orderId}}" tabindex="-1" aria-labelledby="reportordermodal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="report-content">
