@@ -70,6 +70,7 @@ Route::name('front.')->group(function () {
 
     Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
     Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
+    Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
@@ -79,7 +80,7 @@ Route::name('front.')->group(function () {
     Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
 
 
-    Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
+    Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
     Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
     Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
     Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');

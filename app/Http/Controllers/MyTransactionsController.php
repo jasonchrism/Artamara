@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BuyerReportRequest;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderDetail;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
+use App\Models\Refund;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -98,88 +100,170 @@ class MyTransactionsController extends Controller
         // ini array baru
         $groupedProducts = [];
 
+
+
         // ini foreach untuk semua product
-        foreach ($products as $product) {
 
-            // dd($product);
+        if($status != 'RETURNED')
+        {
+
+            foreach ($products as $product) {
+
+                // dd($product);
 
 
-            // ini nambahin table order detail ke product
+                // ini nambahin table order detail ke product
 
-            foreach ($product->orderDetail as $orderDetail) {
-                // dd($orderDetail->order_id , $order_ids[0]);
-                if (!in_array($orderDetail->order_id, $order_ids)) {
-                    continue;
+                foreach ($product->orderDetail as $orderDetail) {
+                    // dd($orderDetail->order_id , $order_ids[0]);
+                    if (!in_array($orderDetail->order_id, $order_ids)) {
+                        continue;
+                    }
+
+                    $address_ID = Order::with('userAddress')
+                        ->where('order_id', $orderDetail->order_id)
+                        ->pluck('address_id')
+                        ->first();
+
+                    // dd($address_ID);
+
+                    $address = Address::where('address_id', $address_ID)
+                        ->first();
+                    // dd($address);
+
+                    $payment_id = Order::where('order_id', $orderDetail->order_id)->pluck('payment_id')->first();
+                    // dd($payment_id);
+
+                    $paymentmethod_id = Payment::with('PaymentMethod')
+                        ->where('payment_id', $payment_id)
+                        ->pluck('payment_method_id')
+                        ->first();
+                    // dd($address);
+
+                    $payment_method = PaymentMethod::where('payment_method_id', $paymentmethod_id)->pluck('name')->first();
+                    // dd($payment_method);
+
+                    // ini orderID yang diambil dari orderDetail di table order
+                    $orderId = $orderDetail->order->order_id;
+                    // dd($orderId);
+
+
+                    $total = $orderDetail->order->total_price;
+                    $shipment = $orderDetail->order->shipment_fee;
+                    $grand_total = $total + $shipment;
+                    // dd($grand_total);
+                    // ini ambil user id sesuai dari product yang dicek
+                    $artistId = $product->user_id; // Assuming user_id is the artist's ID
+
+                    // ini ambil tanggalnya
+                    $createdAt = $orderDetail->order->created_at;
+                    $updatedAt = $orderDetail->order->updated_at;
+                    $orderstatus = $orderDetail->order->status;
+
+                    $paymentMax = Carbon::parse($createdAt)->addHours(24);
+                    $estimatedArrival = Carbon::parse($updatedAt)->addHours(72);
+
+                    // ini cek apakah order id (array sekian) sudah ada di array grouped
+                    // kalau belum ada, dibikin dan dikasih array baru di dalamnya
+                    // isinya created at dan artist
+                    if (!isset($groupedProducts[$orderId])) {
+                        $groupedProducts[$orderId] = [
+                            'created_at' => $createdAt,
+                            'payment_max' => $paymentMax,
+                            'orderstatus' => $orderstatus,
+                            'buyer_address' => $address,
+                            'payment_method' => $payment_method,
+                            'grand_total' => $grand_total,
+                            'estimated_arrival' => $estimatedArrival,
+                            'artists' => []
+                        ];
+                    }
+
+                    // di sini tuh cek orderid sekian dari dari array groupedproducts
+                    // nah, cek apakah di array artists, cek apakah ada index dari artistID
+                    // kalau belum, bikin array lagi di dalam artist untuk index itu
+                    if (!isset($groupedProducts[$orderId]['artists'][$artistId])) {
+                        $groupedProducts[$orderId]['artists'][$artistId] = [];
+                    }
+
+                    // nah, ini product-nya, isi dari tralala itu
+                    $groupedProducts[$orderId]['artists'][$artistId][] = $product;
                 }
+            }
+        } else
+        {
+            foreach ($products as $product) {
 
-                $address_ID = Order::with('userAddress')
-                    ->where('order_id', $orderDetail->order_id)
-                    ->pluck('address_id')
+                foreach ($product->orderDetail as $orderDetail) {
+
+                    if (!in_array($orderDetail->order_id, $order_ids)) {
+                        continue;
+                    }
+
+                    $address_ID = Order::with('userAddress')
+                        ->where('order_id', $orderDetail->order_id)
+                        ->pluck('address_id')
+                        ->first();
+
+
+
+                    $address = Address::where('address_id', $address_ID)
+                        ->first();
+
+
+                    $payment_id = Order::where('order_id', $orderDetail->order_id)->pluck('payment_id')->first();
+               ;
+
+                    $paymentmethod_id = Payment::with('PaymentMethod')
+                        ->where('payment_id', $payment_id)
+                        ->pluck('payment_method_id')
+                        ->first();
+
+
+                    $payment_method = PaymentMethod::where('payment_method_id', $paymentmethod_id)->pluck('name')->first();
+
+                    $orderId = $orderDetail->order->order_id;
+
+
+
+                    $total = $orderDetail->order->total_price;
+                    $shipment = $orderDetail->order->shipment_fee;
+                    $grand_total = $total + $shipment;
+
+                    $artistId = $product->user_id;
+
+                    $createdAt = $orderDetail->order->created_at;
+                    $updatedAt = $orderDetail->order->updated_at;
+                    $orderstatus = $orderDetail->order->status;
+
+                    $paymentMax = Carbon::parse($createdAt)->addHours(24);
+                    $estimatedArrival = Carbon::parse($updatedAt)->addHours(72);
+
+                    // hubungin dengan table refund
+                    $refund_status = Refund::where('order_id', $orderDetail->order_id)->pluck('status')
                     ->first();
 
-                // dd($address_ID);
+                    if (!isset($groupedProducts[$orderId])) {
+                        $groupedProducts[$orderId] = [
+                            'created_at' => $createdAt,
+                            'payment_max' => $paymentMax,
+                            'orderstatus' => $orderstatus,
+                            'buyer_address' => $address,
+                            'payment_method' => $payment_method,
+                            'grand_total' => $grand_total,
+                            'estimated_arrival' => $estimatedArrival,
+                            'refund_status' => $refund_status,
+                            'artists' => []
+                        ];
+                    }
 
-                $address = Address::where('address_id', $address_ID)
-                    ->first();
-                // dd($address);
-
-                $payment_id = Order::where('order_id', $orderDetail->order_id)->pluck('payment_id')->first();
-                // dd($payment_id);
-
-                $paymentmethod_id = Payment::with('PaymentMethod')
-                    ->where('payment_id', $payment_id)
-                    ->pluck('payment_method_id')
-                    ->first();
-                // dd($address);
-
-                $payment_method = PaymentMethod::where('payment_method_id', $paymentmethod_id)->pluck('name')->first();
-                // dd($payment_method);
-
-                // ini orderID yang diambil dari orderDetail di table order
-                $orderId = $orderDetail->order->order_id;
-                // dd($orderId);
+                    if (!isset($groupedProducts[$orderId]['artists'][$artistId])) {
+                        $groupedProducts[$orderId]['artists'][$artistId] = [];
+                    }
 
 
-                $total = $orderDetail->order->total_price;
-                $shipment = $orderDetail->order->shipment_fee;
-                $grand_total = $total + $shipment;
-                // dd($grand_total);
-                // ini ambil user id sesuai dari product yang dicek
-                $artistId = $product->user_id; // Assuming user_id is the artist's ID
-
-                // ini ambil tanggalnya
-                $createdAt = $orderDetail->order->created_at;
-                $updatedAt = $orderDetail->order->updated_at;
-                $orderstatus = $orderDetail->order->status;
-
-                $paymentMax = Carbon::parse($createdAt)->addHours(24);
-                $estimatedArrival = Carbon::parse($updatedAt)->addHours(72);
-
-                // ini cek apakah order id (array sekian) sudah ada di array grouped
-                // kalau belum ada, dibikin dan dikasih array baru di dalamnya
-                // isinya created at dan artist
-                if (!isset($groupedProducts[$orderId])) {
-                    $groupedProducts[$orderId] = [
-                        'created_at' => $createdAt,
-                        'payment_max' => $paymentMax,
-                        'orderstatus' => $orderstatus,
-                        'buyer_address' => $address,
-                        'payment_method' => $payment_method,
-                        'grand_total' => $grand_total,
-                        'estimated_arrival' => $estimatedArrival,
-                        'artists' => []
-                    ];
+                    $groupedProducts[$orderId]['artists'][$artistId][] = $product;
                 }
-
-                // di sini tuh cek orderid sekian dari dari array groupedproducts
-                // nah, cek apakah di array artists, cek apakah ada index dari artistID
-                // kalau belum, bikin array lagi di dalam artist untuk index itu
-                if (!isset($groupedProducts[$orderId]['artists'][$artistId])) {
-                    $groupedProducts[$orderId]['artists'][$artistId] = [];
-                }
-
-                // nah, ini product-nya, isi dari tralala itu
-                $groupedProducts[$orderId]['artists'][$artistId][] = $product;
             }
         }
 
@@ -204,6 +288,37 @@ class MyTransactionsController extends Controller
 
         return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
 
+    }
+
+    public function report(BuyerReportRequest $request, $status, $orderId)
+    {
+        $data = $request->all();
+        // dd($data);
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoPath = $photo->store('storage/photos', 'public');
+        }
+
+        // Simpan video
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $videoPath = $video->store('storage/videos', 'public');
+        }
+
+        // Simpan jalur file dalam satu kolom
+        $path_file = json_encode(['photo' => $photoPath, 'video' => $videoPath]);
+
+        $data['order_id'] = $orderId;
+        $data['path_file'] = $path_file;
+        $data['status'] = 'ADMIN REVIEW';
+        // dd($data);
+        Refund::create($data);
+
+        $order = Order::find($orderId);
+        $order->status = 'RETURNED';
+        $order->save();
+
+        return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
     }
     /**
      * Show the form for creating a new resource.
