@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
 
 /*
@@ -90,7 +91,9 @@ Route::name('front.')->group(function () {
 
     //payment
     Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
-    // Route::post("/payment/notification", [OrderController::class, 'notification'])->name('payment.notification');
+    
+    Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
+    Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
 });
 
 Auth::routes();

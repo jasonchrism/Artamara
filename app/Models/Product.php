@@ -39,7 +39,7 @@ class Product extends Model
     public $incrementing = false;
     public $timestamps = true;
 
-    public function productAuctoin(): HasOne {
+    public function productAuction(): HasOne {
         return $this->hasOne(ProductAuction::class, 'product_id', 'product_id');
     }
 

@@ -70,7 +70,7 @@
                     <a href="{{route('front.catalog')}}">Catalog</a>
                 </li>
                 <li>
-                    <a href="">Auctions</a>
+                    <a href="{{route('front.auction')}}">Auctions</a>
                 </li>
                 <li>
                     <a href="">Artist</a>
