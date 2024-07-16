@@ -32,6 +32,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
+use App\Http\Controllers\ReturnDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,9 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::resource('rating', RatingController::class);
 
     Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
+
+    Route::get('/return-detail', [ReturnDetailController::class, 'index'])->name('return.index');
+    Route::post('/return-appeal', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
 });
 
 
