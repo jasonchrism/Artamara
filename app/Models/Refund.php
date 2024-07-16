@@ -11,14 +11,20 @@ class Refund extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
+    protected $fillable = [
         'order_id',
+        'description',
+        'response',
+        'path_file',
+        'status',
+        'failure_type',
+        'receipt_number'
     ];
 
     protected $casts = [
         'path_file' => 'array'
     ];
-    
+
     public function getPhotoAttribute()
     {
         if ($this->path_file) {

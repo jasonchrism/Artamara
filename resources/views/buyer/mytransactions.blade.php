@@ -160,7 +160,7 @@
                             </div>
                             <div class="order-footer-btn">
                                 <button class="btn-bordered" data-bs-toggle="modal" data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
-                                <button class="btn-report">Report</button>
+                                <button class="btn-report" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{'reportordermodal-' . $orderId }}">Report</button>
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ 'confirmationModal-' . $orderId }}" data-bs-dismiss="modal">Confirmed Order</button>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                         <div class="order-footer-btn">
                             <button class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
-                            
+
                             <a href="/review/{{$orderId}}" class="btn btn-primary">Review</a>
                         </div>
                     </div>
@@ -383,6 +383,59 @@
             </div>
           </div>
     </div>
+
+    {{-- modal confirmation report --}}
+    <div class="modal fade" id="{{'reportordermodal-' . $orderId}}" tabindex="-1" aria-labelledby="reportordermodal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="report-content">
+                <div class="report-header">
+                    <h1 class="report-title fs-5" id="exampleModalLabel">Report Order</h1>
+                    <p>Submit a Return Get back your money</p>
+                </div>
+                <div class="report-body">
+                    <form class="form-report-order" action="/mytransactions/report/{{$status}}/{{$orderId}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="form-group">
+
+                            <label for="photo"><strong>Photo</strong></label>
+                            <input name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror"
+                                   placeholder="Select an image" required accept="image/png,image/jpg,image/jpeg" type="file">
+                            @error('photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <label for="video"><strong>Video</strong></label>
+                            <input name="video" id="video" class="form-control @error('video') is-invalid @enderror"
+                                   placeholder="Select a video" required accept="video/mp4" type="file">
+                            @error('video')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <label for="description"><strong>Description</strong></label>
+                            <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror"
+                                    name="description" value="{{ old('description') }}" autocomplete="off" placeholder="Describe your report" required
+                                    style="height: 50%"></textarea>
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="report-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @endforeach
 
 @endsection
