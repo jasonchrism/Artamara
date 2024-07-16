@@ -27,12 +27,13 @@ use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
 use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
 use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
 use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
+use App\Http\Controllers\Admin\ReturnDetailController as AdminReturnDetailController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\Artist\ReturnDetailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
-use App\Http\Controllers\ReturnDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,9 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::post('/acceptArtist/{id}', [ViewUsersController::class, 'acceptArtist'])->name('acceptArtist');
     Route::post('/banArtist/{id}', [ViewUsersController::class, 'banArtist'])->name('banArtist');
     Route::post('/deleteArtist/{id}', [ViewUsersController::class, 'deleteArtist'])->name('deleteArtist');
+
+    Route::get('/return-detail/review', [AdminReturnDetailController::class, 'index'])->name('return.review');
+    Route::post('/return-failure', [AdminReturnDetailController::class, 'failure'])->name('return.failure');
 });
 
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {

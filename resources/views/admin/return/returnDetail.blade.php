@@ -138,7 +138,7 @@
 
             <div class="d-flex justify-content-end">
                 <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Appeal
+                    Failure Type
                 </a>
             </div>
 
