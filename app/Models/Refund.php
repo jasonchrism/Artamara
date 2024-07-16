@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Refund extends Model
 {
@@ -13,6 +14,28 @@ class Refund extends Model
     protected $guarded = [
         'order_id',
     ];
+
+    protected $casts = [
+        'path_file' => 'array'
+    ];
+    
+    public function getPhotoAttribute()
+    {
+        if ($this->path_file) {
+            return Storage::url(json_decode($this->path_file)[0]);
+        }
+
+        return 'https://via.placeholder.com/800x600';
+    }
+
+    public function getVideoAttribute()
+    {
+        if ($this->path_file) {
+            return Storage::url(json_decode($this->path_file)[1]);
+        }
+
+        return 'https://via.placeholder.com/800x600';
+    }
 
     protected $table = "refunds";
     protected $primaryKey = 'order_id';

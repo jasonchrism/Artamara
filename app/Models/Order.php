@@ -44,7 +44,7 @@ class Order extends Model
     }
 
     public function refund(): HasOne {
-        return $this->hasOne(Refund::class, 'product_id', 'product_id');
+        return $this->hasOne(Refund::class, 'order_id', 'order_id');
     }
 
     public function review(): HasOne {
