@@ -418,6 +418,93 @@
     background-color: transparent !important;
 }
 
+/* confirmation report */
+.report-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--text-primary);
+    pointer-events: auto;
+    background-color: var(--bg-overlay-1);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bg-overlay-2);
+    outline: 0;
+    padding: 24px 24px 24px 24px;
+    align-items: flex-start;
+    max-width: none;
+}
+
+.report-header
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.report-title
+{
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.report-header p
+{
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.report-body
+{
+    width: 100%;
+}
+
+.report-body p
+{
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.form-control
+{
+    border: none;
+    padding: none !important;
+    margin-bottom: 16px;
+}
+
+.report-footer
+{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+input[type="file"] {
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+
+input[type="file"]:focus {
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-overlay-2);
+}
+
+input[type="file"]:hover::-webkit-file-upload-button {
+    background-color: transparent !important;
+    color: var(--text-secondary);
+    border: 1px solid var(--primary);
+}
+
+
 @media screen and (max-width: 1300px){
     body{
         margin: 48px 80px 0;
