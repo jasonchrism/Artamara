@@ -14,6 +14,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MyTransactionsController extends Controller
 {
@@ -244,6 +245,20 @@ class MyTransactionsController extends Controller
                     $refund_status = Refund::where('order_id', $orderDetail->order_id)->pluck('status')
                     ->first();
 
+                    $refund = Refund::where('order_id', $orderDetail->order_id)->first();
+                    $photo = null;
+                    $video = null;
+                    if ($refund && $refund->path_file) {
+                        $pathFileData = json_decode($refund->path_file, true);
+                        if (isset($pathFileData['photo'])) {
+                            $photo = Storage::url($pathFileData['photo']);
+                        }
+                        if (isset($pathFileData['video'])) {
+                            $video = Storage::url($pathFileData['video']);
+                        }
+                    }
+
+
                     if (!isset($groupedProducts[$orderId])) {
                         $groupedProducts[$orderId] = [
                             'created_at' => $createdAt,
@@ -254,6 +269,9 @@ class MyTransactionsController extends Controller
                             'grand_total' => $grand_total,
                             'estimated_arrival' => $estimatedArrival,
                             'refund_status' => $refund_status,
+                            'refund' => $refund,
+                            'refund_photo' => $photo,
+                            'refund_video' => $video,
                             'artists' => []
                         ];
                     }

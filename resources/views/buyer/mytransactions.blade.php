@@ -392,6 +392,30 @@
                         </div>
 
                     </div>
+                    @if ($status == 'RETURNED')
+                        <div id="space-detail" class="returned-details">
+                            <p id="variant-1">Report Details</p>
+                            <div class="orderline-right">
+                                <p id=left-orderline-2>Photo</p>
+                                {{-- {{dd($orderData['refund'])}} --}}
+                                <img src="{{$orderData['refund_photo']}}" alt="">
+                            </div>
+                            <div class="orderline-right">
+                                <p id="left-orderline-2">Video</p>
+                                <video width="320" height="240" controls>
+                                    <source src="{{ $orderData['refund_video'] }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="orderline-right">
+                                <p id=left-orderline-2-desc>Description</p>
+                                {{-- {{dd($orderData['refund'])}} --}}
+                                <p>{{$orderData['refund']->description}}</p>
+                            </div>
+                        </div>
+
+
+                    @endif
                 </div>
                 @if ($status == "UNPAID")
 

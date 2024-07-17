@@ -31,9 +31,9 @@ class ReturnDetailController extends Controller
 
     public function appeal(Request $request) {
         $order_id = $request->input('order_id');
-        
+
         $refund = Refund::find($order_id);
-        
+
         try {
             DB::beginTransaction();
             $refund->update([
