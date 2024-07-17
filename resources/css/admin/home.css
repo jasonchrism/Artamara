@@ -89,6 +89,7 @@ input{
     background-color: var(--bg-overlay-1);
 }
 
+<<<<<<< Updated upstream
 .chart-container {
     background-color: var(--bg-overlay-1);
     min-width: 100%;
@@ -108,12 +109,15 @@ input{
     overflow-y: auto;
 }
 
+=======
+>>>>>>> Stashed changes
 .image-test {
     background-color: var(--bg-overlay-1);
     min-width: 100%;
     min-height: 100%;
 }
 
+<<<<<<< Updated upstream
 tbody td {
     border: none;
 }
@@ -164,6 +168,9 @@ a.btn.btn-primary.check-btn {
 }
 
 @media screen and (max-width: 1400px) {
+=======
+@media screen and (max-width: 1440px) {
+>>>>>>> Stashed changes
     .mr-left {
         margin-right: 34px;
     }
@@ -198,6 +205,7 @@ a.btn.btn-primary.check-btn {
     .monthly {
         width: 90%;
     }
+<<<<<<< Updated upstream
 }
 @media screen and (max-width: 530px) {
     .total-earnings {
@@ -271,4 +279,6 @@ a.btn.btn-primary.check-btn {
     a.btn.btn-primary.check-btn {
         font-size: 12px;
     }
+=======
+>>>>>>> Stashed changes
 }
