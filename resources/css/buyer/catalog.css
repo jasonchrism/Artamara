@@ -91,6 +91,43 @@
     font-size: 14px;
 }
 
+.card-content{
+    border: 2px solid var(--bg-overlay-1);
+    width: 380px;
+}
+
+.artist-name{
+    font-size: 16px;
+}
+
+.artist-desc{
+    font-size: 14px;
+    color: var(--text-secondary);
+    width: 220px;
+}
+
+.text-truncate-multiline{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+}
+
+.wrap-content{
+    display: grid;
+    grid-template-columns: 380px 380px 380px;
+    column-gap: 24px;
+    row-gap: 16px;
+}
+
+.top-artist{
+    display: grid;
+    grid-template-columns: 205px 205px 205px 205px 205px;
+    column-gap: 40px;
+    row-gap: 16px;
+}
+
 @media screen and (max-width: 1300px){
     
 }
