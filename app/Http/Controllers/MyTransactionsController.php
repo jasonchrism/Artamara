@@ -142,6 +142,7 @@ class MyTransactionsController extends Controller
 
                     $payment_method = PaymentMethod::where('payment_method_id', $paymentmethod_id)->pluck('name')->first();
                     // dd($payment_method);
+                    $orderDetails = Order::where('order_id', $orderDetail->order_id)->first();
 
                     // ini orderID yang diambil dari orderDetail di table order
                     $orderId = $orderDetail->order->order_id;
@@ -175,7 +176,8 @@ class MyTransactionsController extends Controller
                             'payment_method' => $payment_method,
                             'grand_total' => $grand_total,
                             'estimated_arrival' => $estimatedArrival,
-                            'artists' => []
+                            'artists' => [],
+                            'orderDetails' => $orderDetails
                         ];
                     }
 
@@ -212,7 +214,6 @@ class MyTransactionsController extends Controller
 
 
                     $payment_id = Order::where('order_id', $orderDetail->order_id)->pluck('payment_id')->first();
-               ;
 
                     $paymentmethod_id = Payment::with('PaymentMethod')
                         ->where('payment_id', $payment_id)

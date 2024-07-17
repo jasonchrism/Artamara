@@ -122,7 +122,7 @@
                         <div class="order-footer-btn">
                             <button class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
-                            <button class="btn btn-primary">Pay Now</button>
+                            <a href="{{$orderData['orderDetails']->payment->url}}" class="btn btn-primary">Pay Now</a>
                         </div>
                     </div>
 
@@ -380,7 +380,7 @@
 
                     <div class="order-detail-footer">
                         <button type="button" class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Paynow</button>
+                        <a href="{{$orderData['orderDetails']->payment->url}}" class="btn btn-primary">Pay Now</a>
                     </div>
                 @endif
           </div>
