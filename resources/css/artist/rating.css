@@ -1,0 +1,203 @@
+.user-table {
+    text-align: center;
+    /* width: 1013px; */
+}
+
+th.user-table-title.sorting {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.dataTables_length {
+    /* margin: 24px 24px 20px 24px; */
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.dataTables_filter {
+    /* margin: 24px 24px 20px 24px; */
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.user-container {
+    background-color: var(--bg-overlay-1);
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    width: 277px;
+    height: 37px;
+    /* margin-left: 32px; */
+    color: var(--text-primary);
+}
+
+.dataTables_wrapper .dataTables_length select {
+    width: 78px;
+    height: 37px;
+    color: var(--text-primary);
+}
+
+.dataTables_wrapper .dataTables_length select {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.dataTables_wrapper .dataTables_info {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    margin-left: 24px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    margin-right: 24px;
+}
+
+table.dataTable {
+    border: 1px solid var(--bg-overlay-2);
+}
+
+.user-container .dataTables_wrapper table.dataTable.no-footer {
+    border-bottom: 1px solid var(--bg-overlay-2);
+}
+
+.container.user-container {
+    padding: 0px;
+}
+
+.container.user-container .dataTables_wrapper table.dataTable {
+    /* margin-right: 24px;
+    margin-left: 24px; */
+    /* margin-top: 24px; */
+    width: 100%;
+    position: relative;
+
+}
+
+.dataTables_wrapper {
+    padding: 24px 24px 24px 24px;
+}
+
+button.btn.btn-secondary {
+    background-color: transparent;
+}
+
+.rating-details-container {
+    background-color: var(--bg-overlay-1);
+    width: auto;
+    margin-top: 56px;
+    margin-right: 15px;
+    margin-bottom: 300px;
+}
+
+.back-btn {
+    margin-left: 36px;
+    margin-top: 40px;
+}
+
+.header-title {
+    font-size: 20px;
+    margin-left: 16px;
+    margin-top: 36px;
+}
+
+.bottom-container {
+    margin-top: 24px;
+    margin-left: 36px;
+    width: 100%;
+}
+
+.order-id {
+    margin-bottom: 8px;
+}
+
+.l-side {
+    width: 580px;
+}
+
+.r-side {
+    max-width: 560px;
+}
+
+.marb-4 {
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.product-details-container {
+    width: 100%;
+}
+
+.product-name-container {
+    margin-left: 10px;
+}
+
+.product-container {
+    height: 45px;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.product-price-container {
+    margin-right: 40px;
+}
+
+.product-price-container p {
+    font-size: 14px;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 0;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    display: none;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: var(--primary);
+}
+
+/* .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    background-color: transparent;
+} */
+
+@media (max-width: 768px) {
+    .dataTables_wrapper {
+        align-items: center;
+    }
+
+    /* styles.css */
+    .dataTables_wrapper {
+        /* font-size: 12px; */
+        /* Adjust this value as needed */
+    }
+
+    table.dataTable thead th {
+        /* font-size: 14px; */
+        /* Adjust this value as needed */
+    }
+
+    table.dataTable tbody td {
+        /* font-size: 12px; */
+        /* Adjust this value as needed */
+    }
+}
