@@ -1,27 +1,7 @@
 <?php
 
-<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-=======
-use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
-use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
-use App\Http\Controllers\Artist\ArtAuctionController;
-use App\Http\Controllers\Artist\ArtSalesController;
-use App\Http\Controllers\Artist\EditPasswordController;
-use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
-use App\Http\Controllers\Artist\RatingController;
-use App\Http\Controllers\Artist\TransactionController;
-use App\Http\Controllers\Artist\TransactionDetailController;
-use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
-use App\Http\Controllers\Front\CatalogController;
-use App\Http\Controllers\Buyer\UserAddressController;
-use App\Http\Controllers\Front\ChangePasswordController;
-use App\Http\Controllers\Front\EditProfileController;
-use App\Http\Controllers\Front\LandingController;
->>>>>>> Stashed changes
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
@@ -93,7 +73,6 @@ Route::name('front.')->group(function () {
     Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
-<<<<<<< Updated upstream
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -118,10 +97,8 @@ Route::name('front.')->group(function () {
     
     Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
-=======
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
->>>>>>> Stashed changes
 });
 
 Auth::routes();
@@ -147,11 +124,7 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
     Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
     Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
-<<<<<<< Updated upstream
-    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);
-=======
     Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);  
->>>>>>> Stashed changes
     Route::put('/changepassword', [EditPasswordController::class, 'update'])->name('changeartistpassword.update');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
@@ -160,12 +133,9 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::resource('rating', RatingController::class);
 
     Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
-<<<<<<< Updated upstream
 
     Route::get('/return-detail', [ReturnDetailController::class, 'index'])->name('return.index');
     Route::post('/return-appeal', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
-=======
->>>>>>> Stashed changes
 });
 
 
