@@ -193,12 +193,12 @@
                     </div>
                 @elseif($status == 'RETURNED')
                     <div class="order-footer">
-                        @if ($orderData['refund_status'] == 'ADMIN REVIEW')
+                        @if ($orderData['refund_status'] == 'ADMIN REVIEW' || $orderData['refund_status'] == 'ARTIST REVIEW' || $orderData['refund_status'] == 'ADMIN CONFIRMATION')
                             <div class="order-footer-kiri">
                                 <p style="color: var(--primary)">On Review</p>
                                 <p>Returned will be completed: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
                             </div>
-                        @elseif ($orderData['refund_status'] == 'ADMIN CONFIRMATION')
+                        @elseif ($orderData['refund_status'] == 'ACCEPTED')
                             <div class="order-footer-kiri">
                                 <p style="color: var(--primary)">Returned Approved</p>
                                 <p>Please send back the item to get refund</p>
@@ -207,6 +207,11 @@
                             <div class="order-footer-kiri">
                                 <p style="color: var(--primary)">Refund Successful</p>
                                 <p>The money should be in your account at: <strong>{{ Carbon::parse($orderData['estimated_arrival'])->format('d F Y') }}</strong></p>
+                            </div>
+                        @elseif ($orderData['refund_status'] == 'REJECTED')
+                            <div class="order-footer-kiri">
+                                <p style="color: var(--primary)">Refund Rejected</p>
+                                <p>The refund has been rejected</p>
                             </div>
                         @endif
                         <div class="order-footer-btn">
@@ -261,6 +266,18 @@
                                 <p id="status_yellow">Finished</p>
                             @elseif ($status == "CANCELLED")
                                 <p id="status_red">Cancelled</p>
+                            @elseif ($status == "RETURNED")
+                                @if ($orderData['refund_status'] == 'ADMIN REVIEW' || $orderData['refund_status'] == 'ARTIST REVIEW' || $orderData['refund_status'] == 'ADMIN CONFIRMATION')
+                                    <p id="status_blue">On Review</p>
+                                @endif
+                                @if ($orderData['refund_status'] == 'REJECTED')
+                                    <p id="status_red">Rejected</p>
+                                @elseif ($orderData['refund_status'] == 'ACCEPTED')
+                                    <p id="status_blue">Approved</p>
+                                @elseif ($orderData['refund_status'] == 'FINISHED')
+                                    <p id="status_yellow">Refund</p>
+                                @endif
+
                             @endif
 
                         </div>
