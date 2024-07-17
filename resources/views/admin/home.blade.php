@@ -130,7 +130,7 @@ Welcome, Admin
                                     <td scope="row">{{ $loop->index + 1 }}</td>
                                     <td>{{ $verif->user_id }}</td>
                                     <td>{{ $verif->name }}</td>
-                                    <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
+                                    <td class="p-0"><a href="{{ route('userDetails', $verif->user_id) }}" class="btn btn-primary check-btn">Check</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -250,7 +250,7 @@ Welcome, Admin
                 fill: true,
                 backgroundColor: 'rgba(206, 254, 6, 0.2)',
                 borderColor: 'rgba(206, 254, 6, 1)',
-                tension: 0.4
+                tension: 0.4 // for a smooth curve
             }]
         },
         options: {
@@ -260,11 +260,6 @@ Welcome, Admin
                 }
             }
         }
-
-        updateInputWidth();
     });
-
-    updateInputWidth();
-
 </script>
 @endsection

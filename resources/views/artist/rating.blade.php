@@ -1,3 +1,4 @@
+@vite('resources/css/artist/rating.css')
 @extends('layouts.dashboard')
 @section('title')
     Rating
@@ -9,10 +10,10 @@
             <thead class="user-table-head">
                 <tr>
                     <th class="text-center" width="30px">No</th>
-                    <th class="text-center">Order ID</th>
-                    <th class="text-center">Buyer</th>
+                    <th class="text-center" width="120px">Order ID</th>
+                    <th class="text-center" width="150px">Buyer</th>
                     <th class="utext-center" width="60px">Rating</th>
-                    <th class="text-center">Comment</th>
+                    <th class="text-center" width="200px">Comment</th>
                     <th class="" width="60px"></th>
 
                 </tr>
@@ -40,8 +41,8 @@
                         name: 'order_id'
                     },
                     {
-                        data: 'username',
-                        name: 'username'
+                        data: 'buyer',
+                        name: 'buyer'
                     },
                     {
                         data: 'rating',

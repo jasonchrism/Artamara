@@ -25,6 +25,7 @@ class HomeController extends Controller
             ->where('created_at', '>=', $sixMonthsAgo)
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->orderBy('month', 'asc')
+            ->limit(6)
             ->get();
 
         $totalPrice = array_fill(0, 5, 0); 
