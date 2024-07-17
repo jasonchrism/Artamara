@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\ReturnDetailController as AdminReturnDetailContro
 use App\Http\Controllers\Artist\ReturnDetailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\Front\ArtistController;
 use App\Http\Controllers\front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
 
@@ -101,6 +102,7 @@ Route::name('front.')->group(function () {
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+    Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
 });
 
 Auth::routes();

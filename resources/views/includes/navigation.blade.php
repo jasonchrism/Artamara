@@ -73,7 +73,7 @@
                     <a href="{{route('front.auction')}}">Auctions</a>
                 </li>
                 <li>
-                    <a href="">Artist</a>
+                    <a href="{{route('front.artist')}}">Artist</a>
                 </li>
             </ul>
         </div>

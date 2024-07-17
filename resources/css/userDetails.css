@@ -254,7 +254,7 @@ body{
     font-size: 10px;
     width: 6rem;
     height: 1.2rem;
-    background-color: var(--backgrond-inactive);
+    background-color: var(--background-inactive);
     color: var(--bg-danger);
     text-align: center;
     text-align: center;
