@@ -41,7 +41,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'category_id' => '6',
-                'name' => 'Surealism',
+                'name' => 'Surrealism',
                 'Description' => 'Surrealism first became a movement in the 20th century, with artists such as Salvador Dali becoming household names. Combining abstract concepts with semi-realistic objects that have been twisted or morphed into something unusual, they can be illogical or dreamlike, giving the viewer a heightened sense of reality.'
             ],
             [

@@ -72,6 +72,7 @@ Route::name('front.')->group(function () {
     Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
     Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
+    Route::get("/catalog/{category}", [CatalogController::class, 'category'])->name('catalog.category');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
 
@@ -96,6 +97,7 @@ Route::name('front.')->group(function () {
     Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
     
     Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
+    Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');

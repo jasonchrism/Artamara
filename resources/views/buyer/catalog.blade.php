@@ -11,31 +11,31 @@
     <div class="container-catalog">
         <h4 class="text-white fw-semibold">Browse by Category</h4>
         <div class="d-flex wrap-category">
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Realism')}}" class="col category-content">
                 <img src="assets/category1.png" class="category-img" alt="">
                 <p class="d-inline">Realism</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Photorealism')}}" class="col category-content">
                 <img src="assets/category2.png" class="category-img" alt="">
                 <p class="d-inline">Photorealism</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Expressionism')}}" class="col category-content">
                 <img src="assets/category3.png" class="category-img" alt="">
                 <p class="d-inline">Expressionism</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Impressionism')}}" class="col category-content">
                 <img src="assets/category4.png" class="category-img" alt="">
                 <p class="d-inline">Impressionism</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Abstract')}}" class="col category-content">
                 <img src="assets/category5.png" class="category-img" alt="">
                 <p class="d-inline">Abstract</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Surrealism')}}" class="col category-content">
                 <img src="assets/category6.png" class="category-img" alt="">
                 <p class="d-inline">Surrealism</p>
             </a>
-            <a href="" class="col category-content">
+            <a href="{{route('front.catalog.category', 'Pop Art')}}" class="col category-content">
                 <img src="assets/category7.png" class="category-img" alt="">
                 <p class="d-inline">Pop Art</p>
             </a>
