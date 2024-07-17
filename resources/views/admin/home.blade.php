@@ -10,7 +10,11 @@ Welcome, Admin
 <div class="mr-left">
     <div class="total-earnings-container">
         <div class="d-flex">
+<<<<<<< Updated upstream
             <input type="text" value="{{ $total['total_earnings'] }}" class="text-primary fw-semibold total-earnings" id="currencyInput" disabled>
+=======
+            <input type="text" value="Rp1.121.140.000.000" class="text-primary fw-semibold total-earnings" id="currencyInput" disabled>
+>>>>>>> Stashed changes
             <i class="bi d-flex justify-content-center align-items-center" id="togglePassword">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="eyeIcon">
                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
@@ -21,6 +25,10 @@ Welcome, Admin
         <p class="text-secondary">Total Earnings</p>
     </div>
     <span id="widthCalculator" style="visibility:hidden; white-space:pre; position:absolute;"></span>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
     <div class="count-container d-flex">
         <div class="item-container d-flex flex-column justify-content-center">
@@ -52,8 +60,13 @@ Welcome, Admin
     <div class="third-container d-flex">
         <div class="monthly">
             <p>Monthly Earnings</p>
+<<<<<<< Updated upstream
             <div class="chart-container">
                 <canvas id="myChart"></canvas>
+=======
+            <div class="image-test">
+                
+>>>>>>> Stashed changes
             </div>
         </div>
         <div class="return">
@@ -140,6 +153,7 @@ Welcome, Admin
         </div>
     </div>
 </div>
+<<<<<<< Updated upstream
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -149,6 +163,23 @@ Welcome, Admin
         var startDate = new Date("{{ $auction->start_date }}");
         var endDate = new Date("{{ $auction->end_date }}");
         var now = new Date();
+=======
+
+<script>
+    function updateInputWidth() {
+        const input = document.getElementById('currencyInput');
+        const widthCalculator = document.getElementById('widthCalculator');
+        
+        widthCalculator.textContent = input.value;
+        widthCalculator.style.font = window.getComputedStyle(input).font;
+        
+        input.style.width = widthCalculator.offsetWidth + 'px';
+    }
+
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const input = document.getElementById('currencyInput');
+        const eyeIcon = document.getElementById('eyeIcon');
+>>>>>>> Stashed changes
 
         var diffStart = startDate - now;
         var diffEnd = endDate - now;
@@ -260,7 +291,15 @@ Welcome, Admin
                 }
             }
         }
-    });
-</script>
 
+        updateInputWidth();
+    });
+
+    updateInputWidth();
+
+</script>
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 @endsection
