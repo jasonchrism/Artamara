@@ -2,6 +2,22 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
+use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\Artist\ArtAuctionController;
+use App\Http\Controllers\Artist\ArtSalesController;
+use App\Http\Controllers\Artist\EditPasswordController;
+use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
+use App\Http\Controllers\Artist\RatingController;
+use App\Http\Controllers\Artist\TransactionController;
+use App\Http\Controllers\Artist\TransactionDetailController;
+use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
+use App\Http\Controllers\Front\CatalogController;
+use App\Http\Controllers\Buyer\UserAddressController;
+use App\Http\Controllers\Front\ChangePasswordController;
+use App\Http\Controllers\Front\EditProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BuyerMiddleware;
@@ -9,26 +25,10 @@ use App\Http\Middleware\GuestMiddleware;
 use App\Http\Middleware\ArtistMiddleware;
 use App\Http\Controllers\addCartController;
 use App\Http\Controllers\ViewUsersController;
-use App\Http\Controllers\Artist\RatingController;
-use App\Http\Controllers\Front\CatalogController;
 use App\Http\Controllers\Front\LandingController;
 use App\Http\Controllers\MyTransactionsController;
 use App\Http\Controllers\productDetailsController;
-use App\Http\Controllers\Artist\ArtSalesController;
-use App\Http\Controllers\Artist\ArtAuctionController;
-use App\Http\Controllers\Buyer\UserAddressController;
-use App\Http\Controllers\Front\EditProfileController;
-use App\Http\Controllers\Artist\TransactionController;
-use App\Http\Controllers\Artist\EditPasswordController;
-use App\Http\Controllers\Front\ChangePasswordController;
-use App\Http\Controllers\Artist\TransactionDetailController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Artist\HomeController as ArtistHomeController;
-use App\Http\Controllers\Buyer\ReviewController as BuyerReviewController;
-use App\Http\Controllers\Admin\ArtSalesController as AdminArtSalesController;
-use App\Http\Controllers\Admin\ArtAuctionController as AdminArtAuctionController;
 use App\Http\Controllers\Admin\ReturnDetailController as AdminReturnDetailController;
-use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Artist\ReturnDetailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
@@ -95,7 +95,7 @@ Route::name('front.')->group(function () {
 
     //payment
     Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
-    
+
     Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
     Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
@@ -126,7 +126,7 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get("/home", [ArtistHomeController::class, 'index'])->name('homeArtist');
     Route::get('/myprofile', [ArtistHomeController::class, 'showProfile'])->name('showProfile');
     Route::put('/myprofile/update', [ArtistHomeController::class, 'editProfile'])->name('editProfile');
-    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);  
+    Route::get('/myprofile/changepassword', [EditPasswordController::class, 'showData']);
     Route::put('/changepassword', [EditPasswordController::class, 'update'])->name('changeartistpassword.update');
     Route::resource('artist-sales', ArtSalesController::class);
     Route::resource('artist-auction', ArtAuctionController::class);
