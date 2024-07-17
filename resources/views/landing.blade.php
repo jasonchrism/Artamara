@@ -14,7 +14,7 @@
                     community. Find the perfect piece of <br>
                     art for your home or office.</p>
             </div>
-        <button class="btn btn-primary">View Collections</button>
+            <button class="btn btn-primary">View Collections</button>
         </div>
     </section>
 
@@ -30,19 +30,21 @@
             <h3>View more</h3>
         </div>
         <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
-            @foreach($products as $p)
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <img src="{{ $p->thumbnail }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $p->title }}</h5>
-                        <p class="card-desc">{{ $p->description }}</p>
-                        <p class="card-desc">{{ $p->year }}</p>
-                        <h5 class="card-title" style="color: var(--primary); font-weight:400;">
-                                    {{ 'Rp' . number_format($p->price, 0, ',', '.') }}</h5>
-                    </div>
-                </a>
-            </div>
+            @foreach ($products as $p)
+                <div class="col-md-3 mb-3">
+                    <a href="/productDetails/{{ $p->product_id }}">
+                        <div class="card">
+                            <img src="{{ $p->thumbnail }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $p->title }}</h5>
+                                <p class="card-desc">{{ $p->description }}</p>
+                                <p class="card-desc">{{ $p->year }}</p>
+                                <h5 class="card-title" style="color: var(--primary); font-weight:400;">{{ $p->price }}
+                                </h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             @endforeach
         </div>
 
@@ -64,7 +66,7 @@
     </section>
 
     {{-- Auctions --}}
-    <section class="justify-content-between p-80    " >
+    <section class="justify-content-between p-80    ">
         <div class="item-desc d-flex justify-content-between w-100 align-items-center">
             <div class="d-flex flex-column gap-4 mb-32">
                 <h2>Artamara Auctions.</h2>
@@ -143,8 +145,6 @@
         </div>
 
     </section>
-
-
 @endsection
 
 @push('styles')
