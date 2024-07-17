@@ -80,6 +80,17 @@
     --bs-pagination-focus-box-shadow: none; /* or any other value you prefer */
 }
 
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--text-primary);
+    font-weight: 400;
+}
+.breadcrumb-item.active{
+    font-weight: 600;
+}
+.breadcrumb-item{
+    font-size: 14px;
+}
+
 @media screen and (max-width: 1300px){
     
 }
