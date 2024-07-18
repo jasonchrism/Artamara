@@ -96,6 +96,16 @@
                     <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
                     <p class="text-white">Rp{{ $orderData['grand_total'] }}</p>
                 </div>
+                <div class="order-container">
+                    <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
+                    <p class="text-white">Rp{{ $orderData['grand_total'] }}</p>
+                </div>
+                @if ($orderData['orderstatus'] !== 'PACKING')
+                    <div class="order-container">
+                        <p class="text-white fw-semibold" style="margin-bottom: 8px;">Shipment Number</p>
+                        <p class="text-white">{{ $orderData['shipment_number'] }}</p>
+                    </div>
+                @endif
             </div>
 
             <!-- Item Details -->
@@ -127,7 +137,7 @@
                     <div class="sent-btn-container d-flex justify-content-end">
                         {{-- <button type="button" class="btn btn-primary sent-btn" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Sent</button> --}}
-                            {{-- {{dd($orderData)}} --}}
+                        {{-- {{dd($orderData)}} --}}
                         @if ($orderData['orderstatus'] === 'PACKING')
                             <button type="button" class="btn btn-primary sent-btn" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Sent</button>

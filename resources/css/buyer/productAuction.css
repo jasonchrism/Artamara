@@ -1,0 +1,310 @@
+/* Bagian atas */
+.Upper-details-container {
+    display: flex;
+    padding-bottom: 64px;
+    padding-top: 64px;
+}
+
+.countdown {
+    font-size: 20px;
+    color: #CEFE06;
+    /* CEFE06 is a shade of yellow */
+}
+
+.button-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+}
+
+.pricing {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.pricing-status {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.pricing-price {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.carousel-inner {
+    display: flex;
+    justify-content: start;
+    width: 75%;
+}
+
+/* ini untuk bagian carousels */
+.carousel-inner {
+    display: flex;
+    justify-content: start;
+    width: 75%;
+}
+
+.carousel-item.active {
+    display: flex;
+    justify-content: center;
+    max-width: auto;
+}
+
+.carousel-inner {
+    height: 75%;
+}
+
+.carousel-item {
+    width: 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+}
+
+.carousel-indicators {
+    bottom: -63px;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    list-style-type: circle;
+    background-color: var(--bg-overlay-2);
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+    background-color: var(--primary);
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+/* button plus dan minus stock */
+.product-stock {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+.icon-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-sm {
+    width: 2rem;
+    height: 2rem;
+
+}
+
+.border {
+    border: var(--bs-border-width) var(--bs-border-style) #303030 !important;
+}
+
+.buy-now {
+    width: 422px;
+    font-size: 20px;
+}
+
+.bid-now-price {
+    border-style: solid;
+    border-color: var(--bg-overlay-2);
+    background-color: transparent;
+    padding-block-end: 6px;
+    padding-block-start: 6px;
+    padding-bottom: 6px;
+    padding-inline-end: 12px;
+    padding-inline-start: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    text-align: center;
+    color: var(--primary);
+    font-size: 20px;
+    display: inline-block;
+
+    /* margin-right: 8px; */
+}
+
+.buy-now-button {
+    border-style: solid;
+    border-color: var(--primary);
+    background-color: transparent;
+    padding-block-end: 6px;
+    padding-block-start: 6px;
+    padding-bottom: 4px;
+    padding-inline-end: 12px;
+    padding-inline-start: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 4px;
+    text-align: center;
+    color: var(--primary);
+
+    display: inline-block;
+
+    margin-right: 8px;
+}
+
+.cart {
+    background-color: var(--bg-overlay-1);
+}
+
+.cart-form {
+    margin-left: 10px;
+    width: auto;
+}
+
+input.inputcartnumber[type="number"]::-webkit-outer-spin-button,
+input.inputcartnumber[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* bagian bawah */
+
+.Lower-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: space-around;
+    margin-top: 24px;
+    width: 50%;
+}
+
+.Artwork-About {
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.Artwork-About-Details {
+    border: 1.5px solid var(--bg-overlay-1);
+    padding: 16px;
+}
+
+.Artist-About {
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.Artist-About-Details {
+    display: flex;
+    flex-direction: row;
+    border: 1.5px solid var(--bg-overlay-1);
+    padding: 16px;
+
+}
+
+.Artist-About-Details-Pic {
+    display: flex;
+    flex-direction: row;
+    padding-right: 8px;
+}
+
+.Artist-About-Details-Desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.artist-about-description-text {
+    color: var(--text-secondary);
+}
+
+.image-profile {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+/* table style */
+.bidder-table {
+    border-collapse: collapse;
+    width: 50%;
+    margin-top: 24px;
+}
+
+/* responsive */
+
+@media screen and (max-width: 1300px) {
+    body {
+        margin: 48px 80px 0;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    body {
+        margin: 48px 56px 0;
+    }
+
+    .buy-now {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    body {
+        margin: 32px 36px 0;
+    }
+
+    .buy-now {
+        width: 250px;
+    }
+
+    .col-sm-3 {
+        flex: 0 0 auto;
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        margin: 32px 36px 0;
+    }
+
+    .buy-now {
+        width: 250px;
+    }
+
+    .col-sm-3 {
+        flex: 0 0 auto;
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    body {
+        margin: 24px 20px 0;
+    }
+
+    .col-md-6.product-detail-right {
+        margin-top: 64px !important;
+    }
+
+    .Artist-About {
+        color: var(--text-primary);
+        padding-left: 8px;
+        padding-top: 16px;
+    }
+}

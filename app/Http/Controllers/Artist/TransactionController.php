@@ -228,6 +228,7 @@ class TransactionController extends Controller
                         'payment_method' => $payment_method,
                         'grand_total' => $grand_total,
                         'buyer' => $buyer,
+                        'shipment_number' => $orderDetail->order->receipt_number,
                         'artists' => []
                     ];
                 }

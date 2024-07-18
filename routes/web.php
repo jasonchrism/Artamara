@@ -30,6 +30,7 @@ use App\Http\Controllers\MyTransactionsController;
 use App\Http\Controllers\productDetailsController;
 use App\Http\Controllers\Admin\ReturnDetailController as AdminReturnDetailController;
 use App\Http\Controllers\Artist\ReturnDetailController;
+use App\Http\Controllers\AuctionDetailsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Front\ArtistController;
@@ -75,6 +76,7 @@ Route::name('front.')->group(function () {
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/catalog/{category}", [CatalogController::class, 'category'])->name('catalog.category');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
+    // Route::get("/auctionDetails", [AuctionDetailsController::class, 'index'])->name('auctionDetails');
     Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -96,10 +98,11 @@ Route::name('front.')->group(function () {
 
     //payment
     Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
-
+    
     Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
     Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
+    Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
     Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
