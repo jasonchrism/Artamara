@@ -59,6 +59,8 @@
                                     {{ 'Rp' . number_format($product->productAuction->start_price, 0, ',', '.') }}</h5>
                                 <p class="card-desc"><span id="countdown-{{ $product->product_id }}"></span></p>
                                 <span class="end-date" style="display:none;">{{ $product->productAuction->end_date }}</span>
+                                <span class="start-date" style="display:none;">{{ $product->productAuction->start_date }}</span>
+                                <span class="status" style="display:none;">{{ $product->productAuction->status }}</span>
                                 <span class="product_id" style="display:none;">{{ $product->product_id }}</span>
                             </div>
                         </div>
@@ -78,20 +80,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Function to initialize countdown
-            function initializeCountdown(productId, endDate) {
+            function initializeCountdown(productId, date, status) {
                 var countdownElement = document.getElementById('countdown-' + productId);
-                var endDateTime = new Date(endDate).getTime();
-
+                var dateTime = new Date(date).getTime();
+                let preText = "";
                 var countdownInterval = setInterval(function() {
                     var now = new Date().getTime();
-                    var distance = endDateTime - now;
+                    var distance = dateTime - now;
+                    if(status === "STARTING SOON"){
+                        preText = "Starts in ";
+                    }else{
+                        preText = "Ends in ";
+                    }
 
                     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    countdownElement.innerHTML = "Ends in " + days + "d : " + hours + "h : " + minutes +
+                    countdownElement.innerHTML = preText + days + "d : " + hours + "h : " + minutes +
                         "m : " + seconds +
                         "s ";
 
@@ -106,8 +113,17 @@
             var products = document.querySelectorAll('.col-md-3');
             products.forEach(function(product) {
                 var endDate = product.querySelector('.end-date').textContent;
+                var startDate = product.querySelector('.start-date').textContent;
+                var status = product.querySelector('.status').textContent;
                 var productId = product.querySelector('.product_id').textContent;
-                initializeCountdown(productId, endDate);
+
+                let date = null
+                if(status === "STARTING SOON"){
+                    date = startDate;
+                }else{
+                    date = endDate;
+                }
+                initializeCountdown(productId, date, status);
             });
         });
     </script>
