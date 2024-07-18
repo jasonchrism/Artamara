@@ -339,6 +339,27 @@ class MyTransactionsController extends Controller
 
         return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
     }
+
+    public function confirmationreturned(Request $request, $status, $orderId)
+    {
+        $data = $request->validate([
+            'receipt_number' => 'required|string|max:255',
+        ]);
+
+        // dd($data);
+
+        $refund = Refund::where('order_id', $orderId)->first();
+        // dd($refund);
+        if (!$refund) {
+            return redirect()->back()->withErrors(['order' => 'Order ID not found in Refund table']);
+        }
+
+        $refund->receipt_number = $data['receipt_number'];
+        $refund->status = 'FINISHED';
+        $refund->save();
+
+        return redirect()->action([MyTransactionsController::class, 'index'], ['status' => $status]);
+    }
     /**
      * Show the form for creating a new resource.
      */
