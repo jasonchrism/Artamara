@@ -218,7 +218,13 @@
                             <button class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
 
-                            <a href="" class="btn btn-primary">Confirm Return</a>
+                            @if ($orderData['refund_status'] == 'FINISHED' || $orderData['refund_status'] == 'REJECTED' || $orderData['refund_status'] == 'ADMIN REVIEW' || $orderData['refund_status'] == 'ARTIST REVIEW' || $orderData['refund_status'] == 'ADMIN CONFIRMATION')
+                                <button href="" class="btn btn-primary" disabled>Confirm Return</button>
+                            @else
+                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#{{ 'confirmationReturnedModal-' . $orderId }}" data-bs-dismiss="modal" class="btn btn-primary">Confirm Return</button>
+
+                            @endif
                         </div>
                     </div>
                 @endif
@@ -450,6 +456,39 @@
           </div>
     </div>
 
+    {{-- modal confirmation returned accepted --}}
+    <div class="modal fade" id="{{ 'confirmationReturnedModal-' . $orderId }}" tabindex="-1" aria-labelledby="confirmationReturnedModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="confirmationReturned-content">
+            <div class="confirmationReturned-header">
+                <p class="confirmationReturned-title" id="exampleModalLabel">Confirm Return</p>
+            </div>
+            <div class="confirmationReturned-body">
+              <p>Submit Your Tracking Number to Get Refund</p>
+              <form class="form-confirmation-returned-order" action="/mytransactions/confirmationreturned/{{$status}}/{{$orderId}}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <label for="receipt_number">Receipt Number</label>
+                <input value="{{ old('receipt_number') }}" type="text" name="receipt_number" id="receipt_number"
+                    class="form-control @error('receipt_number') is-invalid @enderror" placeholder="Receipt Number" required>
+                @error('receipt_number')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+
+                <div class="confirmationReturned-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+  </div>
+
     {{-- modal report --}}
     <div class="modal fade" id="{{'reportordermodal-' . $orderId}}" tabindex="-1" aria-labelledby="reportordermodal" aria-hidden="true">
         <div class="modal-dialog">
@@ -492,6 +531,7 @@
                                 </span>
                             @enderror
                         </div>
+
                         <div class="report-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Confirm</button>
