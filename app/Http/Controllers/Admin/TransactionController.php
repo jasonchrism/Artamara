@@ -64,14 +64,13 @@ class TransactionController extends Controller
         //
     }
 
-    public function detail() {
-        $order_id = '9c86777e-158d-4e78-8ca1-db7602ab5aa9';
+    public function detail($id) {
         $orders = Order::with(['userAddress.user', 'userAddress.address', 'payment.paymentMethod'])
-            ->where('order_id', $order_id)
+            ->where('order_id', $id)
             ->get();
 
         $items = Order::with(['orderDetail.product.user'])
-            ->where('order_id', $order_id)
+            ->where('order_id', $id)
             ->get();
 
         return view('admin.transactionsDetail', [
