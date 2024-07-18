@@ -124,7 +124,7 @@ class ArtSalesController extends Controller
         $user = Auth::user();
         $data['user_id'] = $user->user_id;
         // dd($data);
-        Product::create($data);
+        Product::create($data); 
         return redirect()->route('artist-sales.index');
 
     }
