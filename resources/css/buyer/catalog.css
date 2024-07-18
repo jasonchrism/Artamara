@@ -128,6 +128,50 @@
     row-gap: 16px;
 }
 
+.wrap-head{
+    border: 2px solid var(--bg-overlay-1);
+    margin-bottom: 32px;
+}
+.rate{
+    font-weight: 600;
+}
+.head-right{
+    margin-left: 24px;
+}
+
+.wrap-tab{
+    border-bottom: 1px solid var(--bg-overlay-1);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+}
+
+.wrap-tab .tab{
+    padding: 10px 16px;
+    
+}
+
+.tab.active{
+    color: var(--primary);
+    border-bottom: 1px solid var(--primary);
+}
+
+.wrap-review{
+    display: grid;
+    grid-template-columns: 375px 375px 375px;
+    column-gap: 32px;
+    row-gap: 16px;
+}
+
+.card-review{
+    padding: 16px;
+    border: 1px solid var(--bg-overlay-1);
+    height: 230px;
+}
+.review-desc{
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
 @media screen and (max-width: 1300px){
     
 }

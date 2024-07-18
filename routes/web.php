@@ -106,6 +106,7 @@ Route::name('front.')->group(function () {
 
     Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
     Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
+    Route::get('/artist/{id}/{tabs?}', [ArtistController::class, 'detail'])->name('artist.detail');
 });
 
 Auth::routes();
