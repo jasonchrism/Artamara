@@ -11,7 +11,7 @@ class ArtistController extends Controller
 {
     public function index()
     {
-        $artists = User::where('role', '=', 'ARTIST')->where('status', '=', 'ACTIVE')->get();
+        $artists = User::where('role', '=', 'ARTIST')->where('status', '=', 'ACTIVE')->paginate(20);
         $count = $artists->count();
 
         $topArtists = User::leftJoin('products', 'users.user_id', '=', 'products.user_id')
@@ -25,5 +25,12 @@ class ArtistController extends Controller
         ->get();
         
         return view('buyer.artist', compact('artists', 'count', 'topArtists'));
+    }
+
+    public function detail($id, $tabs = 'artworks'){
+        $artist = User::where('user_id', '=', $id)->first();
+
+        $products = $artist->product()->paginate(20);
+        return view('buyer.artistDetail', compact('artist', 'products', 'tabs'));
     }
 }

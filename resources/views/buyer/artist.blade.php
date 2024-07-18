@@ -12,7 +12,7 @@
         <h4 class="text-white fw-semibold">Top Artists</h4>
         <div class="top-artist mb-5">
             @foreach ($topArtists as $top)         
-            <a href="" class="wrap-top">
+            <a href="{{route('front.artist.detail', [$top->user_id, 'artworks'])}}" class="wrap-top">
                 <img src="{{$top->profile_picture == '-' ? 'https://via.placeholder.com/800x600' : Storage::url($top->profile_picture)}}" alt="profile" class="object-fit-cover" style="width: 205px; height:205px">
                 <p class="">{{$top->name}}</p>
             </a>
@@ -25,7 +25,7 @@
         <div class="content">
             <div class="wrap-content">
                 @foreach ($artists as $artist)
-                    <a href="" class="card-content p-3">
+                    <a href="{{route('front.artist.detail', [$artist->user_id, 'artworks'])}}" class="card-content p-3">
                         <div class="d-flex">
                             <img src="assets/art2.jpg" alt="" class="object-fit-cover"
                                 style="width: 110px; height:110px">
@@ -38,7 +38,7 @@
                 @endforeach
             </div>
         </div>
-        {{-- {{ $products->onEachSide(5)->links() }} --}}
+        {{ $artists->onEachSide(5)->links() }}
     </div>
 @endsection
 
