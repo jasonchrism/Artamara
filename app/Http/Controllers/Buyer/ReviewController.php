@@ -46,6 +46,6 @@ class ReviewController extends Controller
             DB::rollBack();
         }
 
-        return redirect('/mytransactions/FINISHED')->with('address_title', 'Review has been submitted');
+        return redirect('/mytransactions/CONFIRMED')->with('address_title', 'Review has been submitted');
     }
 }

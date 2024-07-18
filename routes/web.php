@@ -104,7 +104,7 @@ Route::name('front.')->group(function () {
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
     Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
 
-    Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+    Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
     Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
     Route::get('/artist/{id}/{tabs?}', [ArtistController::class, 'detail'])->name('artist.detail');
 });
