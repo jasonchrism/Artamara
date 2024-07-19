@@ -56,59 +56,59 @@ use App\Http\Controllers\OrderAddressController;
 // })->middleware(GuestMiddleware::class);
 
 
-Route::name('front.')->group(function () {
+Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('index');
-    Route::get('/myaddress', [UserAddressController::class, 'index'])->name('myaddress'); // View User Address List
-    Route::get('/myaddress/add', [UserAddressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
-    Route::post('/myaddress/add', [UserAddressController::class, 'store'])->name('myaddress.store'); // Add User Address
-    Route::get('/{id}/update', [UserAddressController::class, 'updateAddress'])->name('myaddress.formupdate'); // Redirect Update User Address
-    Route::put('/myaddress', [UserAddressController::class, 'update'])->name('myaddress.update'); // Update User Address
-    Route::delete('/myaddress', [UserAddressController::class, 'destroy'])->name('myaddress.destroy'); // Delete User Address
-    Route::put('/myaddress/set-default', [UserAddressController::class, 'create'])->name('myaddress.setdefault'); // Set Default User Address
-    Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
-    Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
-    Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
-    Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
-
-    Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
-    Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
-    Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
-    Route::post('/mytransactions/confirmationreturned/{status}/{orderId}', [MyTransactionsController::class, 'confirmationreturned']);
-
     Route::get("/catalog", [CatalogController::class, 'index'])->name('catalog');
     Route::get("/catalog/{category}", [CatalogController::class, 'category'])->name('catalog.category');
     Route::get("/productDetails/{id}", [productDetailsController::class, 'index'])->name('productDetails');
-    // Route::get("/auctionDetails", [AuctionDetailsController::class, 'index'])->name('auctionDetails');
-    Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
-
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('updateQuantity');
-    Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
-
-
-    Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
-    Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
-    Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
-    Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
-    Route::post('/orderDetails/store', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/orderDetails/address/{id}/update', [OrderAddressController::class, 'updateAddress'])->name('order.address.update');
-    Route::get('/orderDetails/address/create', [OrderAddressController::class, 'createAddress'])->name('order.address.create');
-    Route::post('/orderDetails/address/store', [OrderAddressController::class, 'store'])->name('order.address.store');
-    Route::put('/orderDetails/address/change', [OrderAddressController::class, 'changeAddress'])->name('order.address.change');
-    Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
-    Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
-
-    //payment
-    Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
-
     Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
     Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
-    Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
-
-    Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
     Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
     Route::get('/artist/{id}/{tabs?}', [ArtistController::class, 'detail'])->name('artist.detail');
+
+    Route::middleware(BuyerMiddleware::class)->group(function(){
+        Route::get('/myaddress', [UserAddressController::class, 'index'])->name('myaddress'); // View User Address List
+        Route::get('/myaddress/add', [UserAddressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
+        Route::post('/myaddress/add', [UserAddressController::class, 'store'])->name('myaddress.store'); // Add User Address
+        Route::get('/{id}/update', [UserAddressController::class, 'updateAddress'])->name('myaddress.formupdate'); // Redirect Update User Address
+        Route::put('/myaddress', [UserAddressController::class, 'update'])->name('myaddress.update'); // Update User Address
+        Route::delete('/myaddress', [UserAddressController::class, 'destroy'])->name('myaddress.destroy'); // Delete User Address
+        Route::put('/myaddress/set-default', [UserAddressController::class, 'create'])->name('myaddress.setdefault'); // Set Default User Address
+        Route::get('/myprofile', [EditProfileController::class, 'index'])->name('myprofile');
+        Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
+        Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
+        Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
+    
+        Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
+        Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
+        Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
+        Route::post('/mytransactions/confirmationreturned/{status}/{orderId}', [MyTransactionsController::class, 'confirmationreturned']);
+    
+        // Route::get("/auctionDetails", [AuctionDetailsController::class, 'index'])->name('auctionDetails');
+        Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
+    
+        Route::get('/cart', [CartController::class, 'index'])->name('cart');
+        Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('updateQuantity');
+        Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
+    
+        Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+        Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
+        Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
+        Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
+        Route::post('/orderDetails/store', [OrderController::class, 'store'])->name('order.store');
+        Route::get('/orderDetails/address/{id}/update', [OrderAddressController::class, 'updateAddress'])->name('order.address.update');
+        Route::get('/orderDetails/address/create', [OrderAddressController::class, 'createAddress'])->name('order.address.create');
+        Route::post('/orderDetails/address/store', [OrderAddressController::class, 'store'])->name('order.address.store');
+        Route::put('/orderDetails/address/change', [OrderAddressController::class, 'changeAddress'])->name('order.address.change');
+        Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
+        Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
+    
+        Route::get("/payment", [OrderController::class, 'payment'])->name('payment'); 
+        Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
+        Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
+    });
+    
 });
 
 Auth::routes();
