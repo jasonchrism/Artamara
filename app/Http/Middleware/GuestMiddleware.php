@@ -22,6 +22,11 @@ class GuestMiddleware
         if(Auth::check() && Auth::user()->role === 'BUYER'){
             return $next($request);
         }
-        return redirect()->back();
+        if(Auth::check() && Auth::user()->role === 'ARTIST'){
+            return redirect("/dashboard/artist/home");
+        }
+        if(Auth::check() && Auth::user()->role === 'ADMIN'){
+            return redirect("/dashboard/admin/home");
+        }
     }
 }

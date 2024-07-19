@@ -16,9 +16,17 @@ class BuyerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role == "BUYER"){
+        if(Auth::guest()){
+            return redirect("/");
+        }
+        if(Auth::check() && Auth::user()->role === 'BUYER'){
             return $next($request);
         }
-        return abort(403, 'access denied');
+        if(Auth::check() && Auth::user()->role === 'ARTIST'){
+            return redirect("/dashboard/artist/home");
+        }
+        if(Auth::check() && Auth::user()->role === 'ADMIN'){
+            return redirect("/dashboard/admin/home");
+        }
     }
 }
