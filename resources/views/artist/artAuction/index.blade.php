@@ -9,82 +9,86 @@
 @endpush
 
 @section('content')
-    <div class="d-flex flex-column gap-4">
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary" href="{{ route('artist-auction.create') }}">+ New Auction</a>
+    @if (Auth::user()->status == 'UNVERIFIED')
+        @include('includes.unverified')
+    @else
+        <div class="d-flex flex-column gap-4">
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="{{ route('artist-auction.create') }}">+ New Auction</a>
+            </div>
+            <div class="container user-container">
+                <table class="table table-borderless data-table user-table">
+                    <thead class="user-table-head">
+                        <tr>
+                            <th class="user-table-title">No</th>
+                            <th class="user-table-title">Title</th>
+                            <th class="user-table-title">Start Date</th>
+                            <th class="user-table-title">End Date</th>
+                            <th class="user-table-title">Start Bid</th>
+                            <th class="user-table-title">Current Bid</th>
+                            <th class="user-table-title">Status</th>
+                            <th class="user-table-title" width="100px"></th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-        <div class="container user-container">
-            <table class="table table-borderless data-table user-table">
-                <thead class="user-table-head">
-                    <tr>
-                        <th class="user-table-title">No</th>
-                        <th class="user-table-title">Title</th>
-                        <th class="user-table-title">Start Date</th>
-                        <th class="user-table-title">End Date</th>
-                        <th class="user-table-title">Start Bid</th>
-                        <th class="user-table-title">Current Bid</th>
-                        <th class="user-table-title">Status</th>
-                        <th class="user-table-title" width="100px"></th>
-
-                    </tr>
-                </thead>
-            </table>
-        </div>      
-    </div>
 
 
-    <script type="text/javascript">
-        $(function() {
+        <script type="text/javascript">
+            $(function() {
 
-            var table = $('.data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                ajax: {
-                    url: '{!! url()->current() !!}',
-                },
-                columns: [{
-                        data: null,
-                        name: 'no',
-                        // orderable: false,
-                        render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
+                var table = $('.data-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    responsive: true,
+                    ajax: {
+                        url: '{!! url()->current() !!}',
                     },
-                    {
-                        data: 'title',
-                        name: 'product.title'
-                    },
-                    {
-                        data: 'start.date',
-                        name: 'start.date'
-                    },
-                    {
-                        data: 'end.date',
-                        name: 'end.date'
-                    },
-                    {
-                        data: 'start.bid',
-                        name: 'start.bid'
-                    },
-                    {
-                        data: 'current.bid',
-                        name: 'current.bid'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ]
+                    columns: [{
+                            data: null,
+                            name: 'no',
+                            // orderable: false,
+                            render: function(data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                        },
+                        {
+                            data: 'title',
+                            name: 'product.title'
+                        },
+                        {
+                            data: 'start.date',
+                            name: 'start.date'
+                        },
+                        {
+                            data: 'end.date',
+                            name: 'end.date'
+                        },
+                        {
+                            data: 'start.bid',
+                            name: 'start.bid'
+                        },
+                        {
+                            data: 'current.bid',
+                            name: 'current.bid'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ]
+                });
             });
-        });
-    </script>
+        </script>
+    @endif
 @endsection
 @push('styles')
     <style>
@@ -116,14 +120,16 @@
         .modal-title {
             align-items: flex-start;
         }
-        .close{
+
+        .close {
             color: var(--primary);
             background-color: transparent;
             border: none;
         }
-        .button-action-delete{
+
+        .button-action-delete {
             display: flex;
             gap: 16px;
         }
-        </style>
+    </style>
 @endpush

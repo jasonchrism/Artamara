@@ -9,6 +9,9 @@
 @endpush
 
 @section('content')
+    @if (Auth::user()->status == "UNVERIFIED")
+        @include('includes.unverified')
+    @else
     <div class="d-flex flex-column gap-4">
         <div class="d-flex justify-content-end">
             <a class="btn btn-primary" href="{{ route('artist-sales.create') }}">+ New Artwork</a>
@@ -79,6 +82,8 @@
             });
         });
     </script>
+    @endif
+
 @endsection
 @push('styles')
     <style>
