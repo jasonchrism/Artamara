@@ -15,10 +15,12 @@ return new class extends Migration
             $table->uuid('order_id');
             $table->integer('rating')->nullable(false);
             $table->text('comment')->nullable(false);
+            $table->uuid('artist_id');
             $table->timestamps();
 
-            $table->primary('order_id');
+            $table->primary(['order_id', 'artist_id']);
             $table->foreign('order_id')->on('orders')->references('order_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('artist_id')->on('users')->references('user_id')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
