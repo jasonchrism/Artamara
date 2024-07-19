@@ -62,7 +62,9 @@
                     </clipPath>
                 </defs>
             </svg>
-            <input class="navigation-input" type="text" placeholder="Search by title or artist">
+            <form action="{{route('front.search')}}" method="get">
+                <input class="navigation-input" type="text" placeholder="Search by title or artist" name="search">
+            </form>
         </div>
         <div class="navigation-item">
             <ul class="navigation-item-link">
