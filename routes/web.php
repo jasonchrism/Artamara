@@ -66,6 +66,7 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
     Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
     Route::get('/artist', [ArtistController::class, 'index'])->name('artist');
     Route::get('/artist/{id}/{tabs?}', [ArtistController::class, 'detail'])->name('artist.detail');
+    Route::get('/search', [CatalogController::class, 'search'])->name('search');
 
     Route::middleware(BuyerMiddleware::class)->group(function(){
         Route::get('/myaddress', [UserAddressController::class, 'index'])->name('myaddress'); // View User Address List

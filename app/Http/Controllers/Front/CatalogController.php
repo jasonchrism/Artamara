@@ -26,4 +26,11 @@ class CatalogController extends Controller
         $count = $products->count();
         return view('buyer.categoryProduct', compact('products', 'count', 'categoryDetail'));
     }
+    public function search(Request $request){
+        $query = $request->get('search');
+        $auction = ProductAuction::select('product_id')->get();
+        $products = Product::join('users', 'products.user_id', 'users.user_id')->where('products.title', 'LIKE', '%' . $query .'%')->orWhere('users.name', 'LIKE', '%' . $query .'%')->whereNotIn('product_id', $auction)->paginate(20);
+        $count = $products->count();
+        return view('buyer.search', compact('products', 'count', 'query'));
+    }
 }
