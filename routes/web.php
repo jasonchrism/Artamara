@@ -125,7 +125,8 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::post('/deleteArtist/{id}', [ViewUsersController::class, 'deleteArtist'])->name('deleteArtist');
 
     Route::get('/return-detail/review', [AdminReturnDetailController::class, 'index'])->name('return.review');
-    Route::post('/return-failure', [AdminReturnDetailController::class, 'failure'])->name('return.failure');
+    Route::post('/failuretype/{orderId}', [AdminReturnDetailController::class, 'failuretype']);
+    Route::post('/failuretype/{orderId}', [AdminReturnDetailController::class, 'failuretype'])->name('return.failuretype');
 
     Route::get('/transactions-detail/{id}', [AdminTransactionController::class, 'detail'])->name('transactions.detail');
 });

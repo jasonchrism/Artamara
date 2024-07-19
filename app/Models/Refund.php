@@ -28,7 +28,7 @@ class Refund extends Model
     public function getPhotoAttribute()
     {
         if ($this->path_file) {
-            return Storage::url(json_decode($this->path_file)[0]);
+            return Storage::url(json_decode($this->path_file, true)[0]);
         }
 
         return 'https://via.placeholder.com/800x600';
@@ -37,7 +37,7 @@ class Refund extends Model
     public function getVideoAttribute()
     {
         if ($this->path_file) {
-            return Storage::url(json_decode($this->path_file)[1]);
+            return Storage::url(json_decode($this->path_file, true)[1]);
         }
 
         return 'https://via.placeholder.com/800x600';
