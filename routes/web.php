@@ -127,7 +127,7 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::get('/return-detail/review', [AdminReturnDetailController::class, 'index'])->name('return.review');
     Route::post('/return-failure', [AdminReturnDetailController::class, 'failure'])->name('return.failure');
 
-    Route::get('/transactions-detail', [AdminTransactionController::class, 'detail'])->name('transactions.detail');
+    Route::get('/transactions-detail/{id}', [AdminTransactionController::class, 'detail'])->name('transactions.detail');
 });
 
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {

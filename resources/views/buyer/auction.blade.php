@@ -56,7 +56,7 @@
                                 <p class="card-desc">{{ $product->user->name }}</p>
                                 <p class="card-desc">{{ $product->year }}</p>
                                 <h5 class="card-title" style="color: var(--primary); font-weight:400;">
-                                    {{ 'Rp' . number_format($product->productAuction->start_price, 0, ',', '.') }}</h5>
+                                    {{ 'Rp' . number_format((count($product->productAuction->bid) == 0 ? $product->start_price : $product->productAuction->bid()->orderBy('bid_price', 'desc')->first()->bid_price), 0, ',', '.') }}</h5>
                                 <p class="card-desc"><span id="countdown-{{ $product->product_id }}"></span></p>
                                 <span class="end-date" style="display:none;">{{ $product->productAuction->end_date }}</span>
                                 <span class="start-date" style="display:none;">{{ $product->productAuction->start_date }}</span>
