@@ -34,7 +34,6 @@
             <p class="text-white fw-semibold" style="margin-bottom: 8px;">Order Id</p>
             <p class="text-white">{{ $or->order_id }}</p>
         </div>
-
         <div class="order-container">
             <p class="text-white fw-semibold" style="margin-bottom: 8px;">Date</p>
             <p class="text-white">{{ $or->created_at }}</p>
@@ -142,31 +141,41 @@
                 </a>
             </div>
 
+            <!-- Failure type -->
             <!-- Confirm Shipment Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
-                            <h1 class="modal-title fs-5 text-white fw-semibold">Submit an Appeal</h1>
-                            <p class="text-secondary">Send your appeal to be reviewed by the admin.</p>
-                            <div class="photo-container">
-                                <p class="text-white fw-semibold" style="margin-bottom: 6px;">Photo</p>
-                                <input type="file" name="photo" class="form-control" required accept="image/png,image/jpg,image/jpeg">
+                    <div class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;">
+                        <form action="{{ route('return.failuretype', ['orderId' => $order->order_id]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
+                                <h1 class="modal-title fs-5 text-white fw-semibold">Choose failure type</h1>
+                                <p class="text-secondary">Determine whether it's a shipping error or a seller error</p>
+                                <div class="radio-button-failure">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="failure_type" id="artistFailure" value="artist">
+                                        <label class="form-check-label text-white" for="artistFailure">
+                                            Artist failure
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="failure_type" id="shippingFailure" value="shipping">
+                                        <label class="form-check-label text-white" for="shippingFailure">
+                                            Shipping failure
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="description-container">
-                                <p class="text-white fw-semibold" style="margin-bottom: 6px;">Description   </p>
-                                <textarea name="description" id="" placeholder="Describe your report" class="form-control"></textarea>
+                            <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
+                                <button type="button" class="btn text-primary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
                             </div>
-                        </div>
-                        <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
-                            <button type="button" class="btn text-primary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 

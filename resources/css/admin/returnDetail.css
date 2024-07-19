@@ -46,7 +46,7 @@
     font-size: 20px;
     margin-top: 40px;
     margin-left: 32px;
-    margin-bottom: 38px; 
+    margin-bottom: 38px;
 }
 
 .report-details-border {
@@ -146,6 +146,33 @@ input[type="file"]:hover::-webkit-file-upload-button {
 .logo-container {
     margin-top: 48px;
     margin-bottom: 56px;
+}
+
+/* failure type */
+.radio-button-failure
+{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.form-check
+{
+    padding-right: 54px;
+}
+
+.form-check-input
+{
+    border: var(--bs-border-width) solid var(--primary) !important;
+    --bs-form-check-bg: #f8fafc00;
+    background-color: #ffffff00 !important;
+
+}
+
+.form-check-input:checked
+{
+
+    background-color: #cefe0600;
+    background-color: #f8fafc00 !important;
 }
 
 @media screen and (max-width: 1000px) {
