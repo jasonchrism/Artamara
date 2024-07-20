@@ -146,16 +146,29 @@
              @foreach($orders as $or)
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <form action="{{ route('return.appeal') }}" class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('return.appeal',['orderId' => $order->order_id]) }}" class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ $or->order_id }}" name="order_id">
                         <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
                             <h1 class="modal-title fs-5 text-white fw-semibold">Submit an Appeal</h1>
                             <p class="text-secondary">Send your appeal to be reviewed by the admin.</p>
-                            <div class="photo-container">
-                                <p class="text-white fw-semibold" style="margin-bottom: 6px;">Photo</p>
-                                <input type="file" name="photo" class="form-control" required accept="image/png,image/jpg,image/jpeg">
-                            </div>
+                            <label for="photo" style="color: var(--text-primary);font-weight: 400;"><strong>Photo</strong></label>
+                            <input name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror"
+                                   placeholder="Select an image" required accept="image/png,image/jpg,image/jpeg" type="file">
+                            @error('photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <label for="video" style="color: var(--text-primary);font-weight: 400;"><strong>Video</strong></label>
+                            <input name="video" id="video" class="form-control @error('video') is-invalid @enderror"
+                                   placeholder="Select a video" required accept="video/mp4" type="file">
+                            @error('video')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="description-container">
                                 <p class="text-white fw-semibold" style="margin-bottom: 6px;">Description   </p>
                                 <textarea name="description" id="" placeholder="Describe your report" class="form-control"></textarea>

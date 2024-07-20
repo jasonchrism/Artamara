@@ -80,19 +80,19 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
         Route::put('/editprofile', [EditProfileController::class, 'update'])->name('editprofile.update');
         Route::get('/myprofile/password', [ChangePasswordController::class, 'index'])->name('changepassword');
         Route::put('/changepassword', [ChangePasswordController::class, 'update'])->name('changepassword.update');
-    
+
         Route::get('/mytransactions/{status}', [MyTransactionsController::class, 'index'])->name('mytransactions');
         Route::post('/mytransactions/{status}/{orderId}', [MyTransactionsController::class, 'confirmation'])->name('confirmTransactions');
         Route::post('/mytransactions/report/{status}/{orderId}', [MyTransactionsController::class, 'report']);
         Route::post('/mytransactions/confirmationreturned/{status}/{orderId}', [MyTransactionsController::class, 'confirmationreturned']);
-    
+
         // Route::get("/auctionDetails", [AuctionDetailsController::class, 'index'])->name('auctionDetails');
         Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
-    
+
         Route::get('/cart', [CartController::class, 'index'])->name('cart');
         Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
-    
+
         Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
         Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
         Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
@@ -104,12 +104,12 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
         Route::put('/orderDetails/address/change', [OrderAddressController::class, 'changeAddress'])->name('order.address.change');
         Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
         Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
-    
-        Route::get("/payment", [OrderController::class, 'payment'])->name('payment'); 
+
+        Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
         Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
         Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
     });
-    
+
 });
 
 Auth::routes();
@@ -147,7 +147,7 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
 
     Route::get('/return-detail', [ReturnDetailController::class, 'index'])->name('return.index');
-    Route::post('/return-appeal', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
+    Route::post('/return-appeal/{orderId}', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
 });
 
 
