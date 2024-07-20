@@ -136,13 +136,18 @@
             @endforeach
 
             <div class="d-flex justify-content-end">
-                <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Failure Type
-                </a>
+                @if ($order->refund->status == 'ADMIN REVIEW')
+                    <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Failure Type
+                    </a>
+                @elseif ($order->refund->status == 'ADMIN CONFIRMATION')
+                    <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#confirmationAppeal">
+                        Action
+                    </a>
+                @endif
             </div>
 
             <!-- Failure type -->
-            <!-- Confirm Shipment Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;">
@@ -169,6 +174,27 @@
                             <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
                                 <button type="button" class="btn text-primary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {{-- confirmation --}}
+            <div class="modal fade" id="confirmationAppeal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;">
+                        <form action="{{ route('return.confirmationAppeal', ['orderId' => $order->order_id]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
+                                <h1 class="modal-title fs-5 text-white fw-semibold">Appeal Confirmation</h1>
+                                <p class="text-secondary">Decides whether the appeal from the artist is accepted or not. If not, the return from the buyer will be accepted; conversely, the return from the buyer will be rejected.</p>
+
+                            </div>
+
+                            <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
+                                <button type="submit" name = "reject" class="btn text-primary">Rejected</button>
+                                <button type="submit" name = "accept" class="btn btn-primary">Accepted</button>
                             </div>
                         </form>
                     </div>
