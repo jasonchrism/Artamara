@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductAuction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -19,9 +20,17 @@ class ArtAuctionController extends Controller
      */
     public function index(Request $request)
     {
-        $data = ProductAuction::whereHas('product', function ($query) {
-            $query->where('user_id', auth()->user()->user_id);
-        })->with('product')->get();
+        $data = Product::where('user_id', auth()->user()->user_id)
+            ->whereHas('productAuction', function ($query) {
+                $query->whereHas('bid');
+            })
+            ->with(['productAuction' => function ($query) {
+                $query->with(['bid' => function ($query) {
+                    $query->orderBy('bid_price', 'desc')->first();
+                }]);
+            }])
+            ->get();
+        // dd($data);
 
         // dd($data);
         if ($request->ajax()) {
@@ -63,10 +72,10 @@ class ArtAuctionController extends Controller
                     <div class="modal-dialog">
                         <div class="modal-content">
 
-                                <h5 class="modal-title" id="' . $modalId . 'Label">Delete Product</h5>
+                                <h5 class="modal-title" id="' . $modalId . 'Label">Delete Auction</h5>
 
                             <div class="content-body-delete">
-                                <p style="color: var(--bs-secondary-txt);">Are you sure to delete this product?</p>
+                                <p style="color: var(--bs-secondary-txt); text-align:left">Are you absolutely sure you want to delete this Auctions? Once deleted, it will be lost forever.</p>
                             </div>
                             <div class="footer-modal-delete">
                                 <form action="' . $deleteProduct . '" method="post">
@@ -91,7 +100,7 @@ class ArtAuctionController extends Controller
         $pageTitle = 'Products';
         return view('artist.artAuction.index', [
             'pageTitles' => $pageTitle,
-        ],compact('data'));
+        ], compact('data'));
     }
 
     /**
@@ -121,7 +130,7 @@ class ArtAuctionController extends Controller
             // 'width' => ['required', 'numeric', 'min:0'],
             // 'stock' => ['required', 'integer', 'min:0'],
             // 'description' => ['required', 'string'],
-            'start_date' => ['required', 'date', function($attribute, $value, $fail) {
+            'start_date' => ['required', 'date', function ($attribute, $value, $fail) {
                 $minStartDate = Carbon::now()->addHours(3);
                 if (Carbon::parse($value)->lessThan($minStartDate)) {
                     $fail('The ' . $attribute . ' must be at least 3 hours from the current time.');
@@ -134,13 +143,13 @@ class ArtAuctionController extends Controller
             // 'status' => ['required', 'string', 'max:255'],
         ]);
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $product_photo = [];
 
-            foreach($request->file('photo') as $picture){
-                $photo_path = $picture->store('storage/photos' , 'public');
+            foreach ($request->file('photo') as $picture) {
+                $photo_path = $picture->store('storage/photos', 'public');
 
-                array_push($product_photo , $photo_path);
+                array_push($product_photo, $photo_path);
             }
             $data['photo'] = json_encode($product_photo);
         }
@@ -184,7 +193,26 @@ class ArtAuctionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        $productauction = ProductAuction::find($id);
+
+        $startDate = Carbon::parse($productauction->start_date);
+        $endDate = Carbon::parse($productauction->end_date);
+
+        $diffInSeconds = $endDate->diffInSeconds($startDate);
+        $days = floor($diffInSeconds / (3600*24));
+        $hours = floor(($diffInSeconds % (3600*24)) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $seconds = $diffInSeconds % 60;
+
+        $bidCount = Bid::where('product_id', $productauction->product_id)->count();
+        // dd($bidCount);
+
+        $bidder = Bid::where('product_id', $productauction->product_id)->with('user')->orderBy('created_at', 'desc')->get();
+        // dd($bidder);
+
+        $endIn = "{$days}d {$hours}h {$minutes}m {$seconds}s";
+        return view('artist.artAuction.detail', compact('product','productauction', "endIn", "bidCount" ,"bidder"));
     }
 
     /**
@@ -195,7 +223,7 @@ class ArtAuctionController extends Controller
         $product = Product::find($id);
         $categories = Category::all();
         $productauction = ProductAuction::find($id);
-        return view('artist.artAuction.update', compact('product', 'categories','productauction'));
+        return view('artist.artAuction.update', compact('product', 'categories', 'productauction'));
     }
 
     /**
@@ -206,13 +234,13 @@ class ArtAuctionController extends Controller
         $product = Product::find($id);
         $productAuction = ProductAuction::find($id);
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $product_photo = [];
 
-            foreach($request->file('photo') as $picture){
-                $photo_path = $picture->store('storage/photos' , 'public');
+            foreach ($request->file('photo') as $picture) {
+                $photo_path = $picture->store('storage/photos', 'public');
 
-                array_push($product_photo , $photo_path);
+                array_push($product_photo, $photo_path);
             }
             $data['photo'] = json_encode($product_photo);
         }
@@ -250,13 +278,18 @@ class ArtAuctionController extends Controller
 
         return redirect()->route('artist-auction.index');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($product)
     {
-        //
+        $product = Product::find($product);
+        $productAuction = ProductAuction::find($product);
+
+        $productAuction->delete();
+        $product->delete();
+        return redirect()->route('artist-auction.index');
     }
 }
