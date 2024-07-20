@@ -20,22 +20,73 @@ class ArtAuctionController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Product::where('user_id', auth()->user()->user_id)
-            ->whereHas('productAuction', function ($query) {
-                $query->whereHas('bid');
-            })
+        $data = Product::where('user_id', auth()->id())
+            ->whereHas('productAuction')
             ->with(['productAuction' => function ($query) {
-                $query->with(['bid' => function ($query) {
-                    $query->orderBy('bid_price', 'desc')->first();
+                // Eager load the productAuction relationship and calculate the current bid
+                $query->withCount(['bid as current_bid' => function ($subquery) {
+                    $subquery->select(DB::raw('MAX(bid_price)'));
                 }]);
             }])
-            ->get();
+            ->get()
+            ->map(function ($product) {
+                // If there are no bids, set current_bid to the start_price
+                if (isset($product->productAuction)) {
+                    $product->productAuction->current_bid = $product->productAuction->current_bid ?? $product->productAuction->start_price;
+                }
+                return $product;
+            });
         // dd($data);
 
         // dd($data);
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('start_date', function ($row) {
+                    return Carbon::parse($row->productAuction->start_date)->format('M, d Y');
+                })
+                ->addColumn('end_date', function ($row) {
+                    return Carbon::parse($row->productAuction->end_date)->format('M, d Y'); 
+                })
+                ->addColumn('start_price', function($row) {
+                    return 'Rp' . number_format($row->productAuction->start_price, 0, ',', '.'); 
+                })
+                ->addColumn('current_bid', function($row) {
+                    return 'Rp' . number_format($row->productAuction->current_bid, 0, ',', '.');
+                })
+                ->addColumn('status', function ($row) {
+                    // return ucfirst(strtolower($row->productAuction->status));
+                    $status = ucfirst(strtolower($row->productAuction->status));
+                    $statusStyle = '';
+
+                    if ($status == 'Starting soon') {
+                        $statusStyle = '
+                            <div class="inner-content-container bidstatus">
+                                <div class="status-container" style="background-color: var(--bg-overlay-2);">
+                                    <p style="color: var(--text-secondary);">' . $status . '</p>
+                                </div>
+                            </div>
+                        ';
+                    } elseif ($status == 'On going') {
+                        $statusStyle = '
+                            <div class="inner-content-container bidstatus">
+                                <div class="status-container" style="background-color: var(--bg-label-blue);">
+                                    <p style="color: #95D3FF;">' . $status . '</p>
+                                </div>
+                            </div>
+                        ';
+                    } elseif ($status == 'Closed') {
+                        $statusStyle = '
+                            <div class="inner-content-container bidstatus">
+                                <div class="status-container" style="background-color: var(--bg-label-primary);">
+                                    <p style="color: var(--primary);">' . $status . '</p>
+                                </div>
+                            </div>
+                        ';
+                    }
+                    return $statusStyle;
+
+                })
                 ->addColumn('action', function ($row) {
                     $detailsUrl = route('artist-auction.show', $row->product_id);
                     $deleteProduct = route('artist-auction.destroy', $row->product_id);
@@ -91,9 +142,10 @@ class ArtAuctionController extends Controller
                     </div>
                 </div>
                 ';
+
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['status', 'action'])
                 ->make(true);
         }
         // Ini untuk kasih nama page
@@ -138,8 +190,21 @@ class ArtAuctionController extends Controller
             }],
             'end_date' => ['required', 'date', 'after:start_date'],
             // 'start_bid' => ['required', 'numeric', 'min:0'],
-            // 'start_price' => ['required', 'numeric', 'min:0'],
-            // 'add_price' => ['required', 'numeric', 'min:0'],
+            'start_price' => ['required', 'numeric', 'min:0', function ($attribute, $value, $fail) use ($request) {
+                $maxStartPrice = $request->input('price') * 0.2;
+                if ($value > $maxStartPrice) {
+                    $fail('The start price cannot be more than 20% of price.');
+                }else if ($value > $request->input('price')) {
+                    $maxBidMultiple = $request->input('price') * 0.1;
+                    $fail('The start price cannot be more than the price.');
+                }
+            }],
+            'add_price' => ['required', 'numeric', 'min:0', function ($attribute, $value, $fail) use ($request) {
+                $maxBidMultiple = $request->input('price') * 0.1;
+                if ($value > $maxBidMultiple) {
+                    $fail('The bid multiple cannot be more than 10% of price.');
+                }
+            }],
             // 'status' => ['required', 'string', 'max:255'],
         ]);
 
@@ -200,8 +265,8 @@ class ArtAuctionController extends Controller
         $endDate = Carbon::parse($productauction->end_date);
 
         $diffInSeconds = $endDate->diffInSeconds($startDate);
-        $days = floor($diffInSeconds / (3600*24));
-        $hours = floor(($diffInSeconds % (3600*24)) / 3600);
+        $days = floor($diffInSeconds / (3600 * 24));
+        $hours = floor(($diffInSeconds % (3600 * 24)) / 3600);
         $minutes = floor(($diffInSeconds % 3600) / 60);
         $seconds = $diffInSeconds % 60;
 
@@ -212,7 +277,7 @@ class ArtAuctionController extends Controller
         // dd($bidder);
 
         $endIn = "{$days}d {$hours}h {$minutes}m {$seconds}s";
-        return view('artist.artAuction.detail', compact('product','productauction', "endIn", "bidCount" ,"bidder"));
+        return view('artist.artAuction.detail', compact('product', 'productauction', "endIn", "bidCount", "bidder"));
     }
 
     /**
@@ -276,7 +341,9 @@ class ArtAuctionController extends Controller
 
         DB::commit();
 
-        return redirect()->route('artist-auction.index');
+        return redirect()->route('artist-auction.index')->with([
+            'address_title' => 'Profile successfully updated!',
+        ]);
     }
 
 
@@ -286,7 +353,9 @@ class ArtAuctionController extends Controller
     public function destroy($product)
     {
         $product = Product::find($product);
-        $productAuction = ProductAuction::find($product);
+
+        $productAuction = ProductAuction::where('product_id', $product);
+        // dd($productAuction);
 
         $productAuction->delete();
         $product->delete();

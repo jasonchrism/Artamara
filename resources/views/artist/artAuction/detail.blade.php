@@ -68,7 +68,13 @@
                 
                 <div class="inner-content-container" style="margin-left: 20px">
                     <h2>End in</h2>
+                    @if ($productauction->status !== "ON GOING")
+                        <p class="endin">Bid not started yet</p>
+
+                    @else
                     <p class="endin">{{$endIn}}</p>
+                    
+                    @endif
                 </div>
             </div>
             <div class="outer-container">
