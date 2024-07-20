@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@include('includes.addressNotification')
 
 
 @section('header_title')
@@ -56,27 +57,27 @@
                         },
                         {
                             data: 'title',
-                            name: 'product.title'
+                            name: 'title'
                         },
                         {
-                            data: 'start.date',
-                            name: 'start.date'
+                            data: 'start_date',
+                            name: 'start_date'
                         },
                         {
-                            data: 'end.date',
-                            name: 'end.date'
+                            data: 'end_date',
+                            name: 'productAuction.end_date'
                         },
                         {
-                            data: 'start.bid',
-                            name: 'start.bid'
+                            data: 'start_price',
+                            name: 'productAuction.start_price'
                         },
                         {
-                            data: 'current.bid',
-                            name: 'current.bid'
+                            data: 'current_bid',
+                            name: 'productAuction.current_bid'
                         },
                         {
                             data: 'status',
-                            name: 'status'
+                            name: 'productAuction.status'
                         },
                         {
                             data: 'action',
@@ -92,6 +93,16 @@
 @endsection
 @push('styles')
     <style>
+       .bidstatus .status-container{
+            padding: 5px 10px 5px 10px;
+        }
+
+        .bidstatus .status-container p{
+            font-size: 11px;
+            text-align:center;
+            font-weight: bold;
+            color: var(--text-secondary);
+        } 
         .modal-content {
             position: relative;
             display: flex;

@@ -172,11 +172,14 @@
                     <label for="start_price">Starting Price</label>
                     <input value="{{ old('start_price') }}" type="text" name="start_price" id="start_price"
                         class="form-control @error('title') is-invalid @enderror" placeholder="Starting Price" required>
-                    @error('start-price')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong> 
-                        </span>
-                    @enderror
+                    <div class="errormessage">
+                        @error('start_price')
+                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                
 
                     {{-- Start date --}}
                     <label for="start_date">Start Date</label>
@@ -193,11 +196,13 @@
                     <label for="add_price">Bid Multiples</label>
                     <input value="{{ old('add_price') }}" type="number" name="add_price" id="add_price"
                         class="form-control @error('add_price') is-invalid @enderror" placeholder="Bid Multiples" required>
-                    @error('add_price')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                        <div class="errormessage">
+                            @error('add_price')
+                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                     {{-- End date --}}
                     <label for="end_date">End Date</label>
