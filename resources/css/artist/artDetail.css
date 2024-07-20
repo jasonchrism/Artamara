@@ -26,6 +26,52 @@
     width: fit-content;
 }
 
+.bidstatus .status-container{
+    padding: 5px 10px 5px 10px;
+}
+
+.bidstatus .status-container p{
+    text-align:center;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.top-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.endin{
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.bidderhead{
+    color: var(--text-primary);
+    font-weight: 300;
+}
+
+.bidderbody{
+    color: var(--text-secondary);
+}
+
+table{
+    width: auto ;
+    border: 1px solid var(--bg-overlay-2);
+    border-collapse: collapse;
+}
+th{
+    padding: 20px;
+}
+
+td{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    
+}
+
 .outer-container {
     display: flex;
     gap: 16px;
