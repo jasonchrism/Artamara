@@ -36,6 +36,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Front\ArtistController;
 use App\Http\Controllers\front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\MyBidsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +70,7 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
     Route::get('/artist/{id}/{tabs?}', [ArtistController::class, 'detail'])->name('artist.detail');
     Route::get('/search', [CatalogController::class, 'search'])->name('search');
 
-    Route::middleware(BuyerMiddleware::class)->group(function(){
+    Route::middleware(BuyerMiddleware::class)->group(function () {
         Route::get('/myaddress', [UserAddressController::class, 'index'])->name('myaddress'); // View User Address List
         Route::get('/myaddress/add', [UserAddressController::class, 'addAddress'])->name('myaddress.addaddress'); // Redirect Add User Address
         Route::post('/myaddress/add', [UserAddressController::class, 'store'])->name('myaddress.store'); // Add User Address
@@ -88,12 +90,13 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
 
         // Route::get("/auctionDetails", [AuctionDetailsController::class, 'index'])->name('auctionDetails');
         Route::post("/addcart/{id}", [addCartController::class, 'addcart'])->name('addcart'); //add cart in product details
+        Route::get('/myBids/{status}', [MyBidsController::class, 'index'])->name('myBids');
 
         Route::get('/cart', [CartController::class, 'index'])->name('cart');
         Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
 
-        Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
+        // Route::get('/review', [BuyerReviewController::class, 'index'])->name('review');
         Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
         Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
         Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
@@ -105,11 +108,17 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
         Route::put('/orderDetails/address/choose', [OrderAddressController::class, 'chooseAddress'])->name('order.address.choose');
         Route::delete('/orderDetails/address/delete', [OrderAddressController::class, 'deleteAddress'])->name('order.address.delete');
 
+        //payment
         Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
+
+        Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
+        Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
+        Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
         Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
+        Route::post('/bid/store', [BidController::class, 'store'])->name('bid.store');
+        Route::get('/buy/now', [OrderController::class, 'addSession'])->name('buy.now');
         Route::get('/review/{id}', [BuyerReviewController::class, 'index'])->name('review');
     });
-
 });
 
 Auth::routes();
@@ -149,5 +158,3 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
     Route::get('/return-detail', [ReturnDetailController::class, 'index'])->name('return.index');
     Route::post('/return-appeal/{orderId}', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
 });
-
-

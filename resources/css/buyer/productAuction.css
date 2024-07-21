@@ -16,10 +16,19 @@
     flex-direction: column;
     gap: 12px;
 }
+.form-auction{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
 .carousel {
     display: flex;
     justify-content: center;
+}
+.detail-auction-product{
+    display: flex;
+    gap: 16px;
 }
 
 .pricing {
@@ -201,6 +210,17 @@ input.inputcartnumber[type="number"]::-webkit-inner-spin-button {
 .Artwork-About-Details {
     border: 1.5px solid var(--bg-overlay-1);
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.Artwork-About-Details-noBid{
+    border: 1.5px solid var(--bg-overlay-1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
 }
 
 .Artist-About {
@@ -245,6 +265,26 @@ input.inputcartnumber[type="number"]::-webkit-inner-spin-button {
     margin-top: 24px;
 }
 
+thead, tbody, tfoot, tr, td, th {
+    border: none;
+}
+.table{
+    background-color: transparent;
+}
+.custom-table {
+    background-color: transparent; /* Remove table background */
+}
+
+.custom-table th,
+.custom-table td {
+    background-color: transparent; /* Remove cell background */
+    border: none; /* Optional: remove borders if needed */
+    font-size: 16px;
+    font-weight: 400;
+}
+.custom-table td{
+    color: var(--text-secondary);
+}
 /* responsive */
 
 @media screen and (max-width: 1300px) {

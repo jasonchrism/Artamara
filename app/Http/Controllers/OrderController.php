@@ -214,6 +214,7 @@ class OrderController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
         }
         return redirect($paymentUrl);
     }
