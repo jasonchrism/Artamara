@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,9 @@ class ArtistController extends Controller
         $artist = User::where('user_id', '=', $id)->first();
 
         $products = $artist->product()->paginate(20);
-        return view('buyer.artistDetail', compact('artist', 'products', 'tabs'));
+
+        $reviews = Review::where('artist_id', '=', $id)->get();
+        $avgRating = Review::where('artist_id', '=', $id)->avg('rating');
+        return view('buyer.artistDetail', compact('artist', 'products', 'tabs', 'reviews', 'avgRating'));
     }
 }
