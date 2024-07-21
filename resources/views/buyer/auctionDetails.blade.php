@@ -78,7 +78,7 @@
                     <div class="pricing">
                         <p class="pricing-status">Starting Price</p>
                         <p class="pricing-price">
-                            Rp{{ number_format($product->product->price, 0, ',', '.') }}
+                            Rp{{ number_format($product->start_price, 0, ',', '.') }}
                         </p>
                     </div>
                 @else
@@ -101,10 +101,40 @@
 
                 <div class="button-bottom">
                     @if (Auth::check())
+                        <form action="{{ route('front.bid.store') }}" method="post" style="width: 100%"
+                            class="form-auction">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                            <select class="buy-now bid-now-price" id="bid_price" name="bid_price" style="width: 100%">
+                                @foreach ($priceMultiples as $multiple)
+                                    <option value="{{ $multiple }}">Rp{{ number_format($multiple, 0, ',', '.') }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @if ($product->status != 'ON GOING')
+                                <button type="submit" class="btn btn-primary buy-now" style="width: 100%"
+                                    disabled>BID</button>
+                            @else
+                                <button type="submit" class="btn btn-primary buy-now" style="width: 100%">BID</button>
+                            @endif
+                        </form>
+                        <form action="{{ route('front.order.session', 'buy') }}" method="post">
+                            @csrf
+                            <input type="hidden" value="{{ json_encode([$product->product_id]) }}" name="product">
+                            <input id="quantity2" type="number" step="1" max="10" value="1"
+                                name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
+                            @if ($product->status != 'ON GOING')
+                                <button type="submit" class="btn btn-primary buy-now" style="width: 100%" disabled>BUY
+                                    NOW</button>
+                            @else
+                                <button type="submit" class="btn btn-primary buy-now" style="width: 100%">BUY NOW</button>
+                            @endif
+                        </form>
                     @else
                         <select class="buy-now bid-now-price" id="bid_price" name="bid_price" style="width: 100%">
                             @foreach ($priceMultiples as $multiple)
-                                <option value="{{ $multiple }}">Rp{{ number_format($multiple, 0, ',', '.') }}</option>
+                                <option value="{{ $multiple }}">Rp{{ number_format($multiple, 0, ',', '.') }}
+                                </option>
                             @endforeach
                         </select>
                         <form action="{{ route('login') }}" method="get" style="width: 100%">
@@ -113,6 +143,21 @@
                         <form action="{{ route('login') }}" method="get" style="width: 100%">
                             <button type="submit" class="buy-now buy-now-button" style="width: 100%">BUY NOW</button>
                         </form>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
                     @endif
                 </div>
 
@@ -127,9 +172,28 @@
 
                 <div class="Artwork-About">
                     <h3>About The Artwork</h3>
-                    <div class="Artwork-About-Details ">
-
-                        
+                    <div class="Artwork-About-Details">
+                        <div class="detail-auction-product">
+                            <p style="width: 100px">Description</p>
+                            <p style="color: var(--text-secondary)">{{ $product->product->description }}</p>
+                        </div>
+                        <div class="detail-auction-product">
+                            <p style="width: 100px">Materials</p>
+                            <p style="color: var(--text-secondary)">{{ $product->product->material }}</p>
+                        </div>
+                        <div class="detail-auction-product">
+                            <p style="width: 100px">Size</p>
+                            <p style="color: var(--text-secondary)">{{ $product->product->length }} x
+                                {{ $product->product->width }} cm</p>
+                        </div>
+                        <div class="detail-auction-product">
+                            <p style="width: 100px">Medium</p>
+                            <p style="color: var(--text-secondary)">{{ $product->product->medium }}</p>
+                        </div>
+                        <div class="detail-auction-product">
+                            <p style="width: 100px">Category</p>
+                            <p style="color: var(--text-secondary)">{{ $product->product->category->name }}</p>
+                        </div>
 
                     </div>
                 </div>
@@ -155,13 +219,35 @@
             </div>
             <div class="bidder-table">
                 <div class="Artwork-About">
-                    <h3>About The Artwork</h3>
-                    <div class="Artwork-About-Details ">
-
-
-
-                    </div>
-                </div>   
+                    <h3>Bidder List</h3>
+                    {{-- {{dd($bids)}} --}}
+                    @if ($bids != null)
+                        <div class="Artwork-About-Details ">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Bid Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bids as $index => $bid)
+                                        <tr>
+                                            <td scope="row">{{ $index + 1 }}</td>
+                                            <td>{{ $bid->user->name }}</td>
+                                            <td>Rp{{ number_format($bid->bid_price, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="Artwork-About-Details-noBid">
+                            <p>No bidder yet</p>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

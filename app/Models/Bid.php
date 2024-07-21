@@ -16,6 +16,7 @@ class Bid extends Model
     protected $primaryKey = ['bid_price', 'product_id'];
     protected $fillable = [
     'bid_price',
+    'user_id',
     'product_id',
     'start_date',
     'end_date',

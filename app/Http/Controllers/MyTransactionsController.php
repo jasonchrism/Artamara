@@ -34,7 +34,7 @@ class MyTransactionsController extends Controller
 
         // masih manual, bisa di-improve but we can do it later
         if ($status == 'UNPAID') {
-            $order_ids = Order::where('user_id', $user_id)->with('payment')
+        $order_ids = Order::where('user_id', $user_id)->with('payment')
                 ->whereHas('payment', function ($query) {
                     $query->where('status', 'UNPAID');
                 })

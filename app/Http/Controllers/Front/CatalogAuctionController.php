@@ -19,12 +19,13 @@ class CatalogAuctionController extends Controller
         return view('buyer.auction', compact('products', 'count'));
     }
 
-    public function category($category){
+    public function category($category)
+    {
         $categoryDetail = Category::where('name', '=', $category)->first();
 
         $categoryId = Category::where('name', '=', $category)->pluck('category_id')->first();
         $products = Product::join('product_auctions', 'products.product_id', '=', 'product_auctions.product_id')
-        ->where('products.category_id', '=', $categoryId)->paginate(20);
+            ->where('products.category_id', '=', $categoryId)->paginate(20);
         $count = $products->count();
         return view('buyer.categoryAuction', compact('products', 'count', 'categoryDetail'));
     }
@@ -36,16 +37,35 @@ class CatalogAuctionController extends Controller
         $lastBid = Bid::where('product_id', $id)->orderBy('bid_price', 'desc')->first();
         // dd($auctions);
 
+        $buyNow = $product->product->price;
+        $startPrice = $product->start_price;
         $baseMultiple = $product->add_price;
         $maxMultiple = 20;
         $priceMultiples = [];
-        for ($i = 1; $i <= $maxMultiple; $i++) {
-            $priceMultiples[] = $baseMultiple * $i;
+
+        // Initialize with the start price or the nearest multiple of baseMultiple that is not less than start price
+        $firstMultiple = ceil($startPrice / $baseMultiple) * $baseMultiple;
+        if ($firstMultiple < $startPrice) {
+            $firstMultiple += $baseMultiple;
+        }
+
+        $priceMultiples[] = $firstMultiple;
+
+        $i = 1;
+        while (true) {
+            $multiple = $firstMultiple + $baseMultiple * $i;
+            if ($multiple >= $buyNow) {
+                break; // Exit loop if multiple is greater than or equal to $buynow
+            }
+            $priceMultiples[] = $multiple;
+            $i++;
         }
 
         $bids = Bid::with('user')->where('product_id', $id)->get();
+        $bids = $bids->isEmpty() ? null : $bids;
         // dd($bids);
-        return view('buyer.auctionDetails', compact('product', 'lastBid' , 'priceMultiples' , 'bids'));
+        // dd($product);
+        return view('buyer.auctionDetails', compact('product', 'lastBid', 'priceMultiples', 'bids'));
     }
 
     public function updateStatus(Request $request)
