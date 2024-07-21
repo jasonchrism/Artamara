@@ -21,7 +21,7 @@
                                 d="M9.21886 17.526L12.5001 15.5468L15.7814 17.552L14.922 13.802L17.8126 11.302L14.0105 10.9635L12.5001 7.42183L10.9897 10.9375L7.18761 11.276L10.0782 13.802L9.21886 17.526ZM7.63032 19.7114L8.92199 14.177L4.6272 10.4562L10.2845 9.96662L12.5001 4.74683L14.7157 9.96558L20.372 10.4552L16.0772 14.176L17.3699 19.7104L12.5001 16.7729L7.63032 19.7114Z"
                                 fill="#CEFE06" />
                         </svg>
-                        <p class="ms-2">Rating: <span class="rate">4 / 5</span></p>
+                        <p class="ms-2">Rating: <span class="rate">{{number_format($avgRating, 1)}} / 5</span></p>
                     </div>
                     <p class="artist-desc">{{ $artist->about }}</p>
                 </div>
@@ -55,25 +55,38 @@
             {{ $products->onEachSide(5)->links() }}
         @else
             <div class="wrap-review">
-                <div class="card-review text-center">
-                    <img src="/assets/art2.jpg" alt="" class="object-fit-cover rounded-circle mb-2"
-                        style="width: 30px; height:30px">
-                    <p class="text-white mb-2">buyer name</p>
-                    <div class="d-flex justify-content-center mb-2">
-                        @for ($i = 0; $i < 5; $i++)
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.8002 22.434L16.0002 19.9007L20.2002 22.4673L19.1002 17.6673L22.8002 14.4673L17.9335 14.034L16.0002 9.50066L14.0669 14.0007L9.20019 14.434L12.9002 17.6673L11.8002 22.434ZM9.76685 25.2313L11.4202 18.1473L5.92285 13.3847L13.1642 12.758L16.0002 6.07666L18.8362 12.7567L26.0762 13.3833L20.5789 18.146L22.2335 25.23L16.0002 21.47L9.76685 25.2313Z"
-                                    fill="#CEFE06" />
-                                <path
-                                    d="M9.825 25L11.45 17.975L6 13.25L13.2 12.625L16 6L18.8 12.625L26 13.25L20.55 17.975L22.175 25L16 21.275L9.825 25Z"
-                                    fill="#CEFE06" />
-                            </svg>
-                        @endfor
+                @forelse ($reviews as $review)
+                    <div class="card-review text-center">
+                        <img src="/assets/art2.jpg" alt="" class="object-fit-cover rounded-circle mb-2"
+                            style="width: 30px; height:30px">
+                        <p class="text-white mb-2">{{ $review->order->user->name }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            @for ($i = 0; $i < $review->rating; $i++)
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.8002 22.434L16.0002 19.9007L20.2002 22.4673L19.1002 17.6673L22.8002 14.4673L17.9335 14.034L16.0002 9.50066L14.0669 14.0007L9.20019 14.434L12.9002 17.6673L11.8002 22.434ZM9.76685 25.2313L11.4202 18.1473L5.92285 13.3847L13.1642 12.758L16.0002 6.07666L18.8362 12.7567L26.0762 13.3833L20.5789 18.146L22.2335 25.23L16.0002 21.47L9.76685 25.2313Z"
+                                        fill="#CEFE06" />
+                                    <path
+                                        d="M9.825 25L11.45 17.975L6 13.25L13.2 12.625L16 6L18.8 12.625L26 13.25L20.55 17.975L22.175 25L16 21.275L9.825 25Z"
+                                        fill="#CEFE06" />
+                                </svg>
+                            @endfor
+                            @for ($i = 0; $i < 5 - $review->rating; $i++)
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.8002 22.434L16.0002 19.9007L20.2002 22.4673L19.1002 17.6673L22.8002 14.4673L17.9335 14.034L16.0002 9.50066L14.0669 14.0007L9.20019 14.434L12.9002 17.6673L11.8002 22.434ZM9.76685 25.2313L11.4202 18.1473L5.92285 13.3847L13.1642 12.758L16.0002 6.07666L18.8362 12.7567L26.0762 13.3833L20.5789 18.146L22.2335 25.23L16.0002 21.47L9.76685 25.2313Z"
+                                        fill="#CEFE06" />
+                                </svg>
+                            @endfor
+                        </div>
+                        <p class="review-desc .text-truncate-multiline">{{ $review->comment }}</p>
                     </div>
-                    <p class="review-desc .text-truncate-multiline">review description</p>
-                </div>
+                @empty
+                    <p class="text-secondary-txt">No Reviews</p>
+                @endforelse
+
             </div>
         @endif
 
