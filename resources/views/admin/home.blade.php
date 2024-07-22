@@ -73,7 +73,7 @@ Welcome, Admin
                             <tr>
                                 <td scope="row">{{ $loop->index + 1 }}</td>
                                 <td>{{ $return->order_id }}</td>
-                                <td class="p-0"><a href="" class="btn btn-primary check-btn">Check</a></td>
+                                <td class="p-0"><a href="{{ route('return.review', $return->order_id) }}" class="btn btn-primary check-btn">Check</a></td>
                             </tr>
                             @endforeach
                         </tbody>
