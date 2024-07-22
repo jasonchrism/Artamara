@@ -134,7 +134,7 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::post('/banArtist/{id}', [ViewUsersController::class, 'banArtist'])->name('banArtist');
     Route::post('/deleteArtist/{id}', [ViewUsersController::class, 'deleteArtist'])->name('deleteArtist');
 
-    Route::get('/return-detail/review', [AdminReturnDetailController::class, 'index'])->name('return.review');
+    Route::get('/return-detail/review/{orderId}', [AdminReturnDetailController::class, 'index'])->name('return.review');
     Route::post('/failuretype/{orderId}', [AdminReturnDetailController::class, 'failuretype'])->name('return.failuretype');
     Route::post('/confirmationAppeal/{orderId}', [AdminReturnDetailController::class, 'confirmationAppeal'])->name('return.confirmationAppeal');
 

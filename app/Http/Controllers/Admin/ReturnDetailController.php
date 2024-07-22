@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReturnDetailController extends Controller
 {
-    public function index() {
+    public function index($order_id) {
         // $order_id = '9c86777e-158d-4e78-8ca1-db7602ab5aa9';
-        $order_id = '9c8dc2f9-1ac5-4d0e-9abb-e3c16186273a';
+        // $order_id = '9c8dc2f9-1ac5-4d0e-9abb-e3c16186273a';
         // catatan untuk integration
         // ini ambil dulu datanya sesuai dengan order_id yang nanti akan di-pass
 
