@@ -143,16 +143,7 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- stock --}}
-                    <label for="stock">Stock</label>
-                    <input value="{{ old('stock') }}" type="number" name="stock" id="stock"
-                        class="form-control @error('stock') is-invalid @enderror" placeholder="Stock" required>
-                    @error('stock')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-
+                    
                     {{-- description --}}
                     <label for="description">Description</label>
                     <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror"
@@ -228,5 +219,32 @@
 @endpush
 
 @push('after-scripts')
- 
+    <script>
+        const input = document.querySelector('input[type="file"]');
+        const imgHolder = document.querySelector('.img-holder');
+
+        input.addEventListener('change', function() {
+            while (imgHolder.firstChild) {
+                imgHolder.removeChild(imgHolder.firstChild);
+            }
+
+            const files = Array.from(input.files);
+
+            files.forEach((file, i) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxHeight = '100px';
+                    img.style.padding = '10px';
+                    img.classList.add('img-preview');
+
+                    imgHolder.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 @endpush

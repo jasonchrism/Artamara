@@ -232,7 +232,7 @@ class ArtAuctionController extends Controller
         $product->material = $request->material;
         $product->length = $request->length;
         $product->width = $request->width;
-        $product->stock = $request->stock;
+        $product->stock = 1;
         $product->description = $request->description;
         $product->photo = $data['photo'];
         // dd($product);
@@ -250,7 +250,9 @@ class ArtAuctionController extends Controller
 
         DB::commit();
 
-        return redirect()->route('artist-auction.index');
+        return redirect()->route('artist-auction.index')->with([
+            'address_title' => 'Product Auction successfully added!',
+        ]);
     }
 
     /**
@@ -308,26 +310,43 @@ class ArtAuctionController extends Controller
                 array_push($product_photo, $photo_path);
             }
             $data['photo'] = json_encode($product_photo);
+
+            DB::beginTransaction();
+
+            // $product = new Product();
+            $product->user_id = $product->user_id;
+            $product->title = $request->title;
+            $product->medium = $request->medium;
+            $product->category_id = $request->category_id;
+            $product->year = $request->year;
+            $product->price = $request->price;
+            $product->material = $request->material;
+            $product->length = $request->length;
+            $product->width = $request->width;
+            $product->description = $request->description;
+            $product->photo = $data['photo'];
+            // dd($product);
+            $product->save();
+        }else{
+            DB::beginTransaction();
+    
+            // $product = new Product();
+            $product->user_id = $product->user_id;
+            $product->title = $request->title;
+            $product->medium = $request->medium;
+            $product->category_id = $request->category_id;
+            $product->year = $request->year;
+            $product->price = $request->price;
+            $product->material = $request->material;
+            $product->length = $request->length;
+            $product->width = $request->width;
+            $product->description = $request->description;
+            // $product->photo = $data['photo'];
+            // dd($product);
+            $product->save();
         }
 
 
-        DB::beginTransaction();
-
-        // $product = new Product();
-        $product->user_id = $product->user_id;
-        $product->title = $request->title;
-        $product->medium = $request->medium;
-        $product->category_id = $request->category_id;
-        $product->year = $request->year;
-        $product->price = $request->price;
-        $product->material = $request->material;
-        $product->length = $request->length;
-        $product->width = $request->width;
-        $product->stock = $request->stock;
-        $product->description = $request->description;
-        $product->photo = $data['photo'];
-        // dd($product);
-        $product->save();
 
         // $productAuction = new ProductAuction();
         $productAuction->product_id = $product->product_id;
@@ -342,7 +361,7 @@ class ArtAuctionController extends Controller
         DB::commit();
 
         return redirect()->route('artist-auction.index')->with([
-            'address_title' => 'Profile successfully updated!',
+            'address_title' => 'Product Auction successfully updated!',
         ]);
     }
 
