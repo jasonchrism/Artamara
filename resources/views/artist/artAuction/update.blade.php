@@ -98,8 +98,12 @@
 
                     {{-- photo --}}
                     <label for="photo">Photos</label>
+                    <div class="existing-photos">
+                        <img src="{{ asset($product->thumbnail) }}" alt="Photo" style="max-height: 100px; padding: 10px;">
+                    </div>
                     <input name="photo[]" id="photo" class="form-control @error('photo[]') is-invalid @enderror"
-                        placeholder="Max 5 photos" required accept="image/png,image/jpg,image/jpeg" type="file" multiple>
+                        placeholder="Max 5 photos" accept="image/png,image/jpg,image/jpeg" type="file" multiple>
+                    <span id="file-chosen-text">Using previous image</span>
                     @error('photo[]')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -144,21 +148,12 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- stock --}}
-                    <label for="stock">Stock</label>
-                    <input value="{{$product->stock}}"" type="number" name="stock" id="stock"
-                        class="form-control @error('stock') is-invalid @enderror" placeholder="Stock" required>
-                    @error('stock')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
 
                     {{-- description --}}
                     <label for="description">Description</label>
                     <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror"
-                        name="description" value="{{$product->description}}"" autocomplete="off" placeholder="Art Description" required
-                        style="height: 50%"></textarea>
+                        name="description" autocomplete="off" placeholder="Art Description" required
+                        style="height: 50%">{{$product->description}}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -224,5 +219,43 @@
 @endpush
 
 @push('after-scripts')
- 
+    <script>
+        const input = document.querySelector('input[type="file"]');
+        const imgHolder = document.querySelector('.img-holder');
+        const fileChosenText = document.getElementById('file-chosen-text');
+
+        input.addEventListener('change', function() {
+            const files = Array.from(input.files);
+
+            if (files.length === 0) {
+                fileChosenText.textContent = 'Using previous image';
+            } else {
+                fileChosenText.textContent = '';
+            }
+        });
+
+        input.addEventListener('change', function() {
+            while (imgHolder.firstChild) {
+                imgHolder.removeChild(imgHolder.firstChild);
+            }
+
+            const files = Array.from(input.files);
+
+            files.forEach((file, i) => {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxHeight = '100px';
+                    img.style.padding = '10px';
+                    img.classList.add('img-preview');
+
+                    imgHolder.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 @endpush
