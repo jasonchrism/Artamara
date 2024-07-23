@@ -22,7 +22,7 @@
     <!-- Order Details -->
     <div class="order-details-container">
         <div class="order-details-header d-flex align-items-center">
-            <a href="{{ route('homeArtist') }}" class="btn" style="color: var(--text-primary);">
+            <a href="{{ route('transactions.index') }}" class="btn" style="color: var(--text-primary);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 16px;">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M1.26904 11.9984L8.23384 5.03204L9.36664 6.16324L4.33144 11.1984L22.4002 11.1984L22.4002 12.7984L4.33144 12.7984L9.36664 17.832L8.23384 18.9648L1.26904 11.9984Z" fill="#FDFFF3" />
                 </svg>
