@@ -19,7 +19,6 @@ class BidController extends Controller
         $product_id = $request->input('product_id');
         $bid_price = $request->input('bid_price');
         $user_id = Auth::id();
-        // dd($user_id);
 
         // Get the current highest bid price for the product
         $highestBid = Bid::where('product_id', $product_id)
@@ -28,7 +27,7 @@ class BidController extends Controller
 
         // Check if the new bid price is greater than the current highest bid price
         if ($highestBid && $bid_price <= $highestBid->bid_price) {
-            return back()->withErrors(['bid_price' => 'The bid price must be higher than the current highest bid price.']);
+            return back()->withErrors(['bid_price' => 'The bid must exceed the current highest bid.']);
         }
 
         // Use a transaction to ensure atomicity
@@ -49,13 +48,13 @@ class BidController extends Controller
             // Create the new bid
             Bid::create([
                 'product_id' => $product_id,
-                'user_id' => Auth::id(),
+                'user_id' => $user_id,
                 'bid_price' => $bid_price,
             ]);
 
             DB::commit();
 
-            return back()->with('success', 'Bid placed successfully.');
+            return back()->with('status', 'success')->with('bid_price', 'Bid placed successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'An error occurred while placing your bid. Please try again.']);

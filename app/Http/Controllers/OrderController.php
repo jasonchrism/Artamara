@@ -130,6 +130,13 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        $data = json_decode($request->input('order'));
+        // dd($data[0]->product->product_id);
+        $product_id = $data[0]->product->product_id;
+        $productExistsInAuction = DB::table('product_auctions')->where('product_id', $product_id)->exists();
+        // dd($productExistsInAuction);
+
+
         $orders = $request->get('order');
         $orders = json_decode($orders);
         $totalPrice = $request->input('totalPrice');
@@ -192,7 +199,7 @@ class OrderController extends Controller
             $state = session('state');
             $userId = Auth::user()->user_id;
 
-            
+
             foreach ($orders as $item) {
                 $orderDetail = new OrderDetail();
                 $orderDetail->order_id = $order->order_id;
@@ -209,6 +216,14 @@ class OrderController extends Controller
                     $cart = Cart::where([['user_id', '=', $userId], ['product_id', '=', $orderDetail->product_id]])->first();
                     $cart->delete();
                 }
+            }
+
+            // If the product is from an auction, update its status to "paid"
+            if ($productExistsInAuction) {
+                $productAuction = \App\Models\ProductAuction::where('product_id', $product_id)->first();
+                $productAuction->status = 'PAID';
+                $productAuction->end_date = Carbon::now('Asia/Jakarta');
+                $productAuction->save();
             }
 
             DB::commit();
