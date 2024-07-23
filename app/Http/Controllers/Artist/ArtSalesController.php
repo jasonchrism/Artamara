@@ -19,7 +19,12 @@ class ArtSalesController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Product::with('Category')->where('user_id', auth()->user()->user_id)->get();
+        $data = Product::with('category')
+            ->where('user_id', auth()->user()->user_id)
+            ->leftJoin('product_auctions', 'products.product_id', '=', 'product_auctions.product_id')
+            ->whereNull('product_auctions.product_id')
+            ->select('products.*')
+            ->get();
         // dd(auth()->user()->user_id);
         if ($request->ajax()) {
             // dd(auth()->user()->user_id);
@@ -91,7 +96,7 @@ class ArtSalesController extends Controller
         $pageTitle = 'Products';
         return view('artist.artSale.index', [
             'pageTitles' => $pageTitle,
-        ],compact('data'));
+        ], compact('data'));
     }
 
     /**
@@ -110,13 +115,13 @@ class ArtSalesController extends Controller
     {
         $data = $request->all();
         // dd($data);
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $product_photo = [];
 
-            foreach($request->file('photo') as $picture){
-                $photo_path = $picture->store('storage/photos' , 'public');
+            foreach ($request->file('photo') as $picture) {
+                $photo_path = $picture->store('storage/photos', 'public');
 
-                array_push($product_photo , $photo_path);
+                array_push($product_photo, $photo_path);
             }
             $data['photo'] = json_encode($product_photo);
         }
@@ -124,9 +129,8 @@ class ArtSalesController extends Controller
         $user = Auth::user();
         $data['user_id'] = $user->user_id;
         // dd($data);
-        Product::create($data); 
+        Product::create($data);
         return redirect()->route('artist-sales.index');
-
     }
 
     /**
@@ -156,13 +160,13 @@ class ArtSalesController extends Controller
         // dd($request->all());
         $product = Product::find($id);
         $data = $request->all();
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $product_photo = [];
 
-            foreach($request->file('photo') as $picture){
-                $photo_path = $picture->store('storage/photos' , 'public');
+            foreach ($request->file('photo') as $picture) {
+                $photo_path = $picture->store('storage/photos', 'public');
 
-                array_push($product_photo , $photo_path);
+                array_push($product_photo, $photo_path);
             }
             $data['photo'] = json_encode($product_photo);
         }
@@ -170,8 +174,6 @@ class ArtSalesController extends Controller
         $product->update($data);
 
         return redirect()->route('artist-sales.index');
-
-
     }
 
     /**
