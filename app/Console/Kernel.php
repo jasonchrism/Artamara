@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('app:update-status-delivery')->everySecond()->timezone('Asia/Jakarta')->runInBackground();
         $schedule->command('app:banned-buyer')->everyTenSeconds()->timezone('Asia/Jakarta')->runInBackground();
+        $schedule->command('auction:update-status')->everySecond();
     }
 
     /**

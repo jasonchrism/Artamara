@@ -34,7 +34,7 @@
                 myDiv.classList.add("show-animate");
             }, 50);
 
-            // Hide the div after 1 second
+            // Hide the div after 1 secondp
             setTimeout(function() {
                 myDiv.style.visibility = "hidden";
                 myDiv.style.opacity = "0";
