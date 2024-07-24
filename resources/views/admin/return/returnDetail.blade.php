@@ -94,23 +94,58 @@
                     <div class="report-title">
                         <p>Photo</p>
                     </div>
-                    <img src="{{ $order->refund->photo }}" alt="" style="width: 160px; margin-top: 24px; margin-left: 20px;">
+                    <img src="{{ $refund_photo }}" alt="">
                 </div>
                 <div class="report-video-container d-flex">
                     <div class="report-title">
                         <p>Video</p>
                     </div>
-                    <img src="{{ $order->refund->video }}" alt="" style="width: 160px; margin-top: 24px; margin-left: 20px;">
+                    <video width="320" height="240" controls>
+                        <source src="{{ $refund_video}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="report-description-container d-flex">
                     <div class="report-title">
                         <p>Description</p>
                     </div>
-                    <p class="text-white" style="margin-left: 20px; margin-top: 24px;">{{ $order->refund->description }}</p>
+                    <p class="text-white" style="margin-left: 20px;">{{ $order->refund->description }}</p>
                 </div>
             </div>
             @endforeach
         </div>
+
+        {{-- ini punya admin --}}
+        <div class="right-side d-flex flex-column">
+            <!-- Report Details -->
+            <div class="report-details-container">
+                <p class="text-white fw-semibold report-details-header">Report Details</p>
+                @foreach($orders as $order)
+                <div class="report-details-border">
+                    <div class="report-photo-container d-flex">
+                        <div class="report-title">
+                            <p>Photo</p>
+                        </div>
+                        <img src="{{ $refund_photo_appeal }}" alt="">
+                    </div>
+                    <div class="report-video-container d-flex">
+                        <div class="report-title">
+                            <p>Video</p>
+                        </div>
+                        <video width="320" height="240" controls>
+                            <source src="{{ $refund_video_appeal}}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="report-description-container d-flex">
+                        <div class="report-title">
+                            <p>Description</p>
+                        </div>
+                        <p class="text-white" style="margin-left: 20px;">{{ $order->refund->response }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
 
         <!-- Item Details -->
         <div class="item-details-container">
@@ -140,6 +175,8 @@
                     <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Failure Type
                     </a>
+
+
                 @elseif ($order->refund->status == 'ADMIN CONFIRMATION')
                     <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#confirmationAppeal">
                         Action
@@ -173,7 +210,7 @@
                             </div>
                             <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
                                 <button type="button" class="btn text-primary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                <button type="submit" class="btn btn-primary">Sent</button>
                             </div>
                         </form>
                     </div>

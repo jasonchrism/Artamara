@@ -8,12 +8,15 @@ use App\Models\Refund;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ReturnDetailController extends Controller
 {
-    public function index() {
+    public function index($order_id) {
         // $order_id = '9c86777e-158d-4e78-8ca1-db7602ab5aa9';
-        $order_id = '9c8dc2f9-1ac5-4d0e-9abb-e3c16186273a';
+        // $order_id = '9c8dc2f9-1ac5-4d0e-9abb-e3c16186273a';
+
+        // dd($order_id);
         $orders = Order::with(['userAddress.user', 'userAddress.address', 'payment.paymentMethod', 'refund'])
             ->where('order_id', $order_id)
             ->whereHas('refund', function ($query) {
@@ -28,9 +31,24 @@ class ReturnDetailController extends Controller
             })
             ->get();
 
+            $refund = Refund::where('order_id', $orders[0]->order_id)->first();
+            $photo = null;
+            $video = null;
+            if ($refund && $refund->path_file) {
+                $pathFileData = json_decode($refund->path_file, true);
+                if (isset($pathFileData['photo'])) {
+                    $photo = Storage::url($pathFileData['photo']);
+                }
+                if (isset($pathFileData['video'])) {
+                    $video = Storage::url($pathFileData['video']);
+                }
+            }
+
         return view('artist.return.returnDetail', [
             'orders' => $orders,
-            'items' => $items
+            'items' => $items,
+            'refund_photo' => $photo,
+            'refund_video' => $video,
         ]);
     }
 

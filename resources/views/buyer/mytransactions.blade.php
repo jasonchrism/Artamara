@@ -218,7 +218,7 @@
                             <button class="btn-bordered" data-bs-toggle="modal"
                                 data-bs-target="#{{ 'orderDetailsModal-' . $orderId }}" data-bs-dismiss="modal">Order Details</button>
 
-                            @if ($orderData['refund_status'] == 'FINISHED' || $orderData['refund_status'] == 'REJECTED' || $orderData['refund_status'] == 'ADMIN REVIEW' || $orderData['refund_status'] == 'ARTIST REVIEW' || $orderData['refund_status'] == 'ADMIN CONFIRMATION')
+                            @if ($orderData['refund_status'] == 'FINISHED' || $orderData['refund_status'] == 'ADMIN REVIEW' || $orderData['refund_status'] == 'ARTIST REVIEW' || $orderData['refund_status'] == 'ADMIN CONFIRMATION')
                                 <button href="" class="btn btn-primary" disabled>Confirm Return</button>
                             @else
                                 <button class="btn btn-primary" data-bs-toggle="modal"
@@ -277,7 +277,7 @@
                                     <p id="status_blue">On Review</p>
                                 @endif
                                 @if ($orderData['refund_status'] == 'REJECTED')
-                                    <p id="status_red">Rejected</p>
+                                    <p id="status_blue">Approved</p>
                                 @elseif ($orderData['refund_status'] == 'ACCEPTED')
                                     <p id="status_blue">Approved</p>
                                 @elseif ($orderData['refund_status'] == 'FINISHED')

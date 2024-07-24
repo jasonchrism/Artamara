@@ -59,15 +59,19 @@
 }
 
 .report-photo-container {
-    height: 100px;
+    height: 320px;
+    margin-bottom: 16px;
+    margin-top: 16px;
 }
 
 .report-video-container {
-    height: 100px;
+    height: auto;
+    margin-bottom: 16px;
 }
 
 .report-description-container {
-    height: 100px;
+    height: auto;
+    margin-bottom: 16px;
 }
 
 .report-title {
@@ -77,7 +81,6 @@
 .report-title p {
     color: var(--text-secondary);
     margin-left: 24px;
-    margin-top: 24px;
 }
 
 .product-container p {
