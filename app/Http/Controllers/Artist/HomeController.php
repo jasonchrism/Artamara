@@ -29,7 +29,8 @@ class HomeController extends Controller
         // Monthly Earnings
         $sixMonthsAgo = Carbon::now()->subMonths(6)->startOfMonth();
 
-        $orders = Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
+        $orders = Order::with(['orderDetail.product'])
+            ->whereHas('orderDetail.product', function ($query) use ($artist_id) {
             $query->where('user_id', $artist_id);
         })
             ->selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
@@ -38,7 +39,7 @@ class HomeController extends Controller
             ->orderBy('month', 'asc')
             ->limit(6)
             ->get();
-
+        
         $totalPrice = array_fill(0, 5, 0);
         for ($i = 0; $i < 6; $i++) {
             $month = Carbon::now()->subMonths($i)->format('n');
