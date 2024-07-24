@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Refund;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +48,7 @@ class TransactionController extends Controller
                     </button>
                     <ul class="dropdown-menu custom-dropdown-menu">
                         <li><a class="dropdown-item" href="' . $detailsUrl . '">Details</a></li>
-                        
+
                     </ul>
                 </div>
 
@@ -61,7 +62,7 @@ class TransactionController extends Controller
                                 <p style="color: var(--bs-secondary-txt);">Are you sure to delete this product?</p>
                             </div>
                             <div class="footer-modal-delete">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -220,9 +221,19 @@ class TransactionController extends Controller
 
     public function detail($id)
     {
+
         $orders = Order::with(['userAddress.user', 'userAddress.address', 'payment.paymentMethod'])
             ->where('order_id', $id)
             ->get();
+
+        $refund = Refund::where('order_id', $id)->get();
+
+            // ini akan selalu redirect ke return detail selama dia masih status returned.
+        // dd($refund);
+        if($orders[0]->status == "RETURNED" && $refund[0]->status != "FINISHED")
+        {
+            return redirect()->route('return.review',['orderId' => $id]);
+        }
 
         $items = Order::with(['orderDetail.product.user'])
             ->where('order_id', $id)

@@ -8,6 +8,7 @@ use App\Models\Refund;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ReturnDetailController extends Controller
 {
@@ -59,12 +60,38 @@ class ReturnDetailController extends Controller
                 ->get();
         }
 
+        $refund = Refund::where('order_id', $orders[0]->order_id)->first();
+                    $photo = null;
+                    $video = null;
+                    if ($refund && $refund->path_file) {
+                        $pathFileData = json_decode($refund->path_file, true);
+                        if (isset($pathFileData['photo'])) {
+                            $photo = Storage::url($pathFileData['photo']);
+                        }
+                        if (isset($pathFileData['video'])) {
+                            $video = Storage::url($pathFileData['video']);
+                        }
+                    }
 
-
+                    $photo_appeal = null;
+                    $video_appeal = null;
+                    if ($refund && $refund->path_file) {
+                        $pathFileData = json_decode($refund->path_file_response, true);
+                        if (isset($pathFileData['photo'])) {
+                            $photo_appeal = Storage::url($pathFileData['photo']);
+                        }
+                        if (isset($pathFileData['video'])) {
+                            $video_appeal = Storage::url($pathFileData['video']);
+                        }
+                    }
 
         return view('admin.return.returnDetail', [
             'orders' => $orders,
-            'items' => $items
+            'items' => $items,
+            'refund_photo' => $photo,
+            'refund_video' => $video,
+            'refund_photo_appeal' => $photo_appeal,
+            'refund_video_appeal' => $video_appeal,
         ]);
     }
 

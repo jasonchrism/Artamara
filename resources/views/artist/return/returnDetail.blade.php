@@ -95,19 +95,22 @@
                     <div class="report-title">
                         <p>Photo</p>
                     </div>
-                    <img src="{{ $order->refund->photo }}" alt="" style="width: 160px; margin-top: 24px; margin-left: 20px;">
+                    <img src="{{ $refund_photo }}" alt="">
                 </div>
                 <div class="report-video-container d-flex">
                     <div class="report-title">
                         <p>Video</p>
                     </div>
-                    <img src="{{ $order->refund->video }}" alt="" style="width: 160px; margin-top: 24px; margin-left: 20px;">
+                    <video width="320" height="240" controls>
+                        <source src="{{ $refund_video}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="report-description-container d-flex">
                     <div class="report-title">
                         <p>Description</p>
                     </div>
-                    <p class="text-white" style="margin-left: 20px; margin-top: 24px;">{{ $order->refund->description }}</p>
+                    <p class="text-white" style="margin-left: 20px;">{{ $order->refund->description }}</p>
                 </div>
             </div>
             @endforeach
