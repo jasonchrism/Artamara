@@ -140,7 +140,6 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
 
     Route::get('/transactions-detail/{id}', [AdminTransactionController::class, 'detail'])->name('transactions.detail');
     Route::get('admin-status/{status}', [AdminTransactionController::class, 'tabs'])->name('admintabs');
-
 });
 
 Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(function () {

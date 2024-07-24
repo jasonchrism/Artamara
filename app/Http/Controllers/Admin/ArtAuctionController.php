@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bid;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductAuction;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -83,7 +85,7 @@ class ArtAuctionController extends Controller
                     return $statusStyle;
                 })
                 ->addColumn('action', function ($row) {
-                    $detailsUrl = route('artist-auction.show', $row->product_id);
+                    $detailsUrl = route('auction.show', $row->product_id);
                     // intinya ini untuk balikin dropdown ke tables
                     $modalId = 'modal-' . $row->product_id;
                     $csrfToken = csrf_token();
@@ -108,12 +110,12 @@ class ArtAuctionController extends Controller
                     </ul>
                 </div>
                 ';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['status', 'action'])
-                ->make(true);
+                return $actionBtn;
+            })
+            ->rawColumns(['status', 'action'])
+            ->make(true);
         }
+
         // Ini untuk kasih nama page
         $pageTitle = 'Products';
         return view('admin.auction', [
@@ -142,7 +144,26 @@ class ArtAuctionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        $productauction = ProductAuction::find($id);
+
+        $startDate = Carbon::parse($productauction->start_date);
+        $endDate = Carbon::parse($productauction->end_date);
+
+        $diffInSeconds = $endDate->diffInSeconds($startDate);
+        $days = floor($diffInSeconds / (3600 * 24));
+        $hours = floor(($diffInSeconds % (3600 * 24)) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $seconds = $diffInSeconds % 60;
+
+        $bidCount = Bid::where('product_id', $productauction->product_id)->count();
+        // dd($bidCount);
+
+        $bidder = Bid::where('product_id', $productauction->product_id)->with('user')->orderBy('created_at', 'desc')->get();
+        // dd($bidder);
+
+        $endIn = "{$days}d {$hours}h {$minutes}m {$seconds}s";
+        return view('admin.artAuctionDetail', compact('product', 'productauction', "endIn", "bidCount", "bidder"));
     }
 
     /**

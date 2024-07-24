@@ -28,7 +28,7 @@ class ArtSalesController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $detailsUrl = route('artist-sales.show', $row->product_id);
+                    $detailsUrl = route('sales.show', $row->product_id);
                     // intinya ini untuk balikin dropdown ke tables
                     $modalId = 'modal-' . $row->product_id;
                     $csrfToken = csrf_token();
@@ -49,9 +49,7 @@ class ArtSalesController extends Controller
                 </svg>
                 </button>
                 <ul class="dropdown-menu">
-                    <li>
-                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#' . $modalId . '">Delete</button>
-                    </li>
+                    <li><a class="dropdown-item" href="' . $detailsUrl . '">Details</a></li>
                 </ul>
             </div>
             ';
@@ -88,7 +86,8 @@ class ArtSalesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id);
+        return view('admin.artSalesDetail', compact('product'));
     }
 
     /**
