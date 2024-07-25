@@ -15,7 +15,6 @@
         <div class="tab">
             <div style="margin-top: 62px;">
                 <ul class="nav nav-pills" id="myTab">
-
                     <li class="nav-item tab-link tab-active">
                         <a class="tabs" href="{{ route('tabs', 'PACKING') }}"
                             data-ajax-url="{{ route('tabs', 'PACKING') }}">Packing</a>
@@ -36,14 +35,13 @@
                         <a class="tabs" href="{{ route('tabs', 'CANCELLED') }}"
                             data-ajax-url="{{ route('tabs', 'CANCELLED') }}">Cancelled</a>
                     </li>
-
                 </ul>
             </div>
         </div>
         <div class="container packing-container">
             <table class="table table-borderless data-table packing-table">
                 <thead class="packing-table-head">
-                    <tr>
+                    <tr id="table-headers">
                         <th class="packing-table-title">No</th>
                         <th class="packing-table-title">Order ID</th>
                         <th class="packing-table-title">Buyer Name</th>
@@ -54,7 +52,6 @@
                     </tr>
                 </thead>
             </table>
-
         </div>
         <script type="text/javascript">
             $(function() {
