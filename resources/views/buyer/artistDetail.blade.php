@@ -81,7 +81,7 @@
                                 </svg>
                             @endfor
                         </div>
-                        <p class="review-desc .text-truncate-multiline">{{ $review->comment }}</p>
+                        <p class="review-desc text-truncate-multiline">{{ $review->comment }}</p>
                     </div>
                 @empty
                     <p class="text-secondary-txt">No Reviews</p>
