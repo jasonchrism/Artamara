@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title')
-    Sales
+@section('header_title')
+    Art Sales
 @endsection
 @push('styles')
     @vite('resources/css/viewusers.css')
@@ -8,9 +8,6 @@
 
 @section('content')
     <div class="d-flex flex-column gap-4">
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary" href="{{ route('artist-sales.create') }}">+ New Artwork</a>
-        </div>
         <div class="container user-container">
             <table class="table table-borderless data-table user-table">
                 <thead class="user-table-head">

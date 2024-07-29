@@ -84,11 +84,18 @@ class TransactionController extends Controller
             $data = Order::where('status', $status)
                 ->with(['orderDetail.product', 'payment.paymentMethod', 'user', 'refund'])
                 ->get();
-
             $datatable = Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $detailsUrl = route('transactions.detail', $row->order_id);
+                ->addColumn('total_price', function($row){
+                    return 'Rp' . number_format($row->total_price, 0, ',', '.');
+                })
+                ->addColumn('action', function ($row) use($status){
+                    if($status == "CONFIRMED"){
+                        $detailsUrl = route('transactions.detail', $row->order_id);
+                    }else{
+                        $detailsUrl = route('return.review', $row->order_id);
+                    }
+                    
                     $modalId = 'modal-' . $row->order_id;
                     $csrfToken = csrf_token();
                     $actionBtn = '

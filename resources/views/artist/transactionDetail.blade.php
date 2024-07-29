@@ -94,11 +94,7 @@
 
                 <div class="order-container">
                     <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
-                    <p class="text-white">Rp{{ $orderData['grand_total'] }}</p>
-                </div>
-                <div class="order-container">
-                    <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
-                    <p class="text-white">Rp{{ $orderData['grand_total'] }}</p>
+                    <p class="text-white">{{'Rp' . number_format($orderData['grand_total'], 0, ',', '.');}}</p>
                 </div>
                 @if ($orderData['orderstatus'] !== 'PACKING')
                     <div class="order-container">
@@ -127,8 +123,8 @@
                                         <p class="text-secondary">{{ $product['product']->title }}</p>
                                     </div>
                                     <div class="item-quantity d-flex">
-                                        <p class="text-white quantity-p">{{ $product['quantity'] }}</p>
-                                        <p class="text-white">{{ $product['product']->price }}</p>
+                                        <p class="text-white quantity-p">{{ $product['quantity'] }}x</p>
+                                        <p class="text-white">{{ 'Rp' . number_format($product['product']->price, 0, ',', '.'); }}</p>
                                     </div>
                                 </div>
                             </div>

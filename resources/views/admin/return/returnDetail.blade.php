@@ -69,7 +69,7 @@
 
         <div class="order-container">
             <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
-            <p class="text-white">Rp{{ $or->total_price }}</p>
+            <p class="text-white">{{ 'Rp' . number_format($or->total_price, 0, ',', '.'); }}</p>
         </div>
 
         <div class="order-container">
@@ -118,6 +118,8 @@
         {{-- ini punya admin --}}
         <div class="right-side d-flex flex-column">
             <!-- Report Details -->
+            @isset($refund_photo_appeal)
+           
             <div class="report-details-container">
                 <p class="text-white fw-semibold report-details-header">Report Details</p>
                 @foreach($orders as $order)
@@ -146,6 +148,8 @@
                 </div>
                 @endforeach
             </div>
+            @endisset
+                
 
         <!-- Item Details -->
         <div class="item-details-container">
@@ -163,8 +167,8 @@
                                     <p class="text-secondary">{{ $od->product->title }}</p>
                                 </div>
                             </div>
-                            <p class="text-white">{{ $od->quantity }}</p>
-                            <p class="text-white product-price">Rp{{ $od->product->price }}</p>
+                            <p class="text-white">{{ $od->quantity }}x</p>
+                            <p class="text-white product-price">{{ 'Rp' . number_format($od->product->price, 0, ',', '.'); }}</p>
                         </div>
                     </div>
                 @endforeach

@@ -24,7 +24,6 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            Log::info("hello");
             $authUserId = Auth::user()->user_id;
             $data = Order::with(['orderDetail.product', 'payment.paymentMethod', 'user'])
                 ->where('status', 'PACKING')
@@ -32,7 +31,6 @@ class TransactionController extends Controller
                     $query->where('user_id', $authUserId);
                 })
                 ->get();
-            Log::info($data);
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -97,11 +95,18 @@ class TransactionController extends Controller
                     $query->where('user_id', $authUserId);
                 })
                 ->get();
-
+            
             $datatable = Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $detailsUrl = route('artist-transactions.show', $row->order_id);
+                ->addColumn('total_price', function($row){
+                    return 'Rp' . number_format($row->total_price, 0, ',', '.');
+                })
+                ->addColumn('action', function ($row) use($status) {
+                    if($status == "RETURNED"){
+                        $detailsUrl = route('return.index', [$row->order_id, $row->refund->status]);
+                    }else{
+                        $detailsUrl = route('artist-transactions.show', $row->order_id);
+                    }
                     $modalId = 'modal-' . $row->order_id;
                     $csrfToken = csrf_token();
                     $actionBtn = '

@@ -32,6 +32,9 @@ class ArtSalesController extends Controller
             // dd($data);
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('price', function($row){
+                    return 'Rp' . number_format($row->price, 0, ',', '.');
+                })
                 ->addColumn('action', function ($row) {
                     $detailsUrl = route('artist-sales.show', $row->product_id);
                     $deleteProduct = route('artist-sales.destroy', $row->product_id);

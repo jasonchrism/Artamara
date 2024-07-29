@@ -89,7 +89,7 @@
                     </div>
                     <div class="inner-content-container">
                         <h2>Price</h2>
-                        <p>Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p>Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                     </div>
                 </div>
                 <div class="content-container">
@@ -135,7 +135,7 @@
                 <div class="content-container">
                     <div class="inner-content-container">
                         <h2>Starting Price</h2>
-                        <p>Rp {{ number_format($productauction->start_price, 0, ',', '.') }}</p>
+                        <p>Rp{{ number_format($productauction->start_price, 0, ',', '.') }}</p>
                     </div>
                     <div class="inner-content-container">
                         <h2>Start Date</h2>
@@ -145,7 +145,7 @@
                 <div class="content-container">
                     <div class="inner-content-container">
                         <h2>Bid Multiple</h2>
-                        <p>Rp {{ number_format($productauction->add_price, 0, ',', '.') }}</p>
+                        <p>Rp{{ number_format($productauction->add_price, 0, ',', '.') }}</p>
                     </div>
                     <div class="inner-content-container">
                         <h2>End Date</h2>

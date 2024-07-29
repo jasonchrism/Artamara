@@ -51,7 +51,7 @@
                     </div>
                     <div class="inner-content-container">
                         <h2>Price</h2>
-                        <p>Rp. {{ $product->price }}</p>
+                        <p>{{'Rp' . number_format($product->price, 0, ',', '.');}}</p>
                     </div>
                 </div>
                 <div class="content-container">
