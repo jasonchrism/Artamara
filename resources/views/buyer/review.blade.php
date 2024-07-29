@@ -9,6 +9,7 @@
 
         <form class="" action="{{ route('front.buyer.store.review') }}" method="POST" autocomplete="off">
             @csrf
+            <input type="hidden" name="order_id" value="{{$order->order_id}}">
             @foreach($groupedProducts as $userId => $products)
             <div class="profile-container d-flex align-items-center">
                 <img src="{{ $products->first()->product->profile_picture }}" alt="" class="profile-picture">
