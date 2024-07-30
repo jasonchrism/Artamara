@@ -39,7 +39,7 @@ class bannedBuyer extends Command
                 $currentTime = Carbon::now();
                 $diffInMinutes = $currentTime->diffInMinutes($timestamp, false);
                 
-                if($diffInMinutes <= -1 && $bid->status != 'PAID'){
+                if($diffInMinutes <= -120 && $bid->status != 'PAID'){
                     $buyer = User::find($buyerWon);
                     $buyer->status = 'INACTIVE';
                     $buyer->save();

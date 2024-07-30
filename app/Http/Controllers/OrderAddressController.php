@@ -74,6 +74,7 @@ class OrderAddressController extends Controller
             ]);
         }
 
+        // return redirect()->back()->with('address_title', 'Address successfully created!');
         return redirect()->route('front.order.create')->with('address_title', 'Address successfully created!');
     }
     public function updateAddress($id)

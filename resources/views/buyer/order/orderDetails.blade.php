@@ -143,6 +143,7 @@
                     @foreach ($groupedOrder as $artistName => $items)
                         <h6 class="text-white fw-medium mb-3">{{ $artistName }}</h6>
                         @foreach ($items as $item)
+                        {{-- {{dd($items)}} --}}
                             <div class="d-flex justify-content-between wrapper-product-content">
                                 <img src="{{ $item['product']->thumbnail }}" alt="" class="object-fit-cover product-img">
                                 <div class="product-content">
@@ -150,7 +151,11 @@
                                     <p class="text-secondary-txt product-year">{{ $item['product']->year }}</p>
                                 </div>
                                 <p class="product-qty">{{ $item['quantity'] }}x</p>
-                                <p class="product-price">{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p>
+                               @if ($item['isAuction'] == true)
+                               <p class="product-price">{{ 'Rp' . number_format($item['price'], 0, ',', '.') }}</p>
+                               @else
+                               <p class="product-price">{{ 'Rp' . number_format($item['product']->price, 0, ',', '.') }}</p> 
+                               @endif
                             </div>
                         @endforeach
                     @endforeach
@@ -161,6 +166,7 @@
                     <h5 class="text-white fw-medium mb-3">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-3">
                         <p class="text-secondary-txt">Total Price ({{ $order->count() }} items)</p>
+                        {{-- {{dd($total)}} --}}
                         <p class="text-white">{{ 'Rp' . number_format($total, 0, ',', '.') }}</p>
                     </div>
                     <div class="d-flex justify-content-between mb-4">

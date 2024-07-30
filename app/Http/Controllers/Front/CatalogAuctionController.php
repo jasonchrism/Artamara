@@ -32,10 +32,9 @@ class CatalogAuctionController extends Controller
 
     public function detail($id)
     {
-        // mencari product sesuai id yang diterima pada database
+        // Find the product by ID with related product details
         $product = ProductAuction::with('product')->where('product_id', $id)->first();
         $lastBid = Bid::where('product_id', $id)->orderBy('bid_price', 'desc')->first();
-        // dd($auctions);
 
         $buyNow = $product->product->price;
         $startPrice = $product->start_price;
@@ -43,30 +42,25 @@ class CatalogAuctionController extends Controller
         $maxMultiple = 20;
         $priceMultiples = [];
 
-        // Initialize with the start price or the nearest multiple of baseMultiple that is not less than start price
-        $firstMultiple = ceil($startPrice / $baseMultiple) * $baseMultiple;
-        if ($firstMultiple < $startPrice) {
-            $firstMultiple += $baseMultiple;
-        }
+        // Initialize with the start price
+        $currentPrice = $startPrice;
+        $priceMultiples[] = $currentPrice;
 
-        $priceMultiples[] = $firstMultiple;
-
-        $i = 1;
+        // Calculate the price multiples starting from startPrice and adding baseMultiple
         while (true) {
-            $multiple = $firstMultiple + $baseMultiple * $i;
-            if ($multiple >= $buyNow) {
-                break; // Exit loop if multiple is greater than or equal to $buynow
+            $currentPrice += $baseMultiple;
+            if ($currentPrice >= $buyNow) {
+                break; // Exit loop if currentPrice is greater than or equal to buyNow
             }
-            $priceMultiples[] = $multiple;
-            $i++;
+            $priceMultiples[] = $currentPrice;
         }
 
-        $bids = Bid::with('user')->where('product_id', $id)->get();
+        $bids = Bid::with('user')->where('product_id', $id)->orderBy('created_at', 'desc')->get();
         $bids = $bids->isEmpty() ? null : $bids;
-        // dd($bids);
-        // dd($product);
+
         return view('buyer.auctionDetails', compact('product', 'lastBid', 'priceMultiples', 'bids'));
     }
+
 
     public function updateStatus(Request $request)
     {

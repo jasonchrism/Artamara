@@ -14,7 +14,22 @@
     display: flex;
     align-items: center;
 }
-
+.notification-success{
+    width: 462px;
+    min-height: 66px;
+    background-color: var(--bg-overlay-1);
+    color: var(--text-primary);
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    z-index: 999999;
+    transform: translateX(-50%);
+    transition-delay: .4s;
+    border: 1px solid red;
+    display: flex;
+    align-items: center; 
+}
 .no-title {
     display: none;
 }

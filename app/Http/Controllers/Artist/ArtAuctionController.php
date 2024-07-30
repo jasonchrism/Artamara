@@ -83,6 +83,14 @@ class ArtAuctionController extends Controller
                                 </div>
                             </div>
                         ';
+                    }elseif ($status == 'Paid') {
+                        $statusStyle = '
+                            <div class="inner-content-container bidstatus">
+                                <div class="status-container" style="background-color: blue;">
+                                    <p style="color: white;">' . $status . '</p>
+                                </div>
+                            </div>
+                        ';
                     }
                     return $statusStyle;
 

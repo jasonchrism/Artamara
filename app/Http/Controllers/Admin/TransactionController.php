@@ -133,28 +133,28 @@ class TransactionController extends Controller
                     // Define the background color and text color based on status
                     switch ($status) {
                         case 'Admin review':
-                            $backgroundColor = '#001F6E';
-                            $textColor = '#95D3FF';
+                            $backgroundColor = 'var(--bg-overlay-2)';
+                            $textColor = 'var(--text-secondary)';
                             break;
                         case 'Artist review':
-                            $backgroundColor = '#001F6E';
+                            $backgroundColor = 'var(--bg-label-blue)';
                             $textColor = '#95D3FF';
                             break;
                         case 'Admin confirmation':
-                            $backgroundColor = '#401111';
-                            $textColor = '#FC2D2D';
+                            $backgroundColor = 'var(--bg-label-primary)';
+                            $textColor = 'green';
                             break;
                         case 'Rejected':
-                            $backgroundColor = '#401111';
-                            $textColor = '#FC2D2D';
+                            $backgroundColor = 'var(--bg-label-primary)';
+                            $textColor = 'var(--primary)';
                             break;
                         case 'Accepted':
-                            $backgroundColor = '#4B5D02';
-                            $textColor = '#CEFE06';
+                            $backgroundColor = 'var(--bg-label-primary)';
+                            $textColor = 'red';
                             break;
                         case 'Finished':
-                            $backgroundColor = '#4B5D02';
-                            $textColor = '#CEFE06';
+                            $backgroundColor = 'var(--bg-label-primary)';
+                            $textColor = 'white';
                             break;
                         default:
                             $backgroundColor = 'gray'; // Fallback color

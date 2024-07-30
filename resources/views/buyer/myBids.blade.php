@@ -94,8 +94,18 @@
                         @endif
 
                         @if ($status != 'ON GOING' && $item['latest_bid']->bid_price == $item['user_last_bid']->bid_price)
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target=""
-                                data-bs-dismiss="modal">Checkout</button>
+                            {{-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target=""
+                                data-bs-dismiss="modal">Checkout</button> --}}
+                            <form action="{{ route('front.order.session', 'auction') }}" method="post">
+                                @csrf
+                                <input type="hidden" value="{{ $item['latest_bid']->bid_price }}" name="last_bid">
+                                <input type="hidden" value="{{ json_encode([$item['product']->product_id]) }}"
+                                    name="product">
+                                <input id="quantity2" type="number" step="1" max="10" value="1"
+                                    name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
+                                <button type="submit" class="btn btn-primary buy-now buy-now-hover"
+                                    style="width: 100%;">Checkout</button>
+                            </form>
                         @endif
                     </div>
                     {{-- {{ dd($productsWithBids) }} --}}
@@ -143,16 +153,17 @@
                                         @csrf
                                         <input type="hidden" value="{{ json_encode([$item['product']->product_id]) }}"
                                             name="product">
-                                        <input id="quantity2" type="number" step="1" max="10" value="1"
-                                            name="quantity" class="quantity-field border-0 text-center inputcartnumber"
-                                            hidden>
+                                        <input id="quantity2" type="number" step="1" max="10"
+                                            value="1" name="quantity"
+                                            class="quantity-field border-0 text-center inputcartnumber" hidden>
                                         @if ($item['product']->productAuction->status != 'ON GOING')
                                             <button type="submit" class="btn btn-primary buy-now" style="width: 100%"
                                                 disabled>BUY
                                                 NOW</button>
                                         @else
-                                            <button type="submit" class="btn btn-primary buy-now"
-                                                style="width: 100%">BUY NOW</button>
+                                            
+                                            <button type="submit" class="btn btn-primary buy-now buy-now-hover"
+                                                style="width: 100%;" data-price="Rp.{{ $item['product']->price }}"><span class="button-text">BUY NOW</span></button>
                                         @endif
                                     </form>
                                 </div>
@@ -164,9 +175,10 @@
                     </div>
                 </div>
                 @if (session('status') || session('bid_price') || $errors->any())
-                    <div class="notification {{ session('status') == 'error' ? 'error' : '' }}" id="notifBids">
-                        <div class="d-flex notif-container">
-                            @if ($errors->any())
+                    @if ($errors->any())
+                        <div class="notification-success {{ session('status') == 'error' ? 'error' : '' }}"
+                            id="notifBids">
+                            <div class="d-flex notif-container">
                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -175,20 +187,23 @@
                                 </svg>
                                 <p class="title fw-semibold">{{ $errors->first() }}</p>
                             @else
-                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13 2.16669C7.04163 2.16669 2.16663 7.04169 2.16663 13C2.16663 18.9584 7.04163 23.8334 13 23.8334C18.9583 23.8334 23.8333 18.9584 23.8333 13C23.8333 7.04169 18.9583 2.16669 13 2.16669ZM13 21.6667C8.22246 21.6667 4.33329 17.7775 4.33329 13C4.33329 8.22252 8.22246 4.33335 13 4.33335C17.7775 4.33335 21.6666 8.22252 21.6666 13C21.6666 17.7775 17.7775 21.6667 13 21.6667ZM17.9725 8.21169L10.8333 15.3509L8.02746 12.5559L6.49996 14.0834L10.8333 18.4167L19.5 9.75002L17.9725 8.21169Z"
-                                        fill="#CEFE06" />
-                                </svg>
+                                <div class="notification {{ session('status') == 'error' ? 'error' : '' }}"
+                                    id="notifBids">
+                                    <div class="d-flex notif-container">
+                                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M13 2.16669C7.04163 2.16669 2.16663 7.04169 2.16663 13C2.16663 18.9584 7.04163 23.8334 13 23.8334C18.9583 23.8334 23.8333 18.9584 23.8333 13C23.8333 7.04169 18.9583 2.16669 13 2.16669ZM13 21.6667C8.22246 21.6667 4.33329 17.7775 4.33329 13C4.33329 8.22252 8.22246 4.33335 13 4.33335C17.7775 4.33335 21.6666 8.22252 21.6666 13C21.6666 17.7775 17.7775 21.6667 13 21.6667ZM17.9725 8.21169L10.8333 15.3509L8.02746 12.5559L6.49996 14.0834L10.8333 18.4167L19.5 9.75002L17.9725 8.21169Z"
+                                                fill="#CEFE06" />
+                                        </svg>
 
-                                <p class="title fw-semibold">{{ session('bid_price') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                @endif
+                                        <p class="title fw-semibold">{{ session('bid_price') }}</p>
+                    @endif
             </div>
-        @endforeach
+    </div>
+    @endif
+    </div>
+    @endforeach
     </div>
 @endsection
 
@@ -242,6 +257,34 @@
                     notif.style.display = 'none';
                 }, 1000); // Hide after 5 seconds
             }
+        });
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.buy-now-hover');
+            const buttonText = button.querySelector('.button-text');
+            const originalText = buttonText.innerText;
+            const priceText = button.getAttribute('data-price');
+
+            button.addEventListener('mouseover', function() {
+                buttonText.style.opacity = 0;
+                buttonText.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    buttonText.innerText = priceText;
+                    buttonText.style.opacity = 1;
+                    buttonText.style.transform = 'scale(1)';
+                }, 200); // Match the transition duration
+            });
+
+            button.addEventListener('mouseout', function() {
+                buttonText.style.opacity = 0;
+                buttonText.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    buttonText.innerText = originalText;
+                    buttonText.style.opacity = 1;
+                    buttonText.style.transform = 'scale(1)';
+                }, 200); // Match the transition duration
+            });
         });
     </script>
 @endpush

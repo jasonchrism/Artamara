@@ -55,12 +55,60 @@ class OrderController extends Controller
             $product = Product::find($order['product']);
             $tempOrders[] = [
                 'product' => $product,
-                'quantity' => $order['quantity']
+                'quantity' => $order['quantity'],
+                'isAuction' => false
             ];
             $total += $order['quantity'] * $product->price;
         }
 
         $order = collect($tempOrders);
+        $groupedOrder = $order->groupBy('product.user.name');
+        // dd($order);
+        return view('buyer.order.orderDetails', compact('addressDefault', 'userAddress', 'isAddressNull', 'order', 'total', 'shipment', 'groupedOrder'));
+    }
+    public function createAuction(Request $request)
+    {
+        $userId = Auth::user()->user_id;
+        $addressDefault = UserAddress::where('user_id', '=', $userId)->where('is_default', 1)->first();
+
+        $userAddress = UserAddress::where('user_id', '=', $userId)->get();
+
+        $isAddressNull = $userAddress->first();
+        $orders = session('order');
+        $tempOrders = [];
+        $total = 0;
+        $shipment = [
+            'cost' => 0,
+            'region' => 'Unknown'
+        ];
+
+        if ($addressDefault) {
+            if ($addressDefault->address->country == "Indonesia") {
+                $shipment = [
+                    'cost' => 40000,
+                    'region' => 'Domestic'
+                ];
+            } else {
+                $shipment = [
+                    'cost' => 80000,
+                    'region' => 'International'
+                ];
+            }
+        }
+
+        foreach ($orders as $order) {
+            $product = Product::find($order['product']);
+            $tempOrders[] = [
+                'product' => $product,
+                'quantity' => $order['quantity'],
+                'price' => $order['price'],
+                'isAuction' => true
+            ];
+            $total += $order['quantity'] * $order['price'];
+        }
+
+        $order = collect($tempOrders);
+        // dd($order);
         $groupedOrder = $order->groupBy('product.user.name');
         // dd($order);
         return view('buyer.order.orderDetails', compact('addressDefault', 'userAddress', 'isAddressNull', 'order', 'total', 'shipment', 'groupedOrder'));
@@ -86,6 +134,7 @@ class OrderController extends Controller
                     [
                         'product' => $product,
                         'quantity' => $quantity,
+                        'isAuction' => false
                     ]
                 ],
                 'state' => 'buy'
@@ -124,6 +173,34 @@ class OrderController extends Controller
                 'state' => 'cart'
             ]);
             // dd(session('order'));
+        }else if ($state == "auction") {
+            $lastBid = $request->input('last_bid');
+            $product = $request->input('product');
+            $product = json_decode($product)[0];
+            $quantity = $request->input('quantity');
+            $data = Product::find($product);
+            // dd($lastBid);
+            $tempStock = $data->stock - $quantity;
+            if ($tempStock < 0) {
+                return redirect()->route('front.productDetails', $product)->with([
+                    'status' => 'error',
+                    'address_title' => 'Cannot purchase more than ' . $data->stock . ' items'
+                ]);
+            }
+            session([
+                'order' =>
+                [
+                    [
+                        'product' => $product,
+                        'quantity' => $quantity,
+                        'price' => $lastBid,
+                        'isAuction' => true
+                    ]
+                ],
+                'state' => 'auction'
+            ]);
+            // dd(session('order'));
+            return redirect()->action([OrderController::class, 'createAuction']);
         }
         return redirect()->action([OrderController::class, 'create']);
     }
@@ -142,8 +219,15 @@ class OrderController extends Controller
         $totalPrice = $request->input('totalPrice');
         $shipmentCost = $request->input('shipmentCost');
         $addressId = $request->input('addressId');
-        if (!isset($addressId)) {
+        $isAuction = session('order')[0]['isAuction'];
+        // dd($isAuction);
+        if (!isset($addressId) && $isAuction == false) {
             return redirect()->action([OrderController::class, 'create'])->with([
+                'address_title' => 'Please select an address to proceed with your order.',
+                'status' => 'error'
+            ]);
+        }else if (!isset($addressId) && $isAuction == true) {
+            return redirect()->action([OrderController::class, 'createAuction'])->with([
                 'address_title' => 'Please select an address to proceed with your order.',
                 'status' => 'error'
             ]);
