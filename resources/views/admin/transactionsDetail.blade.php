@@ -70,7 +70,7 @@
 
         <div class="order-container">
             <p class="text-white fw-semibold" style="margin-bottom: 8px;">Total Price</p>
-            <p class="text-white">Rp{{ $or->total_price }}</p>
+            <p class="text-white">{{'Rp' . number_format($or->total_price, 0, ',', '.');}}</p>
         </div>
 
         <div class="order-container">
@@ -100,7 +100,7 @@
                         <p class="text-secondary">{{ $od->product->title }}</p>
                     </div>
                 </div>
-                <p class="text-white">{{ $od->quantity }}</p>
+                <p class="text-white">{{ $od->quantity }}x</p>
                 <p class="text-white product-price">Rp{{ $od->product->price }}</p>
             </div>
         </div>

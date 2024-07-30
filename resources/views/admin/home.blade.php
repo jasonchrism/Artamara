@@ -102,7 +102,7 @@ Welcome, Admin
                                 <tr>
                                     <td scope="row">{{ $loop->index + 1 }}</td>
                                     <td>{{ $auction->product->title }}</td>
-                                    <td>Rp{{ $auction->start_price }}</td>
+                                    <td>{{'Rp' . number_format($auction->start_price, 0, ',', '.');}}</td>
                                     <td id="remaining_time_{{ $auction->product_id }}">{{ $auction->remaining_time }}</td>
                                 </tr>
                             @endforeach

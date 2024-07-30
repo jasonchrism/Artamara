@@ -156,6 +156,6 @@ Route::prefix("/dashboard/artist")->middleware(ArtistMiddleware::class)->group(f
 
     Route::get('/transaction-detail', [TransactionDetailController::class, 'index']);
 
-    Route::get('/return-detail/{orderId}', [ReturnDetailController::class, 'index'])->name('return.index');
+    Route::get('/return-detail/{orderId}/{status}', [ReturnDetailController::class, 'index'])->name('return.index');
     Route::post('/return-appeal/{orderId}', [ReturnDetailController::class, 'appeal'])->name('return.appeal');
 });

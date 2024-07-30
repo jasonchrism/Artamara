@@ -12,22 +12,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ReturnDetailController extends Controller
 {
-    public function index($order_id) {
+    public function index($order_id, $status) {
         // $order_id = '9c86777e-158d-4e78-8ca1-db7602ab5aa9';
         // $order_id = '9c8dc2f9-1ac5-4d0e-9abb-e3c16186273a';
 
         // dd($order_id);
         $orders = Order::with(['userAddress.user', 'userAddress.address', 'payment.paymentMethod', 'refund'])
             ->where('order_id', $order_id)
-            ->whereHas('refund', function ($query) {
-                $query->where('status', 'ARTIST REVIEW');
+            ->whereHas('refund', function ($query) use($status) {
+                $query->where('status', $status);
             })
             ->get();
-
+        
         $items = Order::with(['orderDetail.product.user', 'refund'])
             ->where('order_id', $order_id)
-            ->whereHas('refund', function ($query) {
-                $query->where('status', 'ARTIST REVIEW');
+            ->whereHas('refund', function ($query) use($status){
+                $query->where('status', $status);
             })
             ->get();
 
@@ -49,6 +49,7 @@ class ReturnDetailController extends Controller
             'items' => $items,
             'refund_photo' => $photo,
             'refund_video' => $video,
+            'status' => $status
         ]);
     }
 

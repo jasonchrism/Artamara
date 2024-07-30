@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title')
-    Transaction
+@section('header_title')
+    Transactions
 @endsection
 
 @push('styles')

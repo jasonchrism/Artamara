@@ -32,7 +32,7 @@ class ReviewController extends Controller
 
         foreach ($review as $r) {
             if ($r->order_id == $request->input('order_id')) {
-                return redirect('/mytransactions/PACKING')->with([
+                return redirect('/mytransactions/CONFIRMED')->with([
                     'address_title' => 'You already submitted review',
                     'status' => 'error'
                 ]);

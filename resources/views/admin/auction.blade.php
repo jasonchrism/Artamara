@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
-@section('title')
-    Auction
+@section('header_title')
+    Art Auction
 @endsection
 @push('styles')
     @vite('resources/css/viewusers.css')
