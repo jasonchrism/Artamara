@@ -156,8 +156,8 @@
                     {{-- description --}}
                     <label for="description">Description</label>
                     <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror"
-                        name="description" value="{{ old('description') }}" autocomplete="off" placeholder="Art Description" required
-                        style="height: 50%"></textarea>
+                        name="description"  autocomplete="off" placeholder="Art Description" required
+                        style="height: 50%">{{ old('description') }}"</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

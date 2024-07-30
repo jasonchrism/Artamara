@@ -100,6 +100,7 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
         Route::post('/review', [BuyerReviewController::class, 'store'])->name('buyer.store.review');
         Route::post('/orderDetails/session/{state}', [OrderController::class, 'addSession'])->name('order.session');
         Route::get('/orderDetails', [OrderController::class, 'create'])->name('order.create');
+        Route::get('/auctionOrderDetails', [OrderController::class, 'createAuction'])->name('order.createAuction');
         Route::post('/orderDetails/store', [OrderController::class, 'store'])->name('order.store');
         Route::get('/orderDetails/address/{id}/update', [OrderAddressController::class, 'updateAddress'])->name('order.address.update');
         Route::get('/orderDetails/address/create', [OrderAddressController::class, 'createAddress'])->name('order.address.create');

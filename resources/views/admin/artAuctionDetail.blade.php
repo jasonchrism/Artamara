@@ -54,10 +54,17 @@ Artwork Details
                     <p style="color: var(--primary);">{{ $productauction->status }}</p>
                 </div>
             </div>
+            @elseif($productauction->status == "PAID")
+            <div class="inner-content-container bidstatus">
+                <h2>Status</h2>
+                <div class="status-container" style="background-color: blue;">
+                    <p style="color: white;">{{ $productauction->status }}</p>
+                </div>
+            </div>
 
             @endif
 
-            <div class="inner-content-container" style="margin-left: 20px">
+            {{-- <div class="inner-content-container" style="margin-left: 20px">
                 <h2>End in</h2>
                 @if ($productauction->status !== "ON GOING")
                 <p class="endin">Bid not started yet</p>
@@ -65,6 +72,19 @@ Artwork Details
                 @else
                 <p class="endin">{{$endIn}}</p>
 
+                @endif
+            </div> --}}
+            <div class="inner-content-container" style="margin-left: 20px">
+                <h2>End in</h2>
+                <input type="hidden" id="product-id" value="{{ $productauction->product->product_id }}">
+                @if ($productauction->status !== 'ON GOING')
+                    <p class="endin">Bid not started yet</p>
+                @else
+                    {{-- <p class="endin">{{ $endIn }}</p> --}}
+                    {{-- {{dd($productauction->end_date)}} --}}
+                    <div class="countdown" id="countdown" data-end-date="{{ $productauction->end_date }}">
+                        <p id="countdown-timer" class="endin"></p>
+                    </div>
                 @endif
             </div>
         </div>
@@ -187,4 +207,85 @@ Artwork Details
 
 @push('styles')
 @vite('resources/css/artist/artDetail.css')
+@endpush
+@push('after-scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function startCountdown(element, targetDate, isStartCountdown) {
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = new Date(targetDate).getTime() - now;
+
+                if (distance < 0) {
+                    if (isStartCountdown) {
+                        // Change status to "ON GOING"
+                        const productId = document.getElementById('product-id').value;
+                        $.ajax({
+                            url: '{{ route('front.auction.updateStatus') }}',
+                            type: 'POST',
+                            data: {
+                                product_id: productId,
+                                status: 'ON GOING',
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(error);
+                            }
+                        });
+                    } else {
+                        element.innerHTML = "Auction ended";
+                        const productId = document.getElementById('product-id').value;
+                        $.ajax({
+                            url: '{{ route('front.auction.updateStatus') }}',
+                            type: 'POST',
+                            data: {
+                                product_id: productId,
+                                status: 'CLOSED',
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                // location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(error);
+                            }
+                        });
+                    }
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                const countdownTimer = isStartCountdown ? document.getElementById('start-countdown-timer') : document
+                    .getElementById('countdown-timer');
+                countdownTimer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            };
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        $(document).ready(function() {
+            const startCountdownElement = document.getElementById('start-countdown');
+            const countdownElement = document.getElementById('countdown');
+            const productId = document.getElementById('product-id').value;
+
+            if (startCountdownElement) {
+                const startDate = startCountdownElement.getAttribute('data-start-date');
+                startCountdown(startCountdownElement, startDate, true);
+            }
+
+            if (countdownElement) {
+                const endDate = countdownElement.getAttribute('data-end-date');
+                startCountdown(countdownElement, endDate, false);
+            }
+        });
+    </script>
 @endpush

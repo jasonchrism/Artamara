@@ -217,6 +217,12 @@ input.inputcartnumber[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* buy now hover */
+
+.button-text {
+    transition: opacity 150ms ease-out, transform 200ms ease-out;
+    display: inline-block;
+}
 
 /* bagian bawah */
 
@@ -289,7 +295,6 @@ input.inputcartnumber[type="number"]::-webkit-inner-spin-button {
 .bidder-table {
     border-collapse: collapse;
     width: 50%;
-    margin-top: 24px;
 }
 
 thead, tbody, tfoot, tr, td, th {

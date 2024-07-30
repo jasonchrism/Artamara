@@ -100,12 +100,14 @@
                     Place Bid</p>
 
                 <div class="button-bottom">
+                    {{-- {{dd($product)}} --}}
                     @if (Auth::check())
                         <form action="{{ route('front.bid.store') }}" method="post" style="width: 100%"
                             class="form-auction">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                            <select class="buy-now bid-now-price custom-select" id="bid_price" name="bid_price" style="width: 100%">
+                            <select class="buy-now bid-now-price custom-select" id="bid_price" name="bid_price"
+                                style="width: 100%">
                                 @foreach ($priceMultiples as $multiple)
                                     <option value="{{ $multiple }}">Rp{{ number_format($multiple, 0, ',', '.') }}
                                     </option>
@@ -127,11 +129,14 @@
                                 <button type="submit" class="btn btn-primary buy-now" style="width: 100%" disabled>BUY
                                     NOW</button>
                             @else
-                                <button type="submit" class="btn btn-primary buy-now" style="width: 100%">BUY NOW</button>
+                                <button type="submit" class="btn btn-primary buy-now buy-now-hover" style="width: 100%;"
+                                    data-price="Rp.{{ $product->product->price }}"> <span class="button-text">BUY
+                                        NOW</span></button>
                             @endif
                         </form>
                     @else
-                        <select class="buy-now bid-now-price custom-select" id="bid_price" name="bid_price" style="width: 100%">
+                        <select class="buy-now bid-now-price custom-select" id="bid_price" name="bid_price"
+                            style="width: 100%">
                             @foreach ($priceMultiples as $multiple)
                                 <option value="{{ $multiple }}">Rp{{ number_format($multiple, 0, ',', '.') }}
                                 </option>
@@ -141,14 +146,17 @@
                             <button type="submit" class="btn btn-primary buy-now" style="width: 100%">BID</button>
                         </form>
                         <form action="{{ route('login') }}" method="get" style="width: 100%">
-                            <button type="submit" class="buy-now buy-now-button" style="width: 100%">BUY NOW</button>
+                            <button type="submit" class="btn btn-primary buy-now buy-now-hover" style="width: 100%;"
+                                data-price="Rp.{{ $product->product->price }}"><span class="button-text">BUY
+                                    NOW</span></button>
                         </form>
                     @endif
 
                     @if (session('status') || session('bid_price') || $errors->any())
-                        <div class="notification {{ session('status') == 'error' ? 'error' : '' }}" id="notif">
-                            <div class="d-flex notif-container">
-                                @if ($errors->any())
+                        @if ($errors->any())
+                            <div class="notification-success  {{ session('status') == 'error' ? 'error' : '' }}"
+                                id="notif">
+                                <div class="d-flex notif-container">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -157,108 +165,112 @@
                                     </svg>
                                     <p class="title fw-semibold">{{ $errors->first() }}</p>
                                 @else
-                                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13 2.16669C7.04163 2.16669 2.16663 7.04169 2.16663 13C2.16663 18.9584 7.04163 23.8334 13 23.8334C18.9583 23.8334 23.8333 18.9584 23.8333 13C23.8333 7.04169 18.9583 2.16669 13 2.16669ZM13 21.6667C8.22246 21.6667 4.33329 17.7775 4.33329 13C4.33329 8.22252 8.22246 4.33335 13 4.33335C17.7775 4.33335 21.6666 8.22252 21.6666 13C21.6666 17.7775 17.7775 21.6667 13 21.6667ZM17.9725 8.21169L10.8333 15.3509L8.02746 12.5559L6.49996 14.0834L10.8333 18.4167L19.5 9.75002L17.9725 8.21169Z"
-                                            fill="#CEFE06" />
-                                    </svg>
+                                    <div class="notification {{ session('status') == 'error' ? 'error' : '' }}"
+                                        id="notif">
+                                        <div class="d-flex notif-container">
+                                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M13 2.16669C7.04163 2.16669 2.16663 7.04169 2.16663 13C2.16663 18.9584 7.04163 23.8334 13 23.8334C18.9583 23.8334 23.8333 18.9584 23.8333 13C23.8333 7.04169 18.9583 2.16669 13 2.16669ZM13 21.6667C8.22246 21.6667 4.33329 17.7775 4.33329 13C4.33329 8.22252 8.22246 4.33335 13 4.33335C17.7775 4.33335 21.6666 8.22252 21.6666 13C21.6666 17.7775 17.7775 21.6667 13 21.6667ZM17.9725 8.21169L10.8333 15.3509L8.02746 12.5559L6.49996 14.0834L10.8333 18.4167L19.5 9.75002L17.9725 8.21169Z"
+                                                    fill="#CEFE06" />
+                                            </svg>
 
-                                    <p class="title fw-semibold">{{ session('bid_price') }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
+                                            <p class="title fw-semibold">{{ session('bid_price') }}</p>
+                        @endif
+
                 </div>
-
-
             </div>
+            @endif
         </div>
 
-        {{-- ini untuk bagian bawah --}}
-        <div class="details-container">
-            <div class="Lower-details-container">
 
-                <div class="Artwork-About">
-                    <h3>About The Artwork</h3>
-                    <div class="Artwork-About-Details">
-                        <div class="detail-auction-product">
-                            <p style="width: 100px">Description</p>
-                            <p style="color: var(--text-secondary)">{{ $product->product->description }}</p>
-                        </div>
-                        <div class="detail-auction-product">
-                            <p style="width: 100px">Materials</p>
-                            <p style="color: var(--text-secondary)">{{ $product->product->material }}</p>
-                        </div>
-                        <div class="detail-auction-product">
-                            <p style="width: 100px">Size</p>
-                            <p style="color: var(--text-secondary)">{{ $product->product->length }} x
-                                {{ $product->product->width }} cm</p>
-                        </div>
-                        <div class="detail-auction-product">
-                            <p style="width: 100px">Medium</p>
-                            <p style="color: var(--text-secondary)">{{ $product->product->medium }}</p>
-                        </div>
-                        <div class="detail-auction-product">
-                            <p style="width: 100px">Category</p>
-                            <p style="color: var(--text-secondary)">{{ $product->product->category->name }}</p>
-                        </div>
+    </div>
+    </div>
 
+    {{-- ini untuk bagian bawah --}}
+    <div class="details-container">
+        <div class="Lower-details-container">
+
+            <div class="Artwork-About">
+                <h3>About The Artwork</h3>
+                <div class="Artwork-About-Details">
+                    <div class="detail-auction-product">
+                        <p style="width: 100px">Description</p>
+                        <p style="color: var(--text-secondary)">{{ $product->product->description }}</p>
                     </div>
+                    <div class="detail-auction-product">
+                        <p style="width: 100px">Materials</p>
+                        <p style="color: var(--text-secondary)">{{ $product->product->material }}</p>
+                    </div>
+                    <div class="detail-auction-product">
+                        <p style="width: 100px">Size</p>
+                        <p style="color: var(--text-secondary)">{{ $product->product->length }} x
+                            {{ $product->product->width }} cm</p>
+                    </div>
+                    <div class="detail-auction-product">
+                        <p style="width: 100px">Medium</p>
+                        <p style="color: var(--text-secondary)">{{ $product->product->medium }}</p>
+                    </div>
+                    <div class="detail-auction-product">
+                        <p style="width: 100px">Category</p>
+                        <p style="color: var(--text-secondary)">{{ $product->product->category->name }}</p>
+                    </div>
+
                 </div>
+            </div>
 
-                <div class="Artist-About">
-                    <h3>About The Artist</h3>
-                    <div class="Artist-About-Details">
-                        <div class="Artist-About-Details-Pic">
-                            @if ($product->product->user->profile_picture == '-')
-                                <img class="image-profile" src="https://via.placeholder.com/800x600" alt="tet">
-                            @else
-                                <img class="image-profile"
-                                    src="{{ Storage::url($product->product->user->profile_picture) }}" alt="tet">
-                            @endif
-                        </div>
+            <div class="Artist-About">
+                <h3>About The Artist</h3>
+                <div class="Artist-About-Details">
+                    <div class="Artist-About-Details-Pic">
+                        @if ($product->product->user->profile_picture == '-')
+                            <img class="image-profile" src="https://via.placeholder.com/800x600" alt="tet">
+                        @else
+                            <img class="image-profile" src="{{ Storage::url($product->product->user->profile_picture) }}"
+                                alt="tet">
+                        @endif
+                    </div>
 
-                        <div class="Artist-About-Details-Desc">
-                            <p style="font-weight: 600;">{{ $product->product->user->name }}</p>
-                            <p class="artist-about-description-text">{{ $product->product->user->about }}</p>
-                        </div>
+                    <div class="Artist-About-Details-Desc">
+                        <p style="font-weight: 600;">{{ $product->product->user->name }}</p>
+                        <p class="artist-about-description-text">{{ $product->product->user->about }}</p>
                     </div>
                 </div>
             </div>
-            <div class="bidder-table">
-                <div class="Artwork-About">
-                    <h3>Bidder List</h3>
-                    {{-- {{dd($bids)}} --}}
-                    @if ($bids != null)
-                        <div class="Artwork-About-Details ">
-                            <table class="table custom-table">
-                                <thead>
+        </div>
+        <div class="bidder-table">
+            <div class="Artwork-About">
+                <h3>Bidder List</h3>
+                {{-- {{dd($bids)}} --}}
+                @if ($bids != null)
+                    <div class="Artwork-About-Details ">
+                        <table class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Bid Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($bids as $index => $bid)
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Bid Price</th>
+                                        <td scope="row">{{ $index + 1 }}</td>
+                                        <td>{{ $bid->user->name }}</td>
+                                        <td>Rp{{ number_format($bid->bid_price, 0, ',', '.') }}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($bids as $index => $bid)
-                                        <tr>
-                                            <td scope="row">{{ $index + 1 }}</td>
-                                            <td>{{ $bid->user->name }}</td>
-                                            <td>Rp{{ number_format($bid->bid_price, 0, ',', '.') }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="Artwork-About-Details-noBid">
-                            <p>No bidder yet</p>
-                        </div>
-                    @endif
-                </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="Artwork-About-Details-noBid">
+                        <p>No bidder yet</p>
+                    </div>
+                @endif
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
@@ -350,6 +362,34 @@
                     notif.style.display = 'none';
                 }, 1000); // Hide after 5 seconds
             }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.buy-now-hover');
+            const buttonText = button.querySelector('.button-text');
+            const originalText = buttonText.innerText;
+            const priceText = button.getAttribute('data-price');
+
+            button.addEventListener('mouseover', function() {
+                buttonText.style.opacity = 0;
+                buttonText.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    buttonText.innerText = priceText;
+                    buttonText.style.opacity = 1;
+                    buttonText.style.transform = 'scale(1)';
+                }, 200); // Match the transition duration
+            });
+
+            button.addEventListener('mouseout', function() {
+                buttonText.style.opacity = 0;
+                buttonText.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    buttonText.innerText = originalText;
+                    buttonText.style.opacity = 1;
+                    buttonText.style.transform = 'scale(1)';
+                }, 200); // Match the transition duration
+            });
         });
     </script>
 @endpush
