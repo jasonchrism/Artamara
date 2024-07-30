@@ -147,13 +147,23 @@ class ReturnDetailController extends Controller
     {
         $refund = Refund::where('order_id', $orderId)->first();
         if ($request->has('reject')) {
-            $refund->status = 'REJECTED';
+            $refund->failure_type = "ARTIST";
         } else if ($request->has('accept')) {
-            $refund->status = 'ACCEPTED';
+            $refund->failure_type = "SHIPMENT";
         }
+        $refund->status = 'ACCEPTED';
 
         $refund->save();
 
         return redirect()->route('homeAdmin');
+    }
+    public function rejectReport($orderId){
+        $refund = Refund::where('order_id', $orderId)->first();
+        
+        $refund->status = "REJECTED";
+        
+        $refund->save();
+
+        return redirect()->route('transactions.index');
     }
 }

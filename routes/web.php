@@ -137,6 +137,7 @@ Route::prefix("/dashboard/admin")->middleware(AdminMiddleware::class)->group(fun
     Route::get('/return-detail/review/{orderId}', [AdminReturnDetailController::class, 'index'])->name('return.review');
     Route::post('/failuretype/{orderId}', [AdminReturnDetailController::class, 'failuretype'])->name('return.failuretype');
     Route::post('/confirmationAppeal/{orderId}', [AdminReturnDetailController::class, 'confirmationAppeal'])->name('return.confirmationAppeal');
+    Route::post('/rejectReport/{orderId}', [AdminReturnDetailController::class, 'rejectReport'])->name('return.rejectReport');
 
     Route::get('/transactions-detail/{id}', [AdminTransactionController::class, 'detail'])->name('transactions.detail');
     Route::get('admin-status/{status}', [AdminTransactionController::class, 'tabs'])->name('admintabs');

@@ -164,7 +164,7 @@
                                 <img src="{{ $od->product->thumbnail }}" alt="" style="width: 80px;">
                                 <div class="d-flex flex-column">
                                     <p class="text-white" style="margin-bottom: 2px;">{{ $od->product->product_id }}</p>
-                                    <p class="text-secondary">{{ $od->product->title }}</p>
+                                    <p class="text-secondary-txt">{{ $od->product->title }}</p>
                                 </div>
                             </div>
                             <p class="text-white">{{ $od->quantity }}x</p>
@@ -176,6 +176,9 @@
 
             <div class="d-flex justify-content-end">
                 @if ($order->refund->status == 'ADMIN REVIEW')
+                    <a href="" class="btn text-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#confirmationReject">
+                        Reject
+                    </a>
                     <a href="" class="btn btn-primary appeal-btn"  data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Failure Type
                     </a>
@@ -196,7 +199,7 @@
                             @csrf
                             <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
                                 <h1 class="modal-title fs-5 text-white fw-semibold">Choose failure type</h1>
-                                <p class="text-secondary">Determine whether it's a shipping error or a seller error</p>
+                                <p class="text-secondary-txt">Determine whether it's a shipping error or a seller error</p>
                                 <div class="radio-button-failure">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="failure_type" id="artistFailure" value="artist">
@@ -229,13 +232,34 @@
                             @csrf
                             <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
                                 <h1 class="modal-title fs-5 text-white fw-semibold">Appeal Confirmation</h1>
-                                <p class="text-secondary">Decides whether the appeal from the artist is accepted or not. If not, the return from the buyer will be accepted; conversely, the return from the buyer will be rejected.</p>
+                                <p class="text-secondary-txt">Decides whether the appeal from the artist is accepted or not. If not, the return from the buyer will be accepted; conversely, the return from the buyer will be rejected.</p>
 
                             </div>
 
                             <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
                                 <button type="submit" name = "reject" class="btn text-primary">Rejected</button>
                                 <button type="submit" name = "accept" class="btn btn-primary">Accepted</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {{-- confirmation reject --}}
+            <div class="modal fade" id="confirmationReject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background-color: var(--bg-overlay-1); border-radius: 0; border: 1px solid #464646;">
+                        <form action="{{ route('return.rejectReport', ['orderId' => $order->order_id]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body p-0" style="border: none; margin-left: 24px; margin-right: 24px;">
+                                <h1 class="modal-title fs-5 text-white fw-semibold">Reject Report</h1>
+                                <p class="text-secondary-txt">Are you sure you want to reject this report? This action is irreversible. Click "Confirm" to proceed or "Cancel" to abort.</p>
+
+                            </div>
+
+                            <div class="modal-footer p-0" style="border: none; margin-top: 24px; margin-right: 24px; margin-bottom: 24px;">
+                                <button type="button" class="btn text-primary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
                             </div>
                         </form>
                     </div>

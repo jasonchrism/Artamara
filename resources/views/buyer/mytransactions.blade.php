@@ -277,7 +277,7 @@
                                     <p id="status_blue">On Review</p>
                                 @endif
                                 @if ($orderData['refund_status'] == 'REJECTED')
-                                    <p id="status_blue">Approved</p>
+                                    <p id="status_red">Rejected</p>
                                 @elseif ($orderData['refund_status'] == 'ACCEPTED')
                                     <p id="status_blue">Approved</p>
                                 @elseif ($orderData['refund_status'] == 'FINISHED')
