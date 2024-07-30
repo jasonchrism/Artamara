@@ -23,16 +23,19 @@ class HomeController extends Controller
         $sixMonthsAgo = Carbon::now()->subMonths(6)->startOfMonth();
         $order = Order::selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
             ->where('created_at', '>=', $sixMonthsAgo)
+            ->where('status', 'CONFIRMED')
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->orderBy('month', 'asc')
             ->limit(6)
             ->get();
+        
 
         $totalPrice = array_fill(0, 5, 0); 
 
         for ($i = 0; $i < 6; $i++) {
             $month = Carbon::now()->subMonths($i)->format('n');
             $totalPrice[$i] = isset($order[$i]['total_price']) ? $order[$i]['total_price'] : 0;
+            $totalPrice[$i] = $totalPrice[$i] * 0.1;
         }
 
         $totalPrice = array_reverse($totalPrice);
@@ -45,12 +48,14 @@ class HomeController extends Controller
         // On Going Auctions
         $onGoingAuctions = ProductAuction::query()->get();
 
+        $totalEarning = Order::query()->where('status', 'CONFIRMED')->sum('total_price');
+        $totalEarning *= 0.1;
         // Total Earnings
         $total = [
             'product_count' => Product::query()->count(),
             'auction_count' => ProductAuction::query()->count(),
             'order_count' => Order::query()->count(),
-            'total_earnings' => 'Rp' . number_format(Order::query()->sum('total_price'), 0, ',', '.')
+            'total_earnings' => 'Rp' . number_format($totalEarning, 0, ',', '.')
         ];
 
         // Verification Requests

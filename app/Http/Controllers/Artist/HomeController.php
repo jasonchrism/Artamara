@@ -29,21 +29,21 @@ class HomeController extends Controller
         // Monthly Earnings
         $sixMonthsAgo = Carbon::now()->subMonths(6)->startOfMonth();
 
-        $orders = Order::with(['orderDetail.product'])
-            ->whereHas('orderDetail.product', function ($query) use ($artist_id) {
-            $query->where('user_id', $artist_id);
-        })
-            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total_orders, SUM(total_price) as total_price')
-            ->where('created_at', '>=', $sixMonthsAgo)
-            ->groupBy(DB::raw('MONTH(created_at)'))
+        $orders = Order::join('order_details', 'orders.order_id', '=', 'order_details.order_id')
+            ->join('products', 'order_details.product_id', '=', 'products.product_id')
+            ->where('products.user_id', $artist_id)
+            ->where('orders.status', 'CONFIRMED')
+            ->selectRaw('MONTH(orders.created_at) as month, COUNT(*) as total_orders, SUM(order_details.quantity * products.price) as total_price')
+            ->groupBy(DB::raw('MONTH(orders.created_at)'))
             ->orderBy('month', 'asc')
             ->limit(6)
             ->get();
-        
+
+
         $totalPrice = array_fill(0, 5, 0);
         for ($i = 0; $i < 6; $i++) {
-            $month = Carbon::now()->subMonths($i)->format('n');
             $totalPrice[$i] = isset($orders[$i]['total_price']) ? $orders[$i]['total_price'] : 0;
+            $totalPrice[$i] -= $totalPrice[$i] * 0.1;
         }
 
         $totalPrice = array_reverse($totalPrice);
@@ -101,6 +101,15 @@ class HomeController extends Controller
             $auction->remaining_time = $remainingTime;
         }
 
+        $totalEarnings = Order::join('order_details', 'orders.order_id', '=', 'order_details.order_id')
+            ->join('products', 'order_details.product_id', '=', 'products.product_id')
+            ->where('products.user_id', $artist_id)
+            ->where('orders.status', 'CONFIRMED')
+            ->selectRaw('SUM(order_details.quantity * products.price) as total_earnings')
+            ->value('total_earnings');
+
+        $totalEarnings -= $totalEarnings * 0.1;
+
         // Total Earnings
         $total = [
             'product_count' => Product::where('user_id', $artist_id)->count(),
@@ -110,10 +119,11 @@ class HomeController extends Controller
             'order_count' => Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
                 $query->where('user_id', $artist_id);
             })->count(),
-            'total_earnings' => 'Rp' . number_format(Order::whereHas('orderDetail.product', function ($query) use ($artist_id) {
-                $query->where('user_id', $artist_id);
-            })->sum('total_price'), 0, ',', '.')
+            'total_earnings' => 'Rp' . number_format($totalEarnings, 0, ',', '.')
         ];
+
+
+
 
         return view('artist.home', [
             'recentTransactions' => $recentTransactions,
