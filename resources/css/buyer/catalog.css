@@ -103,7 +103,6 @@
 .artist-desc{
     font-size: 14px;
     color: var(--text-secondary);
-    width: 220px;
 }
 
 .text-truncate-multiline{
@@ -137,6 +136,7 @@
 }
 .head-right{
     margin-left: 24px;
+    flex: 1;
 }
 
 .wrap-tab{
