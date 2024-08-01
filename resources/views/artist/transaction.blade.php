@@ -5,7 +5,7 @@
 
 
 @push('styles')
-    @vite('resources\css\artist\transactions\artistTransactions.css')
+    @vite('resources/css/artist/transactions/artistTransactions.css')
 @endpush
 
 @section('content')
