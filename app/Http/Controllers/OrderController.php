@@ -40,12 +40,12 @@ class OrderController extends Controller
         if ($addressDefault) {
             if ($addressDefault->address->country == "Indonesia") {
                 $shipment = [
-                    'cost' => 40000,
+                    'cost' => 4,
                     'region' => 'Domestic'
                 ];
             } else {
                 $shipment = [
-                    'cost' => 80000,
+                    'cost' => 8,
                     'region' => 'International'
                 ];
             }
