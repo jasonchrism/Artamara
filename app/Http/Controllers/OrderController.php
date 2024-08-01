@@ -258,7 +258,7 @@ class OrderController extends Controller
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
             \Midtrans\Config::$isProduction = config('midtrans.isProduction');
-            // Set sanitization on (default)
+            // Set sanitization on (default)z
             \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
             // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = config('midtrans.is3ds');
