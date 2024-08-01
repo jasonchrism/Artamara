@@ -34,7 +34,7 @@ use App\Http\Controllers\AuctionDetailsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Front\ArtistController;
-use App\Http\Controllers\front\CatalogAuctionController;
+use App\Http\Controllers\Front\CatalogAuctionController;
 use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\MyBidsController;
