@@ -88,7 +88,7 @@
 
                                 <div class="product-list-left">
 
-                                    <p>{{ 'Rp' . number_format($product->price, 0, ',', '.') }}</p>
+                                    <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->total_price, 0, ',', '.') }}</p>
 
 
                                 </div>
@@ -104,7 +104,7 @@
                 <div class="price-total">
 
                     <p>Total:
-                        <strong>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->total_price, 0, ',', '.') }}</strong>
+                        <strong>{{ 'Rp' . number_format($orderData['grand_total'], 0, ',', '.') }}</strong>
 
                     </p>
 
@@ -342,7 +342,7 @@
                                             </div>
 
                                             <div class="product-list-left">
-                                                <p>{{ 'Rp' . number_format($product->price, 0, ',', '.') }}</p>
+                                                <p>{{ 'Rp' . number_format($product->orderDetail[0]->order->where('order_id', $orderId)->first()->total_price, 0, ',', '.') }}</p>
 
 
                                             </div>

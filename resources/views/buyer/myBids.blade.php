@@ -23,6 +23,7 @@
     </div>
 
     <div class="transaction-container">
+        {{-- {{dd($productsWithBids)}} --}}
         @foreach ($productsWithBids as $item)
             @php
                 $dateDisplayed = false;
@@ -92,10 +93,8 @@
                                 data-bs-dismiss="modal">Bid
                                 Again</button>
                         @endif
-
-                        @if ($status != 'ON GOING' && $item['latest_bid']->bid_price == $item['user_last_bid']->bid_price)
-                            {{-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target=""
-                                data-bs-dismiss="modal">Checkout</button> --}}
+                        
+                        @if ($status == 'CLOSED' && $item['latest_bid']->bid_price == $item['user_last_bid']->bid_price && $item['product']->productAuction->status != "PAID")
                             <form action="{{ route('front.order.session', 'auction') }}" method="post">
                                 @csrf
                                 <input type="hidden" value="{{ $item['latest_bid']->bid_price }}" name="last_bid">
@@ -105,6 +104,17 @@
                                     name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
                                 <button type="submit" class="btn btn-primary buy-now buy-now-hover"
                                     style="width: 100%;">Checkout</button>
+                            </form>
+                        @elseif($status == 'CLOSED' && $item['latest_bid']->bid_price == $item['user_last_bid']->bid_price && $item['product']->productAuction->status == "PAID")
+                            <form action="{{ route('front.order.session', 'auction') }}" method="post">
+                                @csrf
+                                <input type="hidden" value="{{ $item['latest_bid']->bid_price }}" name="last_bid">
+                                <input type="hidden" value="{{ json_encode([$item['product']->product_id]) }}"
+                                    name="product">
+                                <input id="quantity2" type="number" step="1" max="10" value="1"
+                                    name="quantity" class="quantity-field border-0 text-center inputcartnumber" hidden>
+                                <button type="submit" class="btn btn-primary buy-now buy-now-hover" style="width: 100%;"
+                                    disabled>Checkout</button>
                             </form>
                         @endif
                     </div>
@@ -132,9 +142,10 @@
                                     <form action="{{ route('front.bid.store') }}" method="post" style="width: 100%"
                                         class="form-auction">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{ $item['product']->product_id }}">
-                                        <select class="buy-now bid-now-price custom-select" id="bid_price" name="bid_price"
-                                            style="width: 100%">
+                                        <input type="hidden" name="product_id"
+                                            value="{{ $item['product']->product_id }}">
+                                        <select class="buy-now bid-now-price custom-select" id="bid_price"
+                                            name="bid_price" style="width: 100%">
                                             @foreach ($item['priceMultiples'] as $multiple)
                                                 <option value="{{ $multiple }}">
                                                     Rp{{ number_format($multiple, 0, ',', '.') }}
@@ -161,9 +172,9 @@
                                                 disabled>BUY
                                                 NOW</button>
                                         @else
-                                            
                                             <button type="submit" class="btn btn-primary buy-now buy-now-hover"
-                                                style="width: 100%;" data-price="Rp.{{ $item['product']->price }}"><span class="button-text">BUY NOW</span></button>
+                                                style="width: 100%;" data-price="Rp.{{ $item['product']->price }}"><span
+                                                    class="button-text">BUY NOW</span></button>
                                         @endif
                                     </form>
                                 </div>
@@ -259,7 +270,7 @@
             }
         });
     </script>
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const button = document.querySelector('.buy-now-hover');
             const buttonText = button.querySelector('.button-text');
