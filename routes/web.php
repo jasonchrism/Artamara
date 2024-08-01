@@ -112,9 +112,6 @@ Route::name('front.')->middleware(GuestMiddleware::class)->group(function () {
         //payment
         Route::get("/payment", [OrderController::class, 'payment'])->name('payment');
 
-        Route::get("/auction", [CatalogAuctionController::class, 'index'])->name('auction');
-        Route::get("/auction/{category}", [CatalogAuctionController::class, 'category'])->name('auction.category');
-        Route::get("/auctionDetails/{id}", [CatalogAuctionController::class, 'detail'])->name('auctionDetails');
         Route::post("/auction/update-auction-status", [CatalogAuctionController::class, 'updateStatus'])->name('auction.updateStatus');
         Route::post('/bid/store', [BidController::class, 'store'])->name('bid.store');
         Route::get('/buy/now', [OrderController::class, 'addSession'])->name('buy.now');
