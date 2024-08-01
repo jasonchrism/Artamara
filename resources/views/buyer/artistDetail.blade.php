@@ -11,7 +11,7 @@
     <div class="container-catalog">
         <div class="wrap-head p-4">
             <div class="d-flex align-items-center">
-                <img src="/assets/art2.jpg" alt="" class="object-fit-cover" style="width: 213px; height:213px">
+                <img src="{{$artist->profile_picture == '-' ? 'https://via.placeholder.com/800x600' : Storage::url($artist->profile_picture)}}" alt="" class="object-fit-cover" style="width: 213px; height:213px">
                 <div class="head-right">
                     <h2 class="text-white mb-2">{{ $artist->name }}</h2>
                     <div class="d-flex mb-2">
@@ -57,7 +57,7 @@
             <div class="wrap-review">
                 @forelse ($reviews as $review)
                     <div class="card-review text-center">
-                        <img src="/assets/art2.jpg" alt="" class="object-fit-cover rounded-circle mb-2"
+                        <img src="{{$review->order->user->profile_picture == '-' ? 'https://via.placeholder.com/800x600' : Storage::url($review->order->user->profile_picture)}}" alt="" class="object-fit-cover rounded-circle mb-2"
                             style="width: 30px; height:30px">
                         <p class="text-white mb-2">{{ $review->order->user->name }}</p>
                         <div class="d-flex justify-content-center mb-2">

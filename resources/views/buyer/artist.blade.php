@@ -27,7 +27,7 @@
                 @foreach ($artists as $artist)
                     <a href="{{route('front.artist.detail', [$artist->user_id, 'artworks'])}}" class="card-content p-3">
                         <div class="d-flex">
-                            <img src="assets/art2.jpg" alt="" class="object-fit-cover"
+                            <img src="{{$artist->profile_picture == '-' ? 'https://via.placeholder.com/800x600' : Storage::url($artist->profile_picture)}}" alt="" class="object-fit-cover"
                                 style="width: 110px; height:110px">
                             <div class="right-content ms-2 pt-3">
                                 <h4 class="text-white mb-0 artist-name">{{$artist->name}}</h4>
