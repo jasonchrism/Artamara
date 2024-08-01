@@ -45,8 +45,9 @@ class OrderAddressController extends Controller
                 'country' => $request->input('country'),
                 'description' => $request->input('description') ? $request->input('description') : '',
             ]);
-
+            
             DB::commit();
+            
         } catch (Exception $e) {
             DB::rollBack();
             return redirect('/myaddress')->with([
@@ -54,6 +55,7 @@ class OrderAddressController extends Controller
                 'error' => 'error'
             ]);
         }
+        
 
         $user_address = UserAddress::join('addresses', 'addresses.address_id', '=', 'user_addresses.address_id')
             ->where('user_addresses.user_id', '=', $user_id)
@@ -73,11 +75,11 @@ class OrderAddressController extends Controller
                 'address_id' => $address->address_id,
             ]);
         }
-
+        
         $isAuction = session('order')[0]['isAuction'];
-        if ($isAuction == "true") {
+        if ($isAuction == true) {
             return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully created!');
-        } elseif ($isAuction == "false") {
+        } elseif ($isAuction == false) {
             return redirect()->route('front.order.create')->with('address_title', 'Address successfully created!');
         }
     }
@@ -131,9 +133,9 @@ class OrderAddressController extends Controller
         }
 
         $isAuction = session('order')[0]['isAuction'];
-        if ($isAuction == "true") {
+        if ($isAuction == true) {
             return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully updated!');
-        } elseif ($isAuction == "false") {
+        } elseif ($isAuction == false) {
             return redirect()->route('front.order.create')->with('address_title', 'Address successfully updated!');
         }
     }
@@ -153,9 +155,9 @@ class OrderAddressController extends Controller
         ]);
 
         $isAuction = session('order')[0]['isAuction'];
-        if ($isAuction == "true") {
+        if ($isAuction == true) {
             return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully changed!');
-        } elseif ($isAuction == "false") {
+        } elseif ($isAuction == false) {
             return redirect()->route('front.order.create')->with('address_title', 'Address successfully changed!');
         }
     }
@@ -166,9 +168,9 @@ class OrderAddressController extends Controller
         $address->delete();
 
         $isAuction = session('order')[0]['isAuction'];
-        if ($isAuction == "true") {
+        if ($isAuction == true) {
             return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully deleted!');
-        } elseif ($isAuction == "false") {
+        } elseif ($isAuction == false) {
             return redirect()->route('front.order.create')->with('address_title', 'Address successfully deleted!');
         }
     }
