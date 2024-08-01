@@ -74,8 +74,12 @@ class OrderAddressController extends Controller
             ]);
         }
 
-        // return redirect()->back()->with('address_title', 'Address successfully created!');
-        return redirect()->route('front.order.create')->with('address_title', 'Address successfully created!');
+        $isAuction = session('order')[0]['isAuction'];
+        if ($isAuction == "true") {
+            return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully created!');
+        } elseif ($isAuction == "false") {
+            return redirect()->route('front.order.create')->with('address_title', 'Address successfully created!');
+        }
     }
     public function updateAddress($id)
     {
@@ -126,7 +130,12 @@ class OrderAddressController extends Controller
             ]);
         }
 
-        return redirect()->route('front.order.create')->with('address_title', 'Address successfully updated!');
+        $isAuction = session('order')[0]['isAuction'];
+        if ($isAuction == "true") {
+            return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully updated!');
+        } elseif ($isAuction == "false") {
+            return redirect()->route('front.order.create')->with('address_title', 'Address successfully updated!');
+        }
     }
     public function chooseAddress(Request $request)
     {
@@ -143,7 +152,12 @@ class OrderAddressController extends Controller
             'is_default' => 1,
         ]);
 
-        return redirect()->route('front.order.create')->with('address_title', 'Address successfully changed!');
+        $isAuction = session('order')[0]['isAuction'];
+        if ($isAuction == "true") {
+            return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully changed!');
+        } elseif ($isAuction == "false") {
+            return redirect()->route('front.order.create')->with('address_title', 'Address successfully changed!');
+        }
     }
     public function deleteAddress(Request $request)
     {
@@ -151,6 +165,11 @@ class OrderAddressController extends Controller
         $address = Address::query()->where('address_id', '=', $address_id);
         $address->delete();
 
-        return redirect()->route('front.order.create')->with('address_title', 'Address successfully deleted!');
+        $isAuction = session('order')[0]['isAuction'];
+        if ($isAuction == "true") {
+            return redirect()->route('front.order.createAuction')->with('address_title', 'Address successfully deleted!');
+        } elseif ($isAuction == "false") {
+            return redirect()->route('front.order.create')->with('address_title', 'Address successfully deleted!');
+        }
     }
 }

@@ -14,7 +14,8 @@
                     community. Find the perfect piece of <br>
                     art for your home or office.</p>
             </div>
-            <button class="btn btn-primary">View Collections</button>
+            <a href="{{ route('front.catalog') }}"><button class="btn btn-primary">View Collections</button></a>
+
         </div>
     </section>
 
@@ -27,7 +28,8 @@
                     community. Find the perfect piece of <br>
                     art for your home or office.</p>
             </div>
-            <h3>View more</h3>
+            <a href="{{route('front.catalog')}}"><h3>View more</h3></a>
+            
         </div>
         <div class="row align-items-center" data-masonry='{"percentPosition": true }'>
             @foreach ($products as $p)
@@ -61,7 +63,8 @@
                     in your community's vibrant cultural landscape.
                     .</p>
             </div>
-            <button class="btn btn-primary">Explore Artist</button>
+            <a href="{{ route('front.artist') }}"><button class="btn btn-primary">Explore Artist</button></a>
+
         </div>
     </section>
 
@@ -73,7 +76,8 @@
                 <p>The local artist's artwork auction drew enthusiastic <br>
                     bidders, supporting community creativity .</p>
             </div>
-            <h3>View more</h3>
+            <a href="{{route('front.auction')}}"><h3>View more</h3></a>
+            
         </div>
         <div class="row align-items-end w-100" data-masonry='{"percentPosition": true }'>
             @foreach ($auctions as $auction)
