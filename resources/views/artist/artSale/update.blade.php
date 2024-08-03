@@ -1,4 +1,4 @@
-@extends('layouts.details')
+@extends('layouts.Details')
 
 @section('title')
     Edit Art
