@@ -79,7 +79,7 @@
                                         <tr>
                                             <td scope="row">{{ $loop->index + 1 }}</td>
                                             <td>{{ $return->order_id }}</td>
-                                            <td class="p-0"><a href="{{route('return.index', $return->order_id)}}" class="btn btn-primary check-btn">Check</a>
+                                            <td class="p-0"><a href="{{route('return.index', $return->order_id, "ADMIN CONFIRMATION")}}" class="btn btn-primary check-btn">Check</a>
                                             </td>
                                         </tr>
                                     @endforeach
